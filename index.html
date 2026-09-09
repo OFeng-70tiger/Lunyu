@@ -1,332 +1,557 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-page-node-id="IHBbpuePSQ9TULeFIX07yl">
-<head data-page-node-id="ktot1a2oX6KwVMAO6PBHuu">
-<meta charset="UTF-8" data-page-node-id="JtJHm7njSUi0H5zVVvbtGD">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" data-page-node-id="MdEMouvN7Hgx7pGF1l6svJ">
-<title>苏州文史研学 · Citywalk 双线图志</title>
-<style>
-:root{
-  --bg:#0e0c09; --bg2:#14110c; --card:#1c1711; --card2:#221b12;
-  --line:#33291b; --line-soft:#251f15;
-  --gold:#c8a96a; --gold-hi:#efdcab; --gold-dim:#967e50;
-  --ink:#efe5d1; --ink-soft:#b9a98a; --ink-dim:#8a7a5e;
-  --red:#c04532; --red-deep:#8f2d1e;
-  --serif:"Songti SC","STSong","SimSun",serif;
-  --kai:"KaiTi","STKaiti","楷体",var(--serif);
-  --sans:"Microsoft YaHei","PingFang SC",var(--serif);
-}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.9;
-  background-image:radial-gradient(900px 380px at 85% -120px, rgba(200,169,106,.07), transparent 60%),
-                   radial-gradient(700px 420px at -10% 30%, rgba(192,69,50,.05), transparent 60%);
-  font-size:17px}
-.wrap{max-width:880px;margin:0 auto;padding:0 18px 90px}
-a{color:var(--gold-hi);text-decoration:none}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 学而篇第一 · 交互式札记</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* ===== 顶部进度条 ===== */
-#topbar{position:fixed;top:0;left:0;right:0;height:3px;background:transparent;z-index:99}
-#topbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold-hi));}
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
+            background: #faf8f5;
+            color: #2c2c2c;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+        }
 
-/* ===== Hero ===== */
-.hero{position:relative;height:min(88vh,640px);min-height:480px;display:flex;align-items:center;justify-content:center;
-  text-align:center;overflow:hidden;border-bottom:1px solid var(--line)}
-.hero-bg{position:absolute;inset:-6% 0;background:url('images/t3_paint_a.jpg') center 22%/cover no-repeat;filter:blur(1px)}
-.hero-bg::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg, rgba(14,12,9,.78) 0%, rgba(14,12,9,.55) 45%, var(--bg) 100%)}
-.hero-inner{position:relative;z-index:2;padding:0 24px;max-width:760px}
-.eyebrow{display:inline-block;letter-spacing:.5em;font-size:.85rem;color:var(--gold);padding-left:.5em;
-  border:1px solid var(--line);border-radius:40px;padding:6px 22px 6px calc(22px + .5em);margin-bottom:26px;
-  background:rgba(14,12,9,.5)}
-.hero h1{font-size:clamp(2.1rem,6.4vw,3.4rem);letter-spacing:.12em;font-weight:700;margin-bottom:18px;color:#fff}
-.hero h1 b{color:var(--gold-hi);font-weight:700}
-.hero-div{width:70px;height:2px;margin:0 auto 22px;background:linear-gradient(90deg,transparent,var(--gold-hi),transparent)}
-.hero p{color:var(--ink-soft);font-size:clamp(.95rem,2.6vw,1.06rem);letter-spacing:.08em;max-width:600px;margin:0 auto}
-.hero-meta{margin-top:26px;font-family:var(--kai);color:var(--gold);font-size:.95rem;letter-spacing:.18em}
-.hero-meta span{margin:0 14px;color:var(--red)}
+        .app {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
 
-/* ===== 双线 Tab ===== */
-.tabbar{position:sticky;top:0;z-index:50;background:rgba(14,12,9,.94);backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--line);margin:0 -18px;padding:12px 18px;display:flex;gap:10px}
-.tab{flex:1;text-align:center;padding:14px 6px;border-radius:12px;cursor:pointer;color:var(--ink-soft);
-  font-size:clamp(.98rem,3vw,1.12rem);letter-spacing:.06em;font-family:var(--kai);border:1px solid var(--line-soft);
-  transition:.3s;user-select:none;background:var(--bg2)}
-.tab small{display:block;font-size:.72rem;letter-spacing:.14em;color:var(--ink-dim);font-family:var(--sans);margin-top:2px}
-.tab:hover{border-color:var(--gold-dim)}
-.tab.on{background:linear-gradient(135deg,rgba(200,169,106,.16),rgba(200,169,106,.04));border-color:var(--gold);
-  color:var(--gold-hi);box-shadow:inset 0 0 0 1px rgba(200,169,106,.35)}
-.tab.on small{color:var(--gold)}
+        /* 头部 */
+        .header {
+            border-bottom: 2px solid #d4c5a0;
+            padding-bottom: 1.2rem;
+        }
 
-/* ===== 区块 ===== */
-.sec-head{margin:56px 0 8px;display:flex;align-items:center;gap:16px}
-.sec-no{flex:none;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;
-  font-size:1.25rem;color:#151006;font-weight:700;background:linear-gradient(140deg,var(--gold-hi),var(--gold))}
-.sec-head h2{font-size:clamp(1.3rem,4.4vw,1.7rem);letter-spacing:.08em}
-.sec-head .en{font-size:.8rem;color:var(--ink-dim);letter-spacing:.3em;margin-top:2px}
-.sec-sub{color:var(--ink-soft);font-size:.98rem;margin:4px 0 0 62px;font-family:var(--kai)}
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: 6px;
+            color: #3e2e1f;
+        }
 
-/* 卡片 */
-.card{background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid var(--line-soft);
-  border-radius:18px;padding:26px 22px 24px;margin-top:26px;position:relative;overflow:hidden;transition:transform .35s,border-color .35s}
-.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent 5%,rgba(200,169,106,.65) 50%,transparent 95%);
-  opacity:0;transition:opacity .5s}
-.card:hover{transform:translateY(-3px);border-color:var(--gold-dim)}
-.card:hover::before{opacity:1}
-.sn{position:absolute;top:18px;right:20px;font-family:var(--kai);font-size:2.1rem;color:rgba(200,169,106,.16);font-weight:700}
-.card h3{font-size:clamp(1.12rem,3.8vw,1.32rem);letter-spacing:.06em;margin:0 54px 6px 0;color:var(--gold-hi)}
-.card h3 em{font-style:normal;color:var(--red);font-size:.82em;letter-spacing:.2em;margin-right:10px;font-family:var(--kai)}
-.card .tag{display:inline-block;font-size:.78rem;color:var(--gold);border:1px solid var(--line);
-  border-radius:30px;padding:1px 12px;margin:2px 6px 10px 0;letter-spacing:.1em}
-.card p{color:var(--ink-soft);margin:8px 0;font-size:.99rem}
-.card p b{color:var(--ink)}
-.hl{color:var(--gold-hi)}
-.key{background:linear-gradient(90deg,rgba(200,169,106,.1),transparent);border-left:3px solid var(--gold);
-  padding:8px 14px;border-radius:0 10px 10px 0;color:var(--ink-soft);font-size:.93rem;margin-top:12px;font-family:var(--kai)}
-.key b{color:var(--gold-hi)}
+        .header .sub {
+            color: #6b5a44;
+            margin-top: 0.3rem;
+            font-size: 1rem;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
 
-/* 图片区 */
-.media{margin:16px -4px 4px;border-radius:14px;overflow:hidden;border:1px solid var(--line-soft);
-  background:#000;position:relative}
-.media img{display:block;width:100%;height:clamp(210px,40vw,320px);object-fit:cover;transition:transform .6s}
-.card:hover .media img{transform:scale(1.015)}
-.media .cap{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 8px;font-size:.8rem;color:#e8dcc0;
-  background:linear-gradient(transparent,rgba(0,0,0,.72));letter-spacing:.1em;font-family:var(--kai)}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.g2 .media,.g3 .media{margin:0}
-.g2 img,.g3 img{height:clamp(150px,26vw,210px)}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.g3 .cap,.g2 .cap{font-size:.68rem;padding-top:16px}
-.vid video{display:block;width:100%;max-height:460px;background:#000}
-.vid .cap{position:absolute;top:10px;bottom:auto;padding:4px 12px;font-size:.76rem;background:rgba(0,0,0,.55);
-  border:1px solid rgba(200,169,106,.4);border-radius:30px;left:12px;color:var(--gold-hi);backdrop-filter:blur(4px)}
+        .header .sub span {
+            background: #e8e0d4;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
 
-/* 提示条 */
-.tip{margin-top:34px;border:1px dashed var(--gold-dim);border-radius:16px;padding:18px 22px;
-  background:linear-gradient(160deg,rgba(200,169,106,.07),transparent);color:var(--ink-soft);font-size:.95rem;display:flex;gap:12px;align-items:flex-start}
-.tip b{color:var(--gold-hi);flex:none;font-family:var(--kai);letter-spacing:.1em}
-.tip .seal{margin-left:auto;flex:none;color:var(--red);border:2px solid var(--red);border-radius:8px;padding:2px 10px;
-  font-size:.95rem;letter-spacing:.2em;transform:rotate(-4deg);font-family:var(--kai)}
+        /* 布局：目录 + 内容 */
+        .main {
+            display: flex;
+            flex-direction: row;
+            gap: 2.5rem;
+            align-items: flex-start;
+        }
 
-/* 底部 */
-footer{margin-top:70px;text-align:center;color:var(--ink-dim);font-size:.85rem;letter-spacing:.12em}
-footer .rule{width:150px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:0 auto 18px}
+        /* 侧边目录 */
+        .toc {
+            flex: 0 0 260px;
+            background: #fffcf7;
+            border: 1px solid #e2d7c8;
+            border-radius: 18px;
+            padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+            position: sticky;
+            top: 2rem;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
 
-/* 动画 */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-.fade{opacity:0;animation:fadeUp .9s cubic-bezier(.2,.7,.2,1) forwards}
-.hero h1{animation-delay:.05s}.hero p{animation-delay:.25s}.hero-div{animation-delay:.15s}.hero-meta{animation-delay:.4s}.eyebrow{animation-delay:0s}
+        .toc h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4d3e2b;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-.route{display:none}
-.route.on{display:block;animation:panelIn .5s ease}
-@keyframes panelIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+        .toc h2 small {
+            font-weight: 400;
+            font-size: 0.8rem;
+            color: #8a7a64;
+            margin-left: auto;
+        }
 
-/* 响应式 */
-@media(max-width:640px){
-  body{font-size:16px}
-  .card{padding:20px 16px 18px}
-  .g3{grid-template-columns:1fr 1fr}
-  .g3 img{height:150px}
-  .sec-sub{margin-left:0}
-  .hero{min-height:440px}
-  .tip{flex-wrap:wrap}
-}
-@media(min-width:641px){
-  .spots{display:grid;grid-template-columns:1fr 1fr;gap:0 22px;align-items:start}
-  .card-big{grid-column:1/-1}
-}
-</style>
+        .toc-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .toc-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 0.8rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            color: #3d3429;
+            font-size: 0.95rem;
+            border-left: 3px solid transparent;
+        }
+
+        .toc-list li:hover {
+            background: #f0e9df;
+            border-left-color: #b8a48a;
+        }
+
+        .toc-list li.active {
+            background: #eadecd;
+            border-left-color: #8b6f50;
+            font-weight: 500;
+            color: #2c1f12;
+        }
+
+        .toc-list li .badge {
+            background: #dacfc0;
+            color: #3e3225;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.6rem;
+            border-radius: 40px;
+            margin-left: auto;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .toc-list li .num {
+            font-weight: 400;
+            color: #8f7b62;
+            min-width: 28px;
+            font-size: 0.85rem;
+        }
+
+        /* 右侧内容区 */
+        .content {
+            flex: 1;
+            background: #fffffffa;
+            border: 1px solid #e8dfd3;
+            border-radius: 20px;
+            padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
+            min-height: 500px;
+        }
+
+        .chapter-card {
+            display: none;
+            animation: fadeUp 0.25s ease;
+        }
+
+        .chapter-card.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0.6; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .chapter-card .ref {
+            font-size: 0.9rem;
+            color: #8a7a64;
+            border-bottom: 1px dashed #ddd0c0;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .chapter-card .ref .tag {
+            background: #ede6db;
+            padding: 0 0.8rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+        }
+
+        .chapter-card h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #3d2d1c;
+            letter-spacing: 2px;
+            margin-bottom: 0.3rem;
+        }
+
+        .chapter-card .original {
+            background: #f7f2ea;
+            padding: 1rem 1.6rem;
+            border-radius: 16px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #1f1a14;
+            margin: 1.2rem 0 1.8rem 0;
+            border-left: 6px solid #b7a084;
+            font-weight: 450;
+        }
+
+        .chapter-card .annotation {
+            display: flex;
+            flex-direction: column;
+            gap: 1.3rem;
+        }
+
+        .chapter-card .annotation .block {
+            background: #fcfaf7;
+            padding: 0.8rem 1.4rem;
+            border-radius: 14px;
+            border: 1px solid #ece3d8;
+        }
+
+        .chapter-card .annotation .block strong {
+            color: #5f4530;
+            font-weight: 600;
+            display: inline-block;
+            min-width: 48px;
+        }
+
+        .chapter-card .annotation .deep {
+            background: #f6f0e8;
+            border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-top: 0.6rem;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            color: #2f261d;
+        }
+
+        .chapter-card .annotation .deep i {
+            color: #6f5b45;
+            font-style: normal;
+            background: #e8ddd0;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-right: 6px;
+        }
+
+        .meta-note {
+            margin-top: 2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem;
+            color: #756450;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.8rem;
+            color: #826a4e;
+            background: transparent;
+            border: 1px solid #cbbba8;
+            padding: 0.3rem 1.8rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            background: #e8ddd0;
+            border-color: #9b846b;
+        }
+
+        /* 响应式 */
+        @media (max-width: 820px) {
+            .main {
+                flex-direction: column;
+            }
+            .toc {
+                flex: auto;
+                width: 100%;
+                position: relative;
+                top: 0;
+                max-height: none;
+                padding: 1rem 1rem;
+            }
+            .toc-list {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.3rem;
+            }
+            .toc-list li {
+                flex: 1 0 auto;
+                padding: 0.3rem 0.8rem;
+                border-left: none;
+                border-bottom: 2px solid transparent;
+            }
+            .toc-list li.active {
+                border-left: none;
+                border-bottom-color: #8b6f50;
+            }
+            .content {
+                padding: 1.5rem 1.2rem;
+            }
+            .chapter-card h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 0.8rem; }
+            .header h1 { font-size: 1.8rem; }
+            .toc-list li .badge { display: none; }
+        }
+    </style>
 </head>
-<body data-page-node-id="XgERd2zjeeHCymEaaWKPIG">
-<div id="topbar" data-page-node-id="vOJmVQJv52Xehu5bV0h5h8"><i id="pb" data-page-node-id="FPyfmBpKgJPkFb8FPw3mWO"></i></div>
+<body>
+<div class="app">
 
-<!-- ================= HERO ================= -->
-<header class="hero" data-page-node-id="TyAVyy324hwLamzlDmsChz">
-  <div class="hero-bg" data-page-node-id="FPqL4LpwmTQFl8D1MyY6KZ"></div>
-  <div class="hero-inner" data-page-node-id="FAHQroKr8NdCMYUnwW8eEG">
-    <div class="eyebrow fade" data-page-node-id="OEDoJ7dJDK5SR3Cp4b0JYH">姑苏城 · 走读千年</div>
-    <h1 class="fade" data-page-node-id="hAeIk7Q2Ca7c8I8cjs0DpJ">文史研学 <b data-page-node-id="Ca9eCfzwVRerObT2CT9A6T">Citywalk</b></h1>
-    <div class="hero-div fade" data-page-node-id="BPRMZ1NK6BjrBmofC1GCh0"></div>
-    <p class="fade" data-page-node-id="GLdbXMb89oqPkiu8tPmYGy">一条自府学文脉走来，一条沿胥江古水寻源。<br data-page-node-id="WR1Jbd7n0B0ZS8xAZv06yY">双脚丈量，看见苏州两千五百年的来处。</p>
-    <div class="hero-meta fade" data-page-node-id="CnS3QNlDpCQbT6DSwnwBDY"><span data-page-node-id="OFkeBgxKA1WujUxW7y1oI4">◆</span>线路一 · 苏州文庙深度文史探秘游<span data-page-node-id="SCFQJCofruKpXfp4mrRtcK">◆</span><br data-page-node-id="vLzWQA6hU2qr8VLjBTkj1L">线路二 · 胥江胥门深度探秘游</div>
-  </div>
-</header>
-
-<div class="wrap" data-page-node-id="zbkAqC03fVcrx3SoSJjzlx">
-
-  <!-- ===== Tab ===== -->
-  <div class="tabbar" data-page-node-id="nIPw7n5MdHSkcG4hyOjMLj">
-    <div class="tab on" data-r="r1" data-page-node-id="jHFjF06o8h5meHhY2UwtGz">线路一<small data-page-node-id="VAhf2yOgE8Cm5wHvW7S15H">文庙 · 府学文脉</small></div>
-    <div class="tab" data-r="r2" data-page-node-id="jdXH1g87Su3DlXi5Pm0iJ9">线路二<small data-page-node-id="Asx160wdl4bBe6M7420n8n">胥江胥门 · 古城起源</small></div>
-  </div>
-
-  <!-- ============================================================ -->
-  <!-- 线路一 文庙 -->
-  <!-- ============================================================ -->
-  <div class="route on" id="r1" data-page-node-id="O2S48XPmwR2KxEtGaB4JMY">
-    <div class="sec-head" data-page-node-id="fylW1O608tujg3INGk1lHF">
-      <div class="sec-no" data-page-node-id="ifudz9TV2ZQvhiD5TBivjY">壹</div>
-      <div data-page-node-id="XIWVzfmSmCpgPXFDnrrnzs"><h2 data-page-node-id="NmzKZ9lOGakM0HTyk0Pv8z">苏州文庙 · 深度文史探秘</h2><div class="en" data-page-node-id="C3pxPHL4idZ0Oc07Bsh5w4">SUZHOU CONFUCIAN TEMPLE</div></div>
-    </div>
-    <p class="sec-sub" data-page-node-id="AMuyOd1OLU9DHtDrszSqov">主题：府学文脉 · 范仲淹创办苏州府学，读懂宋代碑刻与千年文庙。全程步行，半日可游。</p>
-
-    <div class="spots" data-page-node-id="0RmOaNhLFbLnqMT4ZTr0gU">
-
-    <div class="card card-big" data-page-node-id="SGZGc1wI6hsD3T7FefMn8q">
-      <div class="sn" data-page-node-id="DWBJ0oGjGH96q20H6cltMh">一</div>
-      <h3 data-page-node-id="kKqUQykDtRGwa6kF6TPjwJ"><em data-page-node-id="A8VVw1wsmp59ZyOFGGcOjg">停1</em>宋代四大宋碑 · 重点研读《平江图》</h3>
-      <span class="tag" data-page-node-id="mQ0Spg3AXlIlX4J4qSUDBp">镇馆之宝</span><span class="tag" data-page-node-id="MwU4UdEdSaj3mFdoGFG6Hi">中国最早城市地图</span>
-      <div class="media" data-page-node-id="cvPxo8aTlH2rZX4j8t8Doh"><img src="images/s1_pingjiangtu.jpg" alt="平江图碑拓" loading="lazy" data-page-node-id="bZYpw4NGMjsEHwwaS04VBB"><div class="cap" data-page-node-id="1W2BTBK7BDpuFJx0WAPv5F">《平江图》碑拓 —— 南宋 · 中国现存最完整的古代城市石刻地图</div></div>
-      <p data-page-node-id="Z8FZI7cOCtBva1nQiHVbed">苏州文庙保存国内罕见的<b data-page-node-id="xSBq0ph53ODLfNm672YHU0">宋代四大碑刻</b>：平江图、天文图、地理图、帝王绍运图。其中《平江图》刻于南宋，是中国现存最完整的古代城市石刻地图，完整还原宋代苏州古城的河道、街巷、桥梁、官署、寺庙布局。</p>
-      <div class="key" data-page-node-id="o1ZDKovDMqrdTR8LDrbhbr"><b data-page-node-id="MAAOXvCqnM2YAUn7DNGK9B">研学要点｜</b>看懂宋代苏州“水陆并行、河街相邻”的双棋盘格局，对比今天苏州古城——很多街巷名称延续至今；再到线路二的规划展览馆看它的立体版。</div>
+    <div class="header">
+        <h1>📖 论语 · 学而篇第一</h1>
+        <div class="sub">
+            <span>📅 2026·09·09</span>
+            <span>📘 共 9 章</span>
+            <span>✍️ 约 207 字</span>
+            <span>🧠 深读·交互</span>
+        </div>
     </div>
 
-    <div class="card" data-page-node-id="NRgnTdELxhQ900ZFpt556f">
-      <div class="sn" data-page-node-id="lDO9rK7QjJ4yD3g9hY9H8g">二</div>
-      <h3 data-page-node-id="q2WG464kxqmBFIZJUxVGeH"><em data-page-node-id="RqdF5r7p22MMSgpRbGtIU3">停2</em>楠木大成殿</h3>
-      <span class="tag" data-page-node-id="OmHs9gikZoPHH93vxURmNZ">庙学合一</span>
-      <div class="media" data-page-node-id="xNnCnq5UCyHxkBi2ebvisS"><img src="images/s2_dachengdian.jpg" alt="大成殿与孔子像" loading="lazy" data-page-node-id="zCCJ5dIVhcr1icsGUTpaEZ"><div class="cap" data-page-node-id="EXUoFJ7Q239o4Y76WtZUnj">楠木大成殿 —— 供奉孔子的文庙主体建筑</div></div>
-      <p data-page-node-id="bjbbImGTdp7YDErLHwA8C2">大成殿为文庙主体建筑，供奉孔子，保留珍贵<b data-page-node-id="H9lAO53Dw7PZY5aPhA5QQh">楠木构件</b>，体量宏大。苏州府学开“<span class="hl" data-page-node-id="NvsQ2lLgED8CRePAY57wfW">庙学合一</span>”之先河——祭祀圣贤与地方教育合二为一，是江南府学的典范。</p>
-      <div class="key" data-page-node-id="mVnSEQmTDFQYwPb0Jd01Hd"><b data-page-node-id="DtCmAAi1LgNXvgCXz3fRb2">研学要点｜</b>讲解宋代府学规制：前庙后学、左庙右学，读懂古人“敬教劝学”的用心。</div>
+    <div class="main">
+        <!-- 目录 -->
+        <nav class="toc" id="tocNav">
+            <h2>
+                📑 篇目
+                <small>1.1 ~ 1.9</small>
+            </h2>
+            <ul class="toc-list" id="tocList">
+                <!-- 由 js 动态生成 -->
+            </ul>
+            <div style="margin-top: 1.2rem; font-size: 0.8rem; color: #b09a82; border-top: 1px solid #e2d7c8; padding-top: 0.8rem;">
+                ⚡ 点击章节跳转
+            </div>
+        </nav>
+
+        <!-- 内容区 -->
+        <div class="content" id="contentArea">
+            <!-- 由 js 动态渲染 -->
+        </div>
     </div>
 
-    <div class="card" data-page-node-id="aHClAqVqDK8VR6QfXgLCma">
-      <div class="sn" data-page-node-id="nF62jurNWYdGdrKBToJa76">三</div>
-      <h3 data-page-node-id="XRdgACPQv2DeDAoJDs4AZ8"><em data-page-node-id="EGA1EXEfYeKGhADOAqMBeW">停3</em>四大古银杏</h3>
-      <span class="tag" data-page-node-id="ikeQjO1rB5rl2AfnxIJVxL">文脉活见证</span>
-      <div class="g2" data-page-node-id="B2pTdUnfej9ruLb0RLmpFM">
-        <div class="media" data-page-node-id="RiXBdzxGsBJbOGiSowmqk6"><img src="images/s3_ginkgo1.jpg" alt="文庙古银杏金黄" loading="lazy" data-page-node-id="NlesgvplmsiwzEHYsammDN"><div class="cap" data-page-node-id="s1XYzRjwhrDYO9Mqz7jyQ1">古银杏 · 秋日满树金黄</div></div>
-        <div class="media" data-page-node-id="ozd0LjQzAfb1mGxfHUuOfM"><img src="images/s3_ginkgo2.jpg" alt="文庙银杏庭院全景" loading="lazy" data-page-node-id="my1jjWpOANtGZYlOnj50sT"><div class="cap" data-page-node-id="CIStnWZ3w7WauEYayTPYJq">庭院银杏 · 红墙金叶</div></div>
-      </div>
-      <p data-page-node-id="N8ASIoUYOdptiyHDFFR1Ui">文庙院内古银杏树龄数百年，是文庙<b data-page-node-id="ExK4YJJMEP8CIYAuewOcsp">活着的历史见证</b>。秋冬之际满树金黄，红墙金叶，氛围极浓。</p>
-      <div class="key" data-page-node-id="XO4HLuruBKRcUaBFlqC1KX"><b data-page-node-id="zurhIMVI7XLG3K7WgBX1BX">研学要点｜</b>古人常在书院、文庙栽种银杏——果实累累如文脉绵延；古树旁合影，正是一堂“行走的植物课”。</div>
+    <!-- 底部统计 -->
+    <div style="font-size: 0.9rem; color: #8c7a64; border-top: 1px solid #ddd0c0; padding-top: 1.2rem; display: flex; justify-content: space-between; flex-wrap: wrap;">
+        <span>📚 今日进度：学而篇 1.1 — 1.9</span>
+        <span>🔖 深度注解 · 字字落实</span>
     </div>
-
-    <div class="card" data-page-node-id="sHvOpbHmDVkh4ozvM1Ukn2">
-      <div class="sn" data-page-node-id="zVSkZOk5KAQroQ8HM4bnqi">四</div>
-      <h3 data-page-node-id="yPOWE5k9Y5z2ipD9Mz0Zdw"><em data-page-node-id="vTEs5e93EdnMlximWpeLEy">停4</em>府学奠基人 · 范仲淹</h3>
-      <span class="tag" data-page-node-id="HAcSAdtYtL1zFIrhisGbDc">先忧后乐</span>
-      <div class="media" data-page-node-id="trr4GQQocuqhYEpHEQoAVi"><img src="images/s4_fanzhongyan.jpg" alt="文庙内范仲淹塑像" loading="lazy" data-page-node-id="4O5OLWoruvCUkzPr5bVckD"><div class="cap" data-page-node-id="3gBKktEnHT3eFP5YNoOJf9">文庙内范仲淹塑像 —— “一世之师”</div></div>
-      <p data-page-node-id="NeSlStpY1RfFdJAf9qukb4">北宋景祐二年（1035），<b data-page-node-id="q7q9k5yyf6PXDLNCBV1L4o">范仲淹</b>知苏州，舍宅建学，创办苏州府学，是全国最早的地方官办学校之一。此后苏州文教兴盛、状元辈出，源头便在这座府学文庙。</p>
-      <div class="key" data-page-node-id="S8t8V8dgQg1ghVRqfUq6bi"><b data-page-node-id="Z4sChwJp71W4aCTEmlve4C">研学要点｜</b>“先天下之忧而忧”——范仲淹一生三起三落不改兴学之志；苏州人对教育的看重，自此而始。</div>
-    </div>
-
-    </div>
-
-    <div class="tip" data-page-node-id="qfY6lLr3vvauhwAFLX3rAs">
-      <b data-page-node-id="Y609ucsPCRYlAYDdk5698B">研学小提示</b>
-      <span data-page-node-id="sHAM0PSwJE3AGWIGJmfuOx">本线路全程位于苏州文庙，适合半日 Citywalk：优先看四大宋碑，再参观大成殿、拜范仲淹像；春秋两季银杏季景致最佳。</span>
-      <span class="seal" data-page-node-id="Y6f3Xg4CNKgPWOTSUg3f2i">学</span>
-    </div>
-  </div>
-
-  <!-- ============================================================ -->
-  <!-- 线路二 胥江胥门 -->
-  <!-- ============================================================ -->
-  <div class="route" id="r2" data-page-node-id="ghpuG6LFyWQGn23oSe6DBn">
-    <div class="sec-head" data-page-node-id="jmyUDOpPNm2PwP3TxbiE6S">
-      <div class="sec-no" style="background:linear-gradient(140deg,#b98d5f,#8a5a2a)" data-page-node-id="kWTbmqRweZZpNeFG8F0Kym">贰</div>
-      <div data-page-node-id="B6MqDAJiPPzoTYOHWUNBaA"><h2 data-page-node-id="kyQGj3IitAF6ClvWzehAeQ">胥江胥门 · 古城起源探秘</h2><div class="en" data-page-node-id="AADOfJxJECaXr91n6OmMfC">XUJIANG RIVER &amp; XUMEN GATE</div></div>
-    </div>
-    <p class="sec-sub" data-page-node-id="bnYDGVIXuQyaKgX8o1KIiN">主题：古城起源 · 伍子胥相土尝水筑阖闾大城；胥江古运河、万年桥、胥门——苏州建城的源头。</p>
-
-    <div class="spots" data-page-node-id="l97jIyUHDoDkob1sRLOCeB">
-
-    <div class="card card-big" data-page-node-id="E7ZPjU2ABs629bnxkVCtl7">
-      <div class="sn" data-page-node-id="1SACtWAd8zPecyykE2m2Zg">一</div>
-      <h3 data-page-node-id="rjBCH7PUQbtJj5qcjBNJXl"><em data-page-node-id="yqYeWsOEtNkVEH0V88jHNB">停1</em>苏州最早运河 · 胥江</h3>
-      <span class="tag" data-page-node-id="gJEGIfcbPwd230gOcbIZ4P">伍子胥开凿</span><span class="tag" data-page-node-id="CDTiRk7kC1xRmjQGXSBsOQ">实拍视频</span>
-      <div class="media vid" data-page-node-id="peIWwGLuZW8w25S79Hu1PS">
-        <video controls playsinline webkit-playsinline x5-playsinline preload="metadata"
-               poster="video/xujiang_poster.jpg" data-page-node-id="7QgnebnzmSEyPWACpwVSvt">
-          <source src="video/xujiang.mp4" type="video/mp4" data-page-node-id="h7ERWyfcrrvjtqxK4DBKAA">
-        </video>
-        <div class="cap" data-page-node-id="j2uCzVkslI8RoLyFtwwIoH">胥江实拍 · 19″ 古水悠悠（手机点击播放）</div>
-      </div>
-      <p data-page-node-id="9BsRyhQcGUaxBGG1fYNNo9">胥江，苏州最古老运河，相传由<b data-page-node-id="y7vDFghyRXjH3GWc3FcXYh">伍子胥</b>主持开凿，连接太湖与胥门，是古代苏州对外水运要道。古人言“太湖东南泄水要道”，千百年来太湖水系经胥江滋养古城。</p>
-      <div class="key" data-page-node-id="Hyydr43UhqYSmXK1FuEZvG"><b data-page-node-id="SDBCAkdp1EyX1DU5B393XN">研学要点｜</b>站在胥江边想一件事：没有胥江，就没有古苏州的水运繁荣。看往来船只，想象它两千五百年的水路日常。</div>
-    </div>
-
-    <div class="card" data-page-node-id="4904ov8tkLQUPdn4vomaoi">
-      <div class="sn" data-page-node-id="eq2i6dZCRUrstHiL2Hv6Mt">二</div>
-      <h3 data-page-node-id="bmgM5Hzis7tG1hAzg6vXw0"><em data-page-node-id="7tErLR10BIND2HY5Xp0I0B">停2</em>苏州城市展览馆 · 立体《平江图》</h3>
-      <span class="tag" data-page-node-id="NpQcH4yTLGIMtnCJ4D2NA2">古城沙盘</span>
-      <div class="media" data-page-node-id="T2w6PBmRWtn20MJXEK0XGr"><img src="images/t2_guihua1.jpg" alt="立体平江图铜质沙盘" loading="lazy" data-page-node-id="7jNPMHuEMjSZgU47GNi4ID"><div class="cap" data-page-node-id="2ZBHpwTCxYm5rpXypHxQbN">立体《平江图》沙盘 —— 宋代石刻地图的立体实景模型</div></div>
-      <div class="media" style="margin-top:8px" data-page-node-id="mJcxa3jsLjXg5z7t7vo4xa"><img src="images/t2_guihua3.jpg" alt="城市展览馆展厅" loading="lazy" data-page-node-id="Rjj4ZnkvzCYFjdBMYuO2is"></div>
-      <p data-page-node-id="VKQI3rbvkr7VsfgY78PJo0">馆内拥有苏州最大的<b data-page-node-id="T7hP0EyXLx1hXpAsTN9cEg">立体《平江图》沙盘</b>，把宋代石刻平江图做成立体实景模型，街巷河道一目了然。</p>
-      <div class="key" data-page-node-id="ahzRP5UNSwWbMfjryZ8tPo"><b data-page-node-id="hAITTeFEahRKqBeuK8RRe3">研学要点｜</b>与文庙石刻《平江图》对照研读：碑上是“图”，沙盘是“城”——立体沙盘尤其适合中老年研学，直观读懂苏州古城双棋盘格局。</div>
-    </div>
-
-    <div class="card" data-page-node-id="TztnYpikPFicnFdjrPKhhK">
-      <div class="sn" data-page-node-id="TVCKBCzIwspIy4NnLTpCHA">三</div>
-      <h3 data-page-node-id="wLUjQSireR9ppp5o3QXLDL"><em data-page-node-id="xMNmoZZHFyH8LBQGtnHYUP">停3</em>万年桥的前世今生</h3>
-      <span class="tag" data-page-node-id="ZRoT67yxHD2esFGwm9Ba6m">繁华图中桥</span>
-      <div class="media" data-page-node-id="2HKAYd4aSsNb821Em4OcRD"><img src="images/t3_wanqiao_a.jpg" alt="胥江上的万年桥实景" loading="lazy" data-page-node-id="bDrC1RDg6iZmbS2OFbcgXN"><div class="cap" data-page-node-id="2CtQ99A79uB45PvGkkVvC0">今日万年桥 —— 横跨胥江，望向胥门</div></div>
-      <div class="media" style="margin-top:8px" data-page-node-id="KJnFlEpzK4cNs90aXyTj1k"><img src="images/t3_wanqiao_b.jpg" alt="万年桥桥面" loading="lazy" data-page-node-id="y7a67d6q65aOPxwgTBmOIi"></div>
-      <p data-page-node-id="SUkne371aDBtTPmjXEYw53">万年桥，苏州城西知名古桥，横跨胥江。明代始建，历经拆毁、重建，见证胥门码头数百年繁华。</p>
-      <div class="g3" style="margin-top:8px" data-page-node-id="69ri7IeOqKSohzgDGWIv36">
-        <div class="media" data-page-node-id="4fVZj3nu8PJf5OHZAvfmsV"><img src="images/t3_paint_a.jpg" alt="古画中的姑苏万年桥" loading="lazy" data-page-node-id="hXjyetGHywTcQ9WLq4H2Tm"><div class="cap" data-page-node-id="Eu9SRNUb1S1l9rWliVk2rJ">古画 · 姑苏万年桥</div></div>
-        <div class="media" data-page-node-id="6AQuJHQvvqSEfizoCkMffm"><img src="images/t3_paint_b.jpg" alt="繁华图卷中的万年桥" loading="lazy" data-page-node-id="P9BAZNebiSxWignZA0q3kL"><div class="cap" data-page-node-id="b5dSoy4PNC5nON4TW4r6qO">古画 · 万年桥市井</div></div>
-      </div>
-      <div class="key" data-page-node-id="SS8yACaqu4uBbsdhp3zuTl"><b data-page-node-id="dQg2vTOlkvER2OAkukMlAw">研学要点｜</b>《姑苏繁华图》中，万年桥一带是城外最热闹的商埠画面之一。图与画对照——看三百年前桥头的市井，再看今天桥下的流水。</div>
-    </div>
-
-    <div class="card" data-page-node-id="cjkMdg9Q3dofu6I6aFgQZX">
-      <div class="sn" data-page-node-id="CXOYOE7Sj5cNCYEsnUb3oK">四</div>
-      <h3 data-page-node-id="WYXPbpHNXsvjEClBgeHV3s"><em data-page-node-id="3ikPC22OXERZtAnJy4Dw4E">停4</em>胥门 · 苏州六城门之一</h3>
-      <span class="tag" data-page-node-id="MFiNtG6KKaFiAlFgqQIykL">筑城原点</span>
-      <div class="g2" data-page-node-id="7VJqnAwIUwRqSwBlo30NF4">
-        <div class="media" data-page-node-id="9DJspkSaX8aPvvjvMmoNzk"><img src="images/t4_xumen_statue.jpg" alt="胥门外伍子胥石像" loading="lazy" data-page-node-id="dcU4hBGXgBIwwmKsSuG7DM"><div class="cap" data-page-node-id="x7S4IQBf9Lvp499kgzBQm0">伍子胥石像</div></div>
-        <div class="media" data-page-node-id="M4DUQP3x2d0uIHIb0Q58uZ"><img src="images/t4_xumen_gate.jpg" alt="胥门城门实景" loading="lazy" data-page-node-id="t5zdpDvvUkIt3NKvWTryDi"><div class="cap" data-page-node-id="4T7J0nzvXRb7DiGfGo2nFA">胥门城门</div></div>
-      </div>
-      <p data-page-node-id="4zSGWE1mQWo0jvGDUzX2BC">胥门是苏州<b data-page-node-id="Hot6IXiXha5vJ7zS9I0MqW">现存残存古城门之一</b>。公元前 514 年，伍子胥“相土尝水、象天法地”筑<b data-page-node-id="00Q00mgCcT9sRkN9dbFQuz">阖闾大城</b>，奠定苏州古城两千五百多年的城市框架——胥门正是这场筑城伟业留下的西门。</p>
-      <div class="key" data-page-node-id="GpvnNrFWlxjoCAeDVHp5ur"><b data-page-node-id="L1BOpXiJRWf9mqi4mbyhsZ">名字小考｜</b>胥门因何得名，历来有<b data-page-node-id="ehn9Hs0EZpHNguRKGxnjk3">两种说法</b>：民间相传城门朝向纪念伍子胥，故称“胥门”；而据明代《姑苏志》等地方志考据，胥门实因正对<b data-page-node-id="ORlnE5bIVSkcKwTUXNSsgE">姑胥山</b>（古称，今七子山一带）得名——“胥”为吴语对山岭的称呼，官方考据主此说。传说与考据并存，恰是苏州地名最耐人寻味处。</div>
-    </div>
-
-    </div>
-
-    <div class="tip" data-page-node-id="oIreA7zX9QcuDLaomZIV7j">
-      <b data-page-node-id="NBtCYeZ4MfNVs3lsohwx41">研学小提示</b>
-      <span data-page-node-id="CGqi1jLOTRB9qwDPrv5pD9">适合半日 Citywalk，路线顺序：胥江沿岸 → 苏州城市展览馆 → 万年桥 → 胥门。点位集中、步行强度低，尤其适合长者结伴而行。</span>
-      <span class="seal" data-page-node-id="EF0m4TOy3x4Q5OBoRTjOiu">源</span>
-    </div>
-  </div>
-
-  <footer data-page-node-id="1BAXTwsQYqFugNtGCVuGKW">
-    <div class="rule" data-page-node-id="x3ujO0AwDLJZi9vlXHaprR"></div>
-    <p data-page-node-id="PaCdDe6DpJEjDcLI9Qhwtl">吴地时光机 · 文史研学系列</p>
-    <p style="margin-top:6px;font-size:.78rem" data-page-node-id="ZFQOiqSsjA5d684DopSsHb">图文素材 · 实景拍摄｜本页共二线八站，可微信转发</p>
-  </footer>
 </div>
 
 <script>
-// 顶部进度条
-var pb=document.getElementById('pb');
-addEventListener('scroll',function(){
-  var h=document.documentElement.scrollHeight-innerHeight;
-  pb.style.width=(h>0?(scrollY/h*100):0)+'%';
-},{passive:true});
+    // --------------------------------------------------------------
+    // 数据：全部 9 章
+    // --------------------------------------------------------------
+    const chapters = [{
+        id: '1.1',
+        title: '学而时习之',
+        original: '子曰：“学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知而不愠，不亦君子乎？”',
+        annotation: [
+            { label: '📌 时习', text: '“时”指适时、时常；“习”意为实践、温习。孔子强调知行合一，学了要能在生活中用出来。' },
+            { label: '🎓 朋与友', text: '“朋”指同学、同门（同一老师门下）；“友”才是志同道合之人。同门远来，学问有共鸣，故“乐”。' },
+            { label: '🧘 不愠', text: '“愠”是恼怒。别人不了解也不生气，君子的价值不依赖外界评价，内心自足。' },
+        ],
+        deep: '这三句话是修身三阶段：① 学而实践 → 内在之“悦”；② 同门切磋 → 外显之“乐”；③ 不为人知而不怨 → 人格自足。从“悦”到“乐”再到“不愠”，层层递进，指向独立完整的人格。'
+    }, {
+        id: '1.2',
+        title: '孝悌为仁之本',
+        original: '有子曰：“其为人也孝弟，而好犯上者，鲜矣；不好犯上，而好作乱者，未之有也。君子务本，本立而道生。孝弟也者，其为仁之本与！”',
+        annotation: [
+            { label: '👨‍👧‍👦 孝弟', text: '“弟”通“悌”，敬爱兄长。孝悌是家庭伦理的核心，也是社会秩序的起点。' },
+            { label: '🌱 务本', text: '君子致力根本，根本立住了，“道”自然生长。儒家不空谈大道，而是落实在人人可行的孝悌上。' },
+        ],
+        deep: '有子强调：家庭中的秩序感（孝悌）会自然延伸到社会——一个在家庭中懂得感恩和尊重的人，不会轻易犯上作乱。家庭是社会的最小单位，家庭伦理崩坏，社会必乱。“本立而道生”是儒家“下学而上达”的路径。'
+    }, {
+        id: '1.3',
+        title: '巧言令色，鲜矣仁',
+        original: '子曰：“巧言令色，鲜矣仁！”',
+        annotation: [
+            { label: '🎭 巧言', text: '花言巧语，把话说得动听但不真诚。' },
+            { label: '🎨 令色', text: '“令”本义为“善、美”，“色”指面色、表情。“令色”即刻意装出和善的表情，是伪善的外在表现。' },
+        ],
+        deep: '孔子厌恶的不是“说话好听”或“表情和善”本身，而是“刻意”和“过度”——用言语和表情掩饰真实动机，目的是取悦他人、谋取私利。他推崇“刚毅木讷近仁”，因为真诚比漂亮更重要。'
+    }, {
+        id: '1.4',
+        title: '吾日三省吾身',
+        original: '曾子曰：“吾日三省吾身：为人谋而不忠乎？与朋友交而不信乎？传不习乎？”',
+        annotation: [
+            { label: '🔄 三省', text: '“三”指多次，非确数。每天从三个维度反省：忠、信、习。' },
+            { label: '💼 忠', text: '“尽己之谓忠”——替人办事尽心竭力，不敷衍。' },
+            { label: '🤝 信', text: '与朋友交往诚实守信，言行一致。' },
+            { label: '📖 传不习', text: '老师传授的学问，有没有实践？这是对知识最大的尊重。' },
+        ],
+        deep: '曾子的反省覆盖了三种关系：对上级/委托者（忠）、对平辈/朋友（信）、对自身/学问（习）。这是一个完整的修身闭环——每天在这三个层面检视自己，才是真功夫。“省”字是关键：不是泛泛反思，而是具体到事上。'
+    }, {
+        id: '1.5',
+        title: '道千乘之国',
+        original: '子曰：“道千乘之国，敬事而信，节用而爱人，使民以时。”',
+        annotation: [
+            { label: '⚔️ 千乘之国', text: '“乘”指兵车，一乘约75人。千乘之国兵力约7.5万，在春秋属大国（如吴、越）。约相当于今一两个省。' },
+            { label: '👑 敬事而信', text: '执政者对政事要敬畏、认真；言出必行，政策稳定。' },
+            { label: '🌾 使民以时', text: '役使民众要在农闲时，不误农时。体现对百姓生存权和自然规律的尊重。' },
+        ],
+        deep: '这是孔子治国思想的浓缩：① 对上（权力）要“敬”与“信”——自我约束；② 对下（百姓）要“节用”与“爱人”——以民为本；③ 对时（自然）要“以时”——不违天时。核心是：执政者克制私欲，百姓福祉第一。越大越要克制，这是孔子的政治智慧。'
+    }, {
+        id: '1.6',
+        title: '行有余力，则以学文',
+        original: '子曰：“弟子入则孝，出则弟，谨而信，泛爱众，而亲仁。行有余力，则以学文。”',
+        annotation: [
+            { label: '🏠 入孝出弟', text: '在家孝顺父母，出门敬爱兄长。家庭伦理是人生第一课。' },
+            { label: '❤️ 泛爱众而亲仁', text: '广泛爱众人，但要亲近有仁德的人——爱不是无差别的，要有价值判断。' },
+            { label: '📚 行有余力则学文', text: '前面六件“行”做到了，还有余力，再去读书识字。德先于才，做人在先。' },
+        ],
+        deep: '孔子教育思想的根本次序：先做人，再读书。如果做人的根基没打好，读再多书也是白搭，甚至越读越坏（知识作恶）。这与今天“唯分数论”形成鲜明对比。'
+    }, {
+        id: '1.7',
+        title: '虽曰未学，吾必谓之学矣',
+        original: '子夏曰：“贤贤易色；事父母，能竭其力；事君，能致其身；与朋友交，言而有信。虽曰未学，吾必谓之学矣。”',
+        annotation: [
+            { label: '💎 贤贤易色', text: '第一个“贤”为动词（看重），第二个“贤”为名词（贤德），“易色”指轻视美色。价值观排序：德重于色。' },
+            { label: '🛡️ 致其身', text: '事奉君主能献出生命，指全力以赴、不顾私利。' },
+        ],
+        deep: '子夏重新定义了“学”：四件事覆盖四伦——夫妻（贤贤易色）、父子（事父母）、君臣（事君）、朋友（与朋友交）。这四伦做到，人伦之道就完整了。“虽曰未学，吾必谓之学矣”——实践才是真学问，不识字也可以是有学问的人。与1.6“行有余力则以学文”一脉相承。'
+    }, {
+        id: '1.8',
+        title: '过则勿惮改',
+        original: '子曰：“君子不重则不威，学则不固。主忠信，无友不如己者。过则勿惮改。”',
+        annotation: [
+            { label: '⚖️ 重', text: '庄重、稳重。不庄重就没有威严，学的东西也不牢固。' },
+            { label: '🧑‍🤝‍🧑 无友不如己者', text: '不和道德上不如自己的人深交（或理解为：没有朋友完全不如自己，要看到别人长处）。择友要慎重。' },
+            { label: '🛠️ 过则勿惮改', text: '“惮”是害怕、畏难。有了过错不要怕改正——不要怕丢脸，不要拖延。' },
+        ],
+        deep: '君子四修：庄重（内在外在的统一）、忠信（立身之本）、慎友（环境影响）、改过（成长的关键）。最务实的是“过则勿惮改”——人非圣贤，错不可怕，可怕的是没勇气面对。'
+    }, {
+        id: '1.9',
+        title: '慎终追远，民德归厚',
+        original: '曾子曰：“慎终追远，民德归厚矣。”',
+        annotation: [
+            { label: '⚰️ 慎终', text: '慎重办理丧事。不是形式主义，而是通过仪式表达对父母的哀痛与感恩。' },
+            { label: '🧬 追远', text: '追念远代祖先。把个人生命放到家族传承的长河中，培养“承上启下”的责任感。' },
+        ],
+        deep: '三层深意：① 形式背后的情感——丧祭之礼承载着“情”，是感恩的具象化表达；② 由家及国——孝从生前延伸到身后，从父母扩展到祖先，是“推恩”逻辑；③ 感恩是道德的总开关——知道“欠”父母的、欠祖先的，人就有了底线和敬畏。民风变“厚”，社会自然安稳。'
+    }];
 
-// 双线 Tab 切换
-var tabs=[].slice.call(document.querySelectorAll('.tab'));
-var routes=[].slice.call(document.querySelectorAll('.route'));
-tabs.forEach(function(t){
-  t.addEventListener('click',function(){
-    tabs.forEach(function(x){x.classList.remove('on')});
-    t.classList.add('on');
-    var id=t.dataset.r;
-    routes.forEach(function(r){
-      r.classList.toggle('on',r.id===id);
-      // 切回时把首屏拉回顶部导航处
-      if(r.id===id){var y=document.querySelector('.tabbar').getBoundingClientRect().top+scrollY-20;
-        if(scrollY>y)scrollTo({top:Math.max(0,y),behavior:'smooth'});}
+    // --------------------------------------------------------------
+    // 渲染
+    // --------------------------------------------------------------
+    const tocList = document.getElementById('tocList');
+    const contentArea = document.getElementById('contentArea');
+
+    // 构建目录
+    chapters.forEach((ch, idx) => {
+        const li = document.createElement('li');
+        li.dataset.id = ch.id;
+        li.innerHTML = `
+            <span class="num">${ch.id}</span>
+            <span>${ch.title}</span>
+            <span class="badge">${ch.original.slice(0, 12)}…</span>
+        `;
+        li.addEventListener('click', () => {
+            setActiveChapter(ch.id);
+        });
+        tocList.appendChild(li);
     });
-  });
-});
 
-// 视频点击自动播放提示：iOS 需要用户手势，属性已设 controls 即可
-var v=document.querySelector('video');
-if(v){v.addEventListener('play',function(){v.setAttribute('controls','')});}
+    // 默认激活第一个
+    let currentId = chapters[0].id;
+
+    function setActiveChapter(id) {
+        currentId = id;
+        // 更新目录高亮
+        document.querySelectorAll('.toc-list li').forEach(el => {
+            el.classList.toggle('active', el.dataset.id === id);
+        });
+        // 渲染内容
+        renderChapter(id);
+        // 滚动到内容区（移动端友好）
+        if (window.innerWidth <= 820) {
+            contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    function renderChapter(id) {
+        const ch = chapters.find(c => c.id === id);
+        if (!ch) return;
+
+        // 构造注解html
+        let annotationHtml = '';
+        ch.annotation.forEach(a => {
+            annotationHtml += `
+                <div class="block">
+                    <strong>${a.label}</strong> ${a.text}
+                </div>
+            `;
+        });
+
+        const html = `
+            <div class="chapter-card active" id="card-${ch.id}">
+                <div class="ref">
+                    <span>📖 学而篇 · ${ch.id}</span>
+                    <span class="tag">今日深读</span>
+                </div>
+                <h3>${ch.title}</h3>
+                <div class="original">${ch.original}</div>
+
+                <div class="annotation">
+                    ${annotationHtml}
+                </div>
+
+                <div class="deep">
+                    <i>🧠 内核</i> ${ch.deep}
+                </div>
+
+                <div class="meta-note">
+                    <span>🔗 章节 ${ch.id}</span>
+                    <span style="display: flex; gap: 0.8rem;">
+                        <span id="prevBtn" style="cursor:pointer; color:#7f6952;">← 上一章</span>
+                        <span id="nextBtn" style="cursor:pointer; color:#7f6952;">下一章 →</span>
+                    </span>
+                </div>
+            </div>
+        `;
+        contentArea.innerHTML = html;
+
+        // 绑定上一页/下一页
+        const idx = chapters.findIndex(c => c.id === id);
+        document.getElementById('prevBtn')?.addEventListener('click', () => {
+            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+        });
+        document.getElementById('nextBtn')?.addEventListener('click', () => {
+            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+        });
+    }
+
+    // 启动：加载第一篇
+    setActiveChapter(chapters[0].id);
 </script>
+
 </body>
 </html>
