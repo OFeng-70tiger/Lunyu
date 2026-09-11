@@ -3,560 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>论语 · 学而篇第一 · 交互式札记</title>
+    <title>论语 · 学而篇 · 第一天</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
-            background: #faf8f5;
-            color: #2c2c2c;
-            display: flex;
-            justify-content: center;
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
             padding: 2rem 1.5rem;
         }
-
-        .app {
-            max-width: 1200px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+        .back-btn {
+            display: inline-block; margin-top: 1rem;
+            color: #826a4e; background: #f0e9df;
+            border: 1px solid #cbbba8; padding: 0.4rem 1.8rem;
+            border-radius: 40px; font-size: 0.9rem;
+            text-decoration: none; transition: 0.2s;
         }
-
-        /* 头部 */
-        .header {
-            border-bottom: 2px solid #d4c5a0;
-            padding-bottom: 1.2rem;
-        }
-
-        .header h1 {
-            font-size: 2.2rem;
-            font-weight: 500;
-            letter-spacing: 6px;
-            color: #3e2e1f;
-        }
-
-        .header .sub {
-            color: #6b5a44;
-            margin-top: 0.3rem;
-            font-size: 1rem;
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .header .sub span {
-            background: #e8e0d4;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-
-        /* 布局：目录 + 内容 */
-        .main {
-            display: flex;
-            flex-direction: row;
-            gap: 2.5rem;
-            align-items: flex-start;
-        }
-
-        /* 侧边目录 */
+        .back-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
         .toc {
-            flex: 0 0 260px;
-            background: #fffcf7;
-            border: 1px solid #e2d7c8;
-            border-radius: 18px;
-            padding: 1.5rem 0.8rem 1.5rem 1.5rem;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
-            position: sticky;
-            top: 2rem;
-            max-height: 90vh;
-            overflow-y: auto;
+            flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem;
+            max-height: 90vh; overflow-y: auto;
         }
-
         .toc h2 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #4d3e2b;
-            letter-spacing: 2px;
-            border-bottom: 1px solid #dacfc0;
-            padding-bottom: 0.8rem;
-            margin-bottom: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+            display: flex; align-items: center; gap: 6px;
         }
-
-        .toc h2 small {
-            font-weight: 400;
-            font-size: 0.8rem;
-            color: #8a7a64;
-            margin-left: auto;
-        }
-
-        .toc-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
         .toc-list li {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 0.5rem 0.8rem;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            color: #3d3429;
-            font-size: 0.95rem;
-            border-left: 3px solid transparent;
+            display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+            color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent;
         }
-
-        .toc-list li:hover {
-            background: #f0e9df;
-            border-left-color: #b8a48a;
-        }
-
-        .toc-list li.active {
-            background: #eadecd;
-            border-left-color: #8b6f50;
-            font-weight: 500;
-            color: #2c1f12;
-        }
-
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
         .toc-list li .badge {
-            background: #dacfc0;
-            color: #3e3225;
-            font-size: 0.7rem;
-            padding: 0.1rem 0.6rem;
-            border-radius: 40px;
-            margin-left: auto;
-            font-weight: 400;
-            letter-spacing: 0.3px;
+            background: #dacfc0; color: #3e3225; font-size: 0.7rem;
+            padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto;
+            font-weight: 400; letter-spacing: 0.3px;
         }
-
-        .toc-list li .num {
-            font-weight: 400;
-            color: #8f7b62;
-            min-width: 28px;
-            font-size: 0.85rem;
-        }
-
-        /* 右侧内容区 */
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
         .content {
-            flex: 1;
-            background: #fffffffa;
-            border: 1px solid #e8dfd3;
-            border-radius: 20px;
-            padding: 2rem 2.2rem;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
-            min-height: 500px;
+            flex: 1; background: #fffffffa; border: 1px solid #e8dfd3;
+            border-radius: 20px; padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px;
         }
-
-        .chapter-card {
-            display: none;
-            animation: fadeUp 0.25s ease;
-        }
-
-        .chapter-card.active {
-            display: block;
-        }
-
-        @keyframes fadeUp {
-            0% { opacity: 0.6; transform: translateY(8px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
         .chapter-card .ref {
-            font-size: 0.9rem;
-            color: #8a7a64;
-            border-bottom: 1px dashed #ddd0c0;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.2rem;
-            display: flex;
-            justify-content: space-between;
+            font-size: 0.9rem; color: #8a7a64; border-bottom: 1px dashed #ddd0c0;
+            padding-bottom: 0.5rem; margin-bottom: 1.2rem;
+            display: flex; justify-content: space-between;
         }
-
-        .chapter-card .ref .tag {
-            background: #ede6db;
-            padding: 0 0.8rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
-        }
-
-        .chapter-card h3 {
-            font-size: 1.8rem;
-            font-weight: 400;
-            color: #3d2d1c;
-            letter-spacing: 2px;
-            margin-bottom: 0.3rem;
-        }
-
+        .chapter-card .ref .tag { background: #ede6db; padding: 0 0.8rem; border-radius: 40px; font-size: 0.8rem; }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
         .chapter-card .original {
-            background: #f7f2ea;
-            padding: 1rem 1.6rem;
-            border-radius: 16px;
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: #1f1a14;
-            margin: 1.2rem 0 1.8rem 0;
-            border-left: 6px solid #b7a084;
-            font-weight: 450;
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
+            font-size: 1.15rem; line-height: 1.8; color: #1f1a14;
+            margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450;
         }
-
-        .chapter-card .annotation {
-            display: flex;
-            flex-direction: column;
-            gap: 1.3rem;
+        .chapter-card .translation {
+            background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px;
+            font-size: 1.05rem; line-height: 1.8; color: #1f3a1f;
+            margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e;
         }
-
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
         .chapter-card .annotation .block {
-            background: #fcfaf7;
-            padding: 0.8rem 1.4rem;
-            border-radius: 14px;
-            border: 1px solid #ece3d8;
+            background: #fcfaf7; padding: 0.8rem 1.4rem;
+            border-radius: 14px; border: 1px solid #ece3d8;
         }
-
-        .chapter-card .annotation .block strong {
-            color: #5f4530;
-            font-weight: 600;
-            display: inline-block;
-            min-width: 48px;
-        }
-
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
         .chapter-card .annotation .deep {
-            background: #f6f0e8;
-            border-left: 4px solid #a3876b;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            margin-top: 0.6rem;
-            font-size: 0.98rem;
-            line-height: 1.7;
-            color: #2f261d;
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem;
+            font-size: 0.98rem; line-height: 1.7; color: #2f261d;
         }
-
         .chapter-card .annotation .deep i {
-            color: #6f5b45;
-            font-style: normal;
-            background: #e8ddd0;
-            padding: 0.1rem 0.6rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            margin-right: 6px;
+            color: #6f5b45; font-style: normal; background: #e8ddd0;
+            padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px;
         }
-
         .meta-note {
-            margin-top: 2rem;
-            padding-top: 1.2rem;
-            border-top: 1px solid #e3d8ca;
-            font-size: 0.9rem;
-            color: #756450;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap;
         }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 1.8rem;
-            color: #826a4e;
-            background: transparent;
-            border: 1px solid #cbbba8;
-            padding: 0.3rem 1.8rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: 0.2s;
-            text-decoration: none;
-        }
-
-        .back-link:hover {
-            background: #e8ddd0;
-            border-color: #9b846b;
-        }
-
-        /* 响应式 */
         @media (max-width: 820px) {
-            .main {
-                flex-direction: column;
-            }
-            .toc {
-                flex: auto;
-                width: 100%;
-                position: relative;
-                top: 0;
-                max-height: none;
-                padding: 1rem 1rem;
-            }
-            .toc-list {
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 0.3rem;
-            }
-            .toc-list li {
-                flex: 1 0 auto;
-                padding: 0.3rem 0.8rem;
-                border-left: none;
-                border-bottom: 2px solid transparent;
-            }
-            .toc-list li.active {
-                border-left: none;
-                border-bottom-color: #8b6f50;
-            }
-            .content {
-                padding: 1.5rem 1.2rem;
-            }
-            .chapter-card h3 {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body { padding: 0.8rem; }
-            .header h1 { font-size: 1.8rem; }
-            .toc-list li .badge { display: none; }
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 <div class="app">
-
     <div class="header">
-    <h1>📖 论语 · 学而篇</h1>
-    <div class="sub">
-        <span>📅 2026·09·09</span>
-        <span>📘 共 9 章</span>
-        <span>✍️ 约 207 字</span>
-        <span>🧠 深读·交互</span>
+        <h1>📖 论语 · 学而篇</h1>
+        <div class="sub">
+            <span>📅 第一天 · 1.1 ~ 1.9</span>
+            <span>📘 共 9 章</span>
+            <span>✍️ 约 207 字</span>
+            <span>🧠 完整版</span>
+        </div>
+        <a href="index.html" class="back-btn">🏠 返回总目录</a>
     </div>
-    <div style="margin-top: 1rem;">
-        <a href="index.html" style="display:inline-block; color:#826a4e; background:#f0e9df; border:1px solid #cbbba8; padding:0.4rem 1.8rem; border-radius:40px; font-size:0.9rem; text-decoration:none;">
-            🏠 返回总目录
-        </a>
-    </div>
-</div>
 
     <div class="main">
-        <!-- 目录 -->
-        <nav class="toc" id="tocNav">
-            <h2>
-                📑 篇目
-                <small>1.1 ~ 1.9</small>
-            </h2>
-            <ul class="toc-list" id="tocList">
-                <!-- 由 js 动态生成 -->
-            </ul>
-            <div style="margin-top: 1.2rem; font-size: 0.8rem; color: #b09a82; border-top: 1px solid #e2d7c8; padding-top: 0.8rem;">
+        <nav class="toc">
+            <h2>📑 篇目 <small>1.1 ~ 1.9</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">
                 ⚡ 点击章节跳转
             </div>
         </nav>
-
-        <!-- 内容区 -->
-        <div class="content" id="contentArea">
-            <!-- 由 js 动态渲染 -->
-        </div>
+        <div class="content" id="contentArea"></div>
     </div>
 
-    <!-- 底部统计 -->
-    <div style="font-size: 0.9rem; color: #8c7a64; border-top: 1px solid #ddd0c0; padding-top: 1.2rem; display: flex; justify-content: space-between; flex-wrap: wrap;">
-        <span>📚 今日进度：学而篇 1.1 — 1.9</span>
-        <span>🔖 深度注解 · 字字落实</span>
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap;">
+        <span>📚 今日进度：学而篇 1.1 — 1.9（完整版）</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
     </div>
 </div>
 
 <script>
-    // --------------------------------------------------------------
-    // 数据：全部 9 章
-    // --------------------------------------------------------------
-    const chapters = [{
+const chapters = [
+    {
         id: '1.1',
         title: '学而时习之',
         original: '子曰：“学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知而不愠，不亦君子乎？”',
+        translation: '孔子说：“学了知识并且经常在实践中运用，不是很愉快吗？有志同道合的同学从远方来，不是很快乐吗？别人不了解我，我也不生气，不就是一个君子吗？”',
         annotation: [
-            { label: '📌 时习', text: '“时”指适时、时常；“习”意为实践、温习。孔子强调知行合一，学了要能在生活中用出来。' },
-            { label: '🎓 朋与友', text: '“朋”指同学、同门（同一老师门下）；“友”才是志同道合之人。同门远来，学问有共鸣，故“乐”。' },
-            { label: '🧘 不愠', text: '“愠”是恼怒。别人不了解也不生气，君子的价值不依赖外界评价，内心自足。' },
+            { label: '📌 时习', text: '“时”指适时、时常；“习”不是温习，而是实践、践行。孔子强调的是知行合一——学了道理，在生活中用出来，内心才会有真实的喜悦。' },
+            { label: '🎓 朋与友', text: '在古代，“朋”指同学、同门（同一老师门下学习的人）；“友”才指志同道合的人。同门从远方来，说明你的学问有了影响力，也给了你一个“以友辅仁”的机会。' },
+            { label: '🧘 不愠', text: '“愠”是恼怒。别人不了解我，我也不生气。为什么能做到？因为君子的价值不依赖于外界评价，而是源于内心的自足。' },
+            { label: '💡 三阶段', text: '这三句话讲的其实是君子修身的三个阶段：① 学而实践 → 内在之“悦”；② 同门切磋 → 外显之“乐”；③ 不为人知而不怨 → 人格自足。' }
         ],
-        deep: '这三句话是修身三阶段：① 学而实践 → 内在之“悦”；② 同门切磋 → 外显之“乐”；③ 不为人知而不怨 → 人格自足。从“悦”到“乐”再到“不愠”，层层递进，指向独立完整的人格。'
-    }, {
+        deep: '整句话的逻辑是：学问之乐，始于实践，成于共鸣，终于自足。三个阶段层层递进，最终指向一个“不依赖外物”的独立人格。这是儒家“为己之学”的核心：学习是为了完善自己，不是为了炫耀给别人看。'
+    },
+    {
         id: '1.2',
         title: '孝悌为仁之本',
         original: '有子曰：“其为人也孝弟，而好犯上者，鲜矣；不好犯上，而好作乱者，未之有也。君子务本，本立而道生。孝弟也者，其为仁之本与！”',
+        translation: '有子说：“一个人孝顺父母、敬爱兄长，却喜欢冒犯上级，这种情况是很少见的；不喜欢冒犯上级，却喜欢作乱，这种人是从来没有的。君子致力于根本，根本立住了，道就自然产生了。孝悌，大概就是仁的根本吧！”',
         annotation: [
-            { label: '👨‍👧‍👦 孝弟', text: '“弟”通“悌”，敬爱兄长。孝悌是家庭伦理的核心，也是社会秩序的起点。' },
-            { label: '🌱 务本', text: '君子致力根本，根本立住了，“道”自然生长。儒家不空谈大道，而是落实在人人可行的孝悌上。' },
+            { label: '👨‍👧‍👦 孝弟', text: '“弟”通“悌”，指敬爱兄长。孝悌是家庭伦理的核心，也是社会秩序的起点。' },
+            { label: '🌱 务本', text: '君子致力于根本，根本立住了，“道”自然生长。儒家不空谈大道，而是把道落实到“孝悌”这种人人都能做的事上。' },
+            { label: '🔗 逻辑', text: '一个在家庭中懂得感恩和秩序的人，到了社会上不会轻易破坏规则、挑战权威。反过来说，作乱的人往往是从家庭关系崩坏开始的。' },
+            { label: '💡 本立而道生', text: '这是儒家“下学而上达”的路径：从最朴素的人伦情感出发，逐步通向高远的大道。' }
         ],
-        deep: '有子强调：家庭中的秩序感（孝悌）会自然延伸到社会——一个在家庭中懂得感恩和尊重的人，不会轻易犯上作乱。家庭是社会的最小单位，家庭伦理崩坏，社会必乱。“本立而道生”是儒家“下学而上达”的路径。'
-    }, {
+        deep: '有子强调：家庭是社会的微缩模型，家庭伦理是社会秩序的根基。一个人连父母都不孝、兄长都不敬，他对社会的破坏就是必然的。“本立而道生”是儒家的核心方法论：不空谈高远的大道，而是把道落实到人人可行的孝悌上。'
+    },
+    {
         id: '1.3',
         title: '巧言令色，鲜矣仁',
         original: '子曰：“巧言令色，鲜矣仁！”',
+        translation: '孔子说：“花言巧语、伪装和善的人，很少有仁德。”',
         annotation: [
-            { label: '🎭 巧言', text: '花言巧语，把话说得动听但不真诚。' },
-            { label: '🎨 令色', text: '“令”本义为“善、美”，“色”指面色、表情。“令色”即刻意装出和善的表情，是伪善的外在表现。' },
+            { label: '🎭 巧言', text: '花言巧语，把话说得非常好听、动人，但未必出于真心。' },
+            { label: '🎨 令色', text: '“令”本义是“善、美”（如“令尊”“令堂”），“色”指面色、表情。“令色”字面意思是“好的面色”“和善的表情”，但在这里指刻意装出来的和善，是伪善的外在表现。' },
+            { label: '⚠️ 关键', text: '问题出在“过度”和“刻意”上——说话好听、表情和善本身没有错，但如果是刻意装出来的、为了讨好别人以达到自己的目的，那就很可疑了。' },
+            { label: '💡 朱熹注解', text: '朱熹在《论语集注》里解释：“好其言，善其色，致饰于外，务以悦人。”——把自己的言辞弄好听、表情弄好看，在外表上下足功夫，目的就是取悦他人。这种人“鲜矣仁”。' }
         ],
-        deep: '孔子厌恶的不是“说话好听”或“表情和善”本身，而是“刻意”和“过度”——用言语和表情掩饰真实动机，目的是取悦他人、谋取私利。他推崇“刚毅木讷近仁”，因为真诚比漂亮更重要。'
-    }, {
+        deep: '孔子极其厌恶“巧言令色”的人，因为这类人用言语和表情来掩盖真实的动机。这背后是孔子对“真诚”的极端重视。“仁”的核心是真心待人，而巧言令色恰恰是把真心藏起来，用一种表演来替代真实的感情。孔子说“刚毅木讷近仁”，又说“君子欲讷于言而敏于行”，在他看来，话太多太漂亮的人，往往在行动上靠不住。'
+    },
+    {
         id: '1.4',
         title: '吾日三省吾身',
         original: '曾子曰：“吾日三省吾身：为人谋而不忠乎？与朋友交而不信乎？传不习乎？”',
+        translation: '曾子说：“我每天多次反省自己：替别人办事有没有尽心竭力？与朋友交往有没有诚实守信？老师传授的学问有没有实践？”',
         annotation: [
             { label: '🔄 三省', text: '“三”指多次，非确数。每天从三个维度反省：忠、信、习。' },
-            { label: '💼 忠', text: '“尽己之谓忠”——替人办事尽心竭力，不敷衍。' },
-            { label: '🤝 信', text: '与朋友交往诚实守信，言行一致。' },
-            { label: '📖 传不习', text: '老师传授的学问，有没有实践？这是对知识最大的尊重。' },
+            { label: '💼 忠', text: '“尽己之谓忠”——替人办事尽心竭力，不敷衍、不偷懒。这是对上级或委托者的态度。' },
+            { label: '🤝 信', text: '与朋友交往诚实守信，言行一致。这是对平辈的态度。' },
+            { label: '📖 传不习', text: '老师传授的学问，有没有实践？这是对知识最大的尊重，也是对自我的要求。' },
+            { label: '🎯 三关系', text: '三个维度覆盖了人对上级、对平辈、对己身三种关系，每天都在这三个层面自查，是一个完整的修身闭环。' }
         ],
-        deep: '曾子的反省覆盖了三种关系：对上级/委托者（忠）、对平辈/朋友（信）、对自身/学问（习）。这是一个完整的修身闭环——每天在这三个层面检视自己，才是真功夫。“省”字是关键：不是泛泛反思，而是具体到事上。'
-    }, {
+        deep: '曾子的反省覆盖了三种关系：对上级/委托者（忠）、对平辈/朋友（信）、对自身/学问（习）。这是一个完整的修身闭环。“省”字是关键——不是泛泛地反思，而是像照镜子一样，一件件具体的事拿出来检视，这就是儒家修身的功夫。'
+    },
+    {
         id: '1.5',
         title: '道千乘之国',
         original: '子曰：“道千乘之国，敬事而信，节用而爱人，使民以时。”',
+        translation: '孔子说：“治理一个拥有千辆兵车的国家，要严谨认真地办事、恪守信用，节约用度、爱护百姓，役使民众要在农闲时节。”',
         annotation: [
-            { label: '⚔️ 千乘之国', text: '“乘”指兵车，一乘约75人。千乘之国兵力约7.5万，在春秋属大国（如吴、越）。约相当于今一两个省。' },
-            { label: '👑 敬事而信', text: '执政者对政事要敬畏、认真；言出必行，政策稳定。' },
-            { label: '🌾 使民以时', text: '役使民众要在农闲时，不误农时。体现对百姓生存权和自然规律的尊重。' },
+            { label: '⚔️ 千乘之国', text: '“乘”指兵车，一乘约75人。千乘之国兵力约7.5万，在春秋属大国（如吴、越），约相当于今一两个省的大小。' },
+            { label: '👑 敬事而信', text: '执政者对待政事要“敬”——敬畏、认真、不轻慢；同时要“信”——言出必行，政策稳定，不朝令夕改。这是对权力的自我约束。' },
+            { label: '💰 节用而爱人', text: '“节用”不是抠门，而是不搞面子工程、不铺张浪费；“爱人”不是空谈，而是真正体恤百姓疾苦。节省下来的资源要用在百姓身上。' },
+            { label: '🌾 使民以时', text: '古代农业社会，农忙时役使民众等于断人生路。孔子特别强调“时”，体现他对老百姓生存权的尊重，对自然规律的敬畏。' }
         ],
-        deep: '这是孔子治国思想的浓缩：① 对上（权力）要“敬”与“信”——自我约束；② 对下（百姓）要“节用”与“爱人”——以民为本；③ 对时（自然）要“以时”——不违天时。核心是：执政者克制私欲，百姓福祉第一。越大越要克制，这是孔子的政治智慧。'
-    }, {
+        deep: '这是孔子治国思想的浓缩，包含三个层面：对上（权力）要“敬”与“信”——自我约束；对下（百姓）要“节用”与“爱人”——以民为本；对时（自然）要“以时”——不违天时。核心是：执政者要克制自己的欲望，把民众的福祉放在第一位。越大越要克制，这是孔子的政治智慧。'
+    },
+    {
         id: '1.6',
         title: '行有余力，则以学文',
         original: '子曰：“弟子入则孝，出则弟，谨而信，泛爱众，而亲仁。行有余力，则以学文。”',
+        translation: '孔子说：“年轻人在家孝顺父母，出门敬爱兄长，言行谨慎而有信用，广泛地爱护大众，亲近有仁德的人。这些做到了还有余力，再去学习文化知识。”',
         annotation: [
-            { label: '🏠 入孝出弟', text: '在家孝顺父母，出门敬爱兄长。家庭伦理是人生第一课。' },
-            { label: '❤️ 泛爱众而亲仁', text: '广泛爱众人，但要亲近有仁德的人——爱不是无差别的，要有价值判断。' },
-            { label: '📚 行有余力则学文', text: '前面六件“行”做到了，还有余力，再去读书识字。德先于才，做人在先。' },
+            { label: '🏠 入孝出弟', text: '在家孝顺父母，出门敬爱兄长。家庭伦理是人生第一课，不是知识，而是关系。' },
+            { label: '📝 谨而信', text: '言语谨慎、说话算话，这是立身之本。' },
+            { label: '❤️ 泛爱众而亲仁', text: '从爱家人扩展到爱众人，但要选择性地“亲仁”（亲近有仁德的人），说明爱不是无差别的，要有价值判断。' },
+            { label: '📚 行有余力则学文', text: '前面六件事都是“行”（实践），最后才是“学文”（读书识字）。一个人如果做人的根基没打好，读再多书也是白搭。' }
         ],
-        deep: '孔子教育思想的根本次序：先做人，再读书。如果做人的根基没打好，读再多书也是白搭，甚至越读越坏（知识作恶）。这与今天“唯分数论”形成鲜明对比。'
-    }, {
+        deep: '这句话揭示了孔子教育思想的根本次序：德先于才，做人在先，读书在后。这与今天“唯分数论”的教育观形成了鲜明的对比。孔子的意思很明确——如果做人的根基没打好，读再多书也可能越读越坏（知识用来作恶）。'
+    },
+    {
         id: '1.7',
         title: '虽曰未学，吾必谓之学矣',
         original: '子夏曰：“贤贤易色；事父母，能竭其力；事君，能致其身；与朋友交，言而有信。虽曰未学，吾必谓之学矣。”',
+        translation: '子夏说：“看重贤德而轻视美色；侍奉父母能竭尽全力；事奉君主能献出生命；与朋友交往说话算话。这样的人即使自谦说没学过，我也认为他学成了。”',
         annotation: [
-            { label: '💎 贤贤易色', text: '第一个“贤”为动词（看重），第二个“贤”为名词（贤德），“易色”指轻视美色。价值观排序：德重于色。' },
+            { label: '💎 贤贤易色', text: '第一个“贤”是动词（看重），第二个“贤”是名词（贤德），“易色”是轻视美色。这句话放在最前面，表明一个人价值观的排序：德重于色，内在重于外在。' },
             { label: '🛡️ 致其身', text: '事奉君主能献出生命，指全力以赴、不顾私利。' },
+            { label: '👥 四伦', text: '四件事覆盖了四种关系：夫妻（贤贤易色）、父子（事父母）、君臣（事君）、朋友（与朋友交）。这四伦都做到了，人伦之道就完整了。' },
+            { label: '🎓 学的新定义', text: '子夏把“学”从读书识字拓展到了做人做事。一个人即使不认识字，只要在这些关系中都做对了，他就是真正“有学问”的人。' }
         ],
-        deep: '子夏重新定义了“学”：四件事覆盖四伦——夫妻（贤贤易色）、父子（事父母）、君臣（事君）、朋友（与朋友交）。这四伦做到，人伦之道就完整了。“虽曰未学，吾必谓之学矣”——实践才是真学问，不识字也可以是有学问的人。与1.6“行有余力则以学文”一脉相承。'
-    }, {
+        deep: '“虽曰未学，吾必谓之学矣”是点睛之笔：实践才是学问的真谛。这与1.6“行有余力则以学文”一脉相承——孔子和弟子们把“学”的定义从“读书认字”提升到了“做人做事”的层面。'
+    },
+    {
         id: '1.8',
         title: '过则勿惮改',
         original: '子曰：“君子不重则不威，学则不固。主忠信，无友不如己者。过则勿惮改。”',
+        translation: '孔子说：“君子不庄重就没有威严，所学的东西就不牢固。以忠信为主，不和道德上不如自己的人交朋友。有了过错，不要怕改正。”',
         annotation: [
-            { label: '⚖️ 重', text: '庄重、稳重。不庄重就没有威严，学的东西也不牢固。' },
-            { label: '🧑‍🤝‍🧑 无友不如己者', text: '不和道德上不如自己的人深交（或理解为：没有朋友完全不如自己，要看到别人长处）。择友要慎重。' },
-            { label: '🛠️ 过则勿惮改', text: '“惮”是害怕、畏难。有了过错不要怕改正——不要怕丢脸，不要拖延。' },
+            { label: '⚖️ 重', text: '庄重、稳重。不是摆架子，而是一种内在的稳重。一个人轻浮、随便，说话没人信服，学的东西也落实不到行动上。' },
+            { label: '💼 主忠信', text: '以忠信为立身之本。忠是尽己，信是践言，这是做人的两根支柱。' },
+            { label: '🧑‍🤝‍🧑 无友不如己者', text: '这句话争议很大，但合理的理解是：不要和道德上不如自己的人深交（或理解为：没有朋友是不如自己的，要看到每个人的长处）。择友要慎重，朋友会影响你的德行。' },
+            { label: '🛠️ 过则勿惮改', text: '“惮”是害怕、畏难。有了过错不要怕改正——不要怕丢脸，不要拖延。' }
         ],
-        deep: '君子四修：庄重（内在外在的统一）、忠信（立身之本）、慎友（环境影响）、改过（成长的关键）。最务实的是“过则勿惮改”——人非圣贤，错不可怕，可怕的是没勇气面对。'
-    }, {
+        deep: '这句话讲的是君子自我修养的四要素：庄重、忠信、慎友、改过。最务实的是“过则勿惮改”——人非圣贤，孰能无过？关键是“惮”字，惮是害怕、畏难。很多人不改过，不是不知道错，而是没勇气面对、没决心改正。孔子鼓励的是：错了就改，别怕丢脸，别拖延。'
+    },
+    {
         id: '1.9',
         title: '慎终追远，民德归厚',
         original: '曾子曰：“慎终追远，民德归厚矣。”',
+        translation: '曾子说：“慎重地办理丧事，追念远代祖先，民众的品德就会归于淳厚。”',
         annotation: [
-            { label: '⚰️ 慎终', text: '慎重办理丧事。不是形式主义，而是通过仪式表达对父母的哀痛与感恩。' },
-            { label: '🧬 追远', text: '追念远代祖先。把个人生命放到家族传承的长河中，培养“承上启下”的责任感。' },
+            { label: '⚰️ 慎终', text: '慎重办理丧事。不是形式主义，而是通过仪式表达对父母的哀痛与感恩。当一个人跪在灵前，想起父母的生养之恩，那种发自内心的悲痛和感恩，会冲刷掉平时的功利算计。' },
+            { label: '🧬 追远', text: '追念远代祖先。把个人生命放到家族传承的长河中看待，培养“承上启下”的责任感。当你意识到自己今天的一切都源于祖先一代代的付出，就会产生一种责任感，不再只图眼前利益。' },
+            { label: '❤️ 感恩', text: '感恩是道德的总开关。知道“欠”父母的、欠祖先的，人就有了底线和敬畏。一个懂得感恩的人，会更宽容、更有责任感、更不容易作恶。' },
+            { label: '🏛️ 政治智慧', text: '孔子和曾子都深知，单纯靠法律禁令来约束民众是低效的。真正的长治久安，要靠民风的“厚”。而民风变厚，最好的切入点就是丧祭之礼，因为这里面有天然的悲悯和感恩。' }
         ],
-        deep: '三层深意：① 形式背后的情感——丧祭之礼承载着“情”，是感恩的具象化表达；② 由家及国——孝从生前延伸到身后，从父母扩展到祖先，是“推恩”逻辑；③ 感恩是道德的总开关——知道“欠”父母的、欠祖先的，人就有了底线和敬畏。民风变“厚”，社会自然安稳。'
-    }];
+        deep: '这句话有三层递进的道理：① 形式背后是情感——丧祭之礼承载着“情”，是感恩的具象化表达；② 由家及国——孝从生前延伸到身后，从父母扩展到祖先，是“推恩”逻辑；③ 感恩是道德的总开关——民风变“厚”，社会自然安稳。慎终追远绝不是形式主义，而是通过仪式感来触动人内心最深处的敬畏和感恩。'
+    }
+];
 
-    // --------------------------------------------------------------
-    // 渲染
-    // --------------------------------------------------------------
-    const tocList = document.getElementById('tocList');
-    const contentArea = document.getElementById('contentArea');
+const tocList = document.getElementById('tocList');
+const contentArea = document.getElementById('contentArea');
 
-    // 构建目录
-    chapters.forEach((ch, idx) => {
-        const li = document.createElement('li');
-        li.dataset.id = ch.id;
-        li.innerHTML = `
-            <span class="num">${ch.id}</span>
-            <span>${ch.title}</span>
-            <span class="badge">${ch.original.slice(0, 12)}…</span>
-        `;
-        li.addEventListener('click', () => {
-            setActiveChapter(ch.id);
-        });
-        tocList.appendChild(li);
+chapters.forEach(ch => {
+    const li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = `<span class="num">${ch.id}</span><span>${ch.title}</span><span class="badge">…</span>`;
+    li.addEventListener('click', () => setActiveChapter(ch.id));
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(el => {
+        el.classList.toggle('active', el.dataset.id === id);
     });
-
-    // 默认激活第一个
-    let currentId = chapters[0].id;
-
-    function setActiveChapter(id) {
-        currentId = id;
-        // 更新目录高亮
-        document.querySelectorAll('.toc-list li').forEach(el => {
-            el.classList.toggle('active', el.dataset.id === id);
-        });
-        // 渲染内容
-        renderChapter(id);
-        // 滚动到内容区（移动端友好）
-        if (window.innerWidth <= 820) {
-            contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+}
 
-    function renderChapter(id) {
-        const ch = chapters.find(c => c.id === id);
-        if (!ch) return;
-
-        // 构造注解html
-        let annotationHtml = '';
-        ch.annotation.forEach(a => {
-            annotationHtml += `
-                <div class="block">
-                    <strong>${a.label}</strong> ${a.text}
-                </div>
-            `;
-        });
-
-        const html = `
-            <div class="chapter-card active" id="card-${ch.id}">
-                <div class="ref">
-                    <span>📖 学而篇 · ${ch.id}</span>
-                    <span class="tag">今日深读</span>
-                </div>
-                <h3>${ch.title}</h3>
-                <div class="original">${ch.original}</div>
-
-                <div class="annotation">
-                    ${annotationHtml}
-                </div>
-
-                <div class="deep">
-                    <i>🧠 内核</i> ${ch.deep}
-                </div>
-
-                <div class="meta-note">
-                    <span>🔗 章节 ${ch.id}</span>
-                    <span style="display: flex; gap: 0.8rem;">
-                        <span id="prevBtn" style="cursor:pointer; color:#7f6952;">← 上一章</span>
-                        <span id="nextBtn" style="cursor:pointer; color:#7f6952;">下一章 →</span>
-                    </span>
-                </div>
+function renderChapter(id) {
+    const ch = chapters.find(c => c.id === id);
+    if (!ch) return;
+    let annotationHtml = '';
+    ch.annotation.forEach(a => {
+        annotationHtml += `<div class="block"><strong>${a.label}</strong> ${a.text}</div>`;
+    });
+    contentArea.innerHTML = `
+        <div class="chapter-card active">
+            <div class="ref"><span>📖 学而篇 · ${ch.id}</span><span class="tag">第一天</span></div>
+            <h3>${ch.title}</h3>
+            <div class="original">${ch.original}</div>
+            <div class="translation"><strong>白话译文：</strong>${ch.translation}</div>
+            <div class="annotation">${annotationHtml}</div>
+            <div class="deep"><i>🧠 内核</i> ${ch.deep}</div>
+            <div class="meta-note">
+                <span>🔗 章节 ${ch.id}</span>
+                <span style="display:flex;gap:0.8rem;">
+                    <span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>
+                    <span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>
+                </span>
             </div>
-        `;
-        contentArea.innerHTML = html;
+        </div>
+    `;
+    const idx = chapters.findIndex(c => c.id === id);
+    document.getElementById('prevBtn')?.addEventListener('click', () => {
+        if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+    });
+    document.getElementById('nextBtn')?.addEventListener('click', () => {
+        if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+    });
+}
 
-        // 绑定上一页/下一页
-        const idx = chapters.findIndex(c => c.id === id);
-        document.getElementById('prevBtn')?.addEventListener('click', () => {
-            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
-        });
-        document.getElementById('nextBtn')?.addEventListener('click', () => {
-            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
-        });
-    }
-
-    // 启动：加载第一篇
-    setActiveChapter(chapters[0].id);
+setActiveChapter(chapters[0].id);
 </script>
-
 </body>
 </html>
