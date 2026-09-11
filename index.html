@@ -24,7 +24,7 @@
             background: #e2d7c8; height: 6px; border-radius: 6px; overflow: hidden;
             margin-top: 1.2rem;
         }
-        .progress-bar .fill { background: #8b6f50; height: 100%; width: 10%; border-radius: 6px; }
+        .progress-bar .fill { background: #8b6f50; height: 100%; width: 10%; border-radius: 6px; transition: width 0.4s; }
         .section {
             background: #fffcf7; border: 1px solid #e2d7c8;
             border-radius: 20px; padding: 1.5rem 1.8rem;
@@ -76,12 +76,12 @@
 <div class="app">
     <div class="header">
         <h1>📖 论语 · 每日学习</h1>
-        <div class="sub">
+        <div class="sub" id="stats">
             <span>📘 学而篇 · 已完结</span>
-            <span>📅 已学 2 天</span>
-            <span>✍️ 约 483 字</span>
+            <span id="daysCount">📅 已学 0 天</span>
+            <span id="wordsCount">✍️ 约 0 字</span>
         </div>
-        <div class="progress-bar"><div class="fill" style="width: 10%;"></div></div>
+        <div class="progress-bar"><div class="fill" id="progressFill" style="width: 0%;"></div></div>
     </div>
 
     <!-- 学而篇 -->
@@ -89,14 +89,14 @@
         <h2>📗 学而篇第一 <small>共 16 章 · 已完结</small></h2>
         <ul class="lesson-list">
             <li>
-                <a href="day1.html">
+                <a href="day1.html" data-words="207">
                     <span class="day-num">第一天</span>
                     <span class="title">学而篇 1.1 ~ 1.9</span>
                     <span class="range">约 207 字</span>
                 </a>
             </li>
             <li>
-                <a href="day2.html">
+                <a href="day2.html" data-words="276">
                     <span class="day-num">第二天</span>
                     <span class="title">学而篇 1.10 ~ 1.16</span>
                     <span class="range">约 276 字</span>
@@ -105,39 +105,32 @@
         </ul>
     </div>
 
-    <!-- 为政篇（预留） -->
+    <!-- 为政篇 -->
     <div class="section">
-        <h2>📘 为政篇第二 <small>共 24 章 · 待更新</small></h2>
+        <h2>📘 为政篇第二 <small>共 24 章 · 连载中</small></h2>
         <ul class="lesson-list">
             <li>
-                <a href="day3.html">
+                <a href="day3.html" data-words="230">
                     <span class="day-num">第三天</span>
                     <span class="title">为政篇 2.1 ~ 2.8</span>
                     <span class="range">约 230 字</span>
                 </a>
             </li>
-        </ul>
-    </div>
-
-    <!-- 八佾篇（预留） -->
-    <div class="section">
-        <h2>📙 八佾篇第三 <small>共 26 章 · 待更新</small></h2>
-        <ul class="lesson-list">
             <li class="disabled">
-                <span class="day-num">第五天</span>
-                <span class="title">八佾篇 3.1 ~ 3.XX</span>
+                <span class="day-num">第四天</span>
+                <span class="title">为政篇 2.9 ~ 2.16</span>
                 <span class="range">待更新</span>
             </li>
         </ul>
     </div>
 
-    <!-- 后续篇目可继续添加 -->
+    <!-- 后续篇目预留 -->
     <div class="section">
-        <h2>📕 里仁篇第四 <small>共 26 章 · 待更新</small></h2>
+        <h2>📙 八佾篇第三 <small>共 26 章 · 待更新</small></h2>
         <ul class="lesson-list">
             <li class="disabled">
                 <span class="day-num">待定</span>
-                <span class="title">里仁篇 4.1 ~ 4.XX</span>
+                <span class="title">八佾篇 3.1 ~ 3.XX</span>
                 <span class="range">待更新</span>
             </li>
         </ul>
@@ -148,5 +141,31 @@
         <span>🔖 一年四遍 · 熟读精思</span>
     </div>
 </div>
+
+<script>
+(function() {
+    // 统计所有可点击的章节链接
+    var links = document.querySelectorAll('.lesson-list li a[data-words]');
+    var totalDays = links.length;
+    var totalWords = 0;
+
+    links.forEach(function(link) {
+        var w = parseInt(link.getAttribute('data-words'), 10);
+        if (!isNaN(w)) totalWords += w;
+    });
+
+    // 填入统计数字
+    var daysEl = document.getElementById('daysCount');
+    var wordsEl = document.getElementById('wordsCount');
+    if (daysEl) daysEl.textContent = '📅 已学 ' + totalDays + ' 天';
+    if (wordsEl) wordsEl.textContent = '✍️ 约 ' + totalWords + ' 字';
+
+    // 进度条：假设全书约 16000 字，按已学字数算百分比
+    var totalBookWords = 16000;
+    var percent = Math.min(100, Math.round((totalWords / totalBookWords) * 100));
+    var fillEl = document.getElementById('progressFill');
+    if (fillEl) fillEl.style.width = percent + '%';
+})();
+</script>
 </body>
 </html>
