@@ -139,7 +139,7 @@
 </div>
 
 <script>
-const chapters = [
+var chapters = [
     {
         id: '2.1',
         title: '为政以德，譬如北辰',
@@ -150,7 +150,7 @@ const chapters = [
             { label: '💡 核心', text: '执政者以德治国，不靠发号施令、严刑峻法，百姓自然归附。德行本身就有吸引力。' },
             { label: '🎯 居其所', text: '执政者最重要的不是忙忙碌碌，而是先把自己修好，站对位置，剩下的自然发生。' }
         ],
-        deep: '这是孔子政治思想的纲领。真正的领导力不是靠权力压人，而是靠德行化人。与1.10“温良恭俭让以得之”一脉相承：你是什么样的人，就会吸引什么样的跟随者。孔子反对以力服人，主张以德服人。'
+        deep: '这是孔子政治思想的纲领。真正的领导力不是靠权力压人，而是靠德行化人。与1.10“温良恭俭让以得之”一脉相承：你是什么样的人，就会吸引什么样的跟随者。'
     },
     {
         id: '2.2',
@@ -237,19 +237,19 @@ const chapters = [
     }
 ];
 
-const tocList = document.getElementById('tocList');
-const contentArea = document.getElementById('contentArea');
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
 
-chapters.forEach(ch => {
-    const li = document.createElement('li');
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
     li.dataset.id = ch.id;
-    li.innerHTML = `<span class="num">${ch.id}</span><span>${ch.title}</span><span class="badge">…</span>`;
-    li.addEventListener('click', () => setActiveChapter(ch.id));
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
     tocList.appendChild(li);
 });
 
 function setActiveChapter(id) {
-    document.querySelectorAll('.toc-list li').forEach(el => {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
         el.classList.toggle('active', el.dataset.id === id);
     });
     renderChapter(id);
@@ -259,36 +259,45 @@ function setActiveChapter(id) {
 }
 
 function renderChapter(id) {
-    const ch = chapters.find(c => c.id === id);
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
     if (!ch) return;
-    let annotationHtml = '';
-    ch.annotation.forEach(a => {
-        annotationHtml += `<div class="block"><strong>${a.label}</strong> ${a.text}</div>`;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
     });
-    contentArea.innerHTML = `
-        <div class="chapter-card active">
-            <div class="ref"><span>📖 为政篇 · ${ch.id}</span><span class="tag">第三天</span></div>
-            <h3>${ch.title}</h3>
-            <div class="original">${ch.original}</div>
-            <div class="translation"><strong>白话译文：</strong>${ch.translation}</div>
-            <div class="annotation">${annotationHtml}</div>
-            <div class="deep"><i>🧠 内核</i> ${ch.deep}</div>
-            <div class="meta-note">
-                <span>🔗 章节 ${ch.id}</span>
-                <span style="display:flex;gap:0.8rem;">
-                    <span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>
-                    <span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>
-                </span>
-            </div>
-        </div>
-    `;
-    const idx = chapters.findIndex(c => c.id === id);
-    document.getElementById('prevBtn')?.addEventListener('click', () => {
-        if (idx > 0) setActiveChapter(chapters[idx - 1].id);
-    });
-    document.getElementById('nextBtn')?.addEventListener('click', () => {
-        if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
-    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="ref"><span>📖 为政篇 · ' + ch.id + '</span><span class="tag">第三天</span></div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+        });
+    }
 }
 
 setActiveChapter(chapters[0].id);
