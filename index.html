@@ -24,7 +24,7 @@
             background: #e2d7c8; height: 6px; border-radius: 6px; overflow: hidden;
             margin-top: 1.2rem;
         }
-        .progress-bar .fill { background: #8b6f50; height: 100%; width: 10%; border-radius: 6px; transition: width 0.4s; }
+        .progress-bar .fill { background: #8b6f50; height: 100%; width: 0%; border-radius: 6px; transition: width 0.4s; }
         .section {
             background: #fffcf7; border: 1px solid #e2d7c8;
             border-radius: 20px; padding: 1.5rem 1.8rem;
@@ -116,9 +116,16 @@
                     <span class="range">约 230 字</span>
                 </a>
             </li>
+            <li>
+                <a href="day4.html" data-words="250">
+                    <span class="day-num">第四天</span>
+                    <span class="title">为政篇 2.9 ~ 2.16</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
             <li class="disabled">
-                <span class="day-num">第四天</span>
-                <span class="title">为政篇 2.9 ~ 2.16</span>
+                <span class="day-num">第五天</span>
+                <span class="title">为政篇 2.17 ~ 2.24</span>
                 <span class="range">待更新</span>
             </li>
         </ul>
@@ -144,7 +151,6 @@
 
 <script>
 (function() {
-    // 统计所有可点击的章节链接
     var links = document.querySelectorAll('.lesson-list li a[data-words]');
     var totalDays = links.length;
     var totalWords = 0;
@@ -154,13 +160,11 @@
         if (!isNaN(w)) totalWords += w;
     });
 
-    // 填入统计数字
     var daysEl = document.getElementById('daysCount');
     var wordsEl = document.getElementById('wordsCount');
     if (daysEl) daysEl.textContent = '📅 已学 ' + totalDays + ' 天';
     if (wordsEl) wordsEl.textContent = '✍️ 约 ' + totalWords + ' 字';
 
-    // 进度条：假设全书约 16000 字，按已学字数算百分比
     var totalBookWords = 16000;
     var percent = Math.min(100, Math.round((totalWords / totalBookWords) * 100));
     var fillEl = document.getElementById('progressFill');
