@@ -12,7 +12,9 @@
             display: flex; justify-content: center;
             padding: 3rem 1.5rem;
         }
-        .app { max-width: 800px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .app { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+
+        /* 头部 */
         .header { text-align: center; border-bottom: 2px solid #d4c5a0; padding-bottom: 1.8rem; }
         .header h1 { font-size: 2.5rem; font-weight: 500; letter-spacing: 8px; color: #3e2e1f; }
         .header .sub {
@@ -25,6 +27,41 @@
             margin-top: 1.2rem;
         }
         .progress-bar .fill { background: #8b6f50; height: 100%; width: 0%; border-radius: 6px; transition: width 0.4s; }
+
+        /* 篇名总览导航 */
+        .book-nav {
+            background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 20px; padding: 1.5rem 1.2rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+        .book-nav h2 {
+            font-size: 1rem; font-weight: 600; color: #4d3e2b;
+            letter-spacing: 1px; margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .book-nav h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+        }
+        .book-grid a {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 0.6rem 0.3rem; border-radius: 10px;
+            text-decoration: none; color: #3d3429;
+            background: #f7f2ea; transition: 0.15s;
+            font-size: 0.85rem; text-align: center;
+        }
+        .book-grid a:hover { background: #ede6db; }
+        .book-grid a .num { font-size: 0.7rem; color: #8a7a64; }
+        .book-grid a .name { font-weight: 500; margin-top: 2px; }
+        .book-grid a.done { background: #e8f0e8; color: #2e5e2e; }
+        .book-grid a.done .num { color: #5a8a5a; }
+        .book-grid a.current { background: #eadecd; color: #2c1f12; }
+        .book-grid a.current .num { color: #8b6f50; }
+        .book-grid a.disabled { opacity: 0.45; pointer-events: none; }
+
+        /* 篇目详情 */
         .section {
             background: #fffcf7; border: 1px solid #e2d7c8;
             border-radius: 20px; padding: 1.5rem 1.8rem;
@@ -55,10 +92,9 @@
         }
         .lesson-list li .title { font-weight: 450; }
         .lesson-list li .range { margin-left: auto; font-size: 0.8rem; color: #8a7a64; white-space: nowrap; }
-        .lesson-list li.disabled {
-            opacity: 0.5; background: #f0ede8; pointer-events: none;
-        }
+        .lesson-list li.disabled { opacity: 0.5; background: #f0ede8; pointer-events: none; }
         .lesson-list li.disabled .day-num { background: #d4cec6; }
+
         .footer-note {
             text-align: center; font-size: 0.9rem; color: #8c7a64;
             border-top: 1px solid #ddd0c0; padding-top: 1.5rem;
@@ -69,6 +105,10 @@
             .header h1 { font-size: 1.8rem; letter-spacing: 4px; }
             .section { padding: 1.2rem 1rem; }
             .lesson-list li .range { display: none; }
+            .book-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        @media (max-width: 400px) {
+            .book-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -77,15 +117,42 @@
     <div class="header">
         <h1>📖 论语 · 每日学习</h1>
         <div class="sub" id="stats">
-            <span>📘 学而篇 · 已完结</span>
+            <span>📘 已学 5 天</span>
             <span id="daysCount">📅 已学 0 天</span>
             <span id="wordsCount">✍️ 约 0 字</span>
         </div>
         <div class="progress-bar"><div class="fill" id="progressFill" style="width: 0%;"></div></div>
     </div>
 
+    <!-- 篇名总览导航 -->
+    <div class="book-nav">
+        <h2>📚 全书篇目 <small>点击跳转</small></h2>
+        <div class="book-grid">
+            <a href="#xueer" class="done"><span class="num">第一篇</span><span class="name">学而</span></a>
+            <a href="#weizheng" class="done"><span class="num">第二篇</span><span class="name">为政</span></a>
+            <a href="#bayi" class="current"><span class="num">第三篇</span><span class="name">八佾</span></a>
+            <a href="#liren" class="disabled"><span class="num">第四篇</span><span class="name">里仁</span></a>
+            <a href="#gongye" class="disabled"><span class="num">第五篇</span><span class="name">公冶长</span></a>
+            <a href="#yongye" class="disabled"><span class="num">第六篇</span><span class="name">雍也</span></a>
+            <a href="#shuer" class="disabled"><span class="num">第七篇</span><span class="name">述而</span></a>
+            <a href="#taibo" class="disabled"><span class="num">第八篇</span><span class="name">泰伯</span></a>
+            <a href="#zihan" class="disabled"><span class="num">第九篇</span><span class="name">子罕</span></a>
+            <a href="#xiangdang" class="disabled"><span class="num">第十篇</span><span class="name">乡党</span></a>
+            <a href="#xianjin" class="disabled"><span class="num">第十一篇</span><span class="name">先进</span></a>
+            <a href="#yanyuan" class="disabled"><span class="num">第十二篇</span><span class="name">颜渊</span></a>
+            <a href="#zilu" class="disabled"><span class="num">第十三篇</span><span class="name">子路</span></a>
+            <a href="#xianwen" class="disabled"><span class="num">第十四篇</span><span class="name">宪问</span></a>
+            <a href="#weilinggong" class="disabled"><span class="num">第十五篇</span><span class="name">卫灵公</span></a>
+            <a href="#jishi" class="disabled"><span class="num">第十六篇</span><span class="name">季氏</span></a>
+            <a href="#yanghuo" class="disabled"><span class="num">第十七篇</span><span class="name">阳货</span></a>
+            <a href="#weizi" class="disabled"><span class="num">第十八篇</span><span class="name">微子</span></a>
+            <a href="#zizhang" class="disabled"><span class="num">第十九篇</span><span class="name">子张</span></a>
+            <a href="#yaoyue" class="disabled"><span class="num">第二十篇</span><span class="name">尧曰</span></a>
+        </div>
+    </div>
+
     <!-- 学而篇 -->
-    <div class="section">
+    <div class="section" id="xueer">
         <h2>📗 学而篇第一 <small>共 16 章 · 已完结</small></h2>
         <ul class="lesson-list">
             <li>
@@ -106,8 +173,8 @@
     </div>
 
     <!-- 为政篇 -->
-    <div class="section">
-        <h2>📘 为政篇第二 <small>共 24 章 · 连载中</small></h2>
+    <div class="section" id="weizheng">
+        <h2>📘 为政篇第二 <small>共 24 章 · 已完结</small></h2>
         <ul class="lesson-list">
             <li>
                 <a href="day3.html" data-words="230">
@@ -130,21 +197,16 @@
                     <span class="range">约 240 字</span>
                 </a>
             </li>
-            <li class="disabled">
-                <span class="day-num">第六天</span>
-                <span class="title">为政篇 2.25 ~ 2.24</span>
-                <span class="range">待更新</span>
-            </li>
         </ul>
     </div>
 
-    <!-- 后续篇目预留 -->
-    <div class="section">
+    <!-- 八佾篇 -->
+    <div class="section" id="bayi">
         <h2>📙 八佾篇第三 <small>共 26 章 · 待更新</small></h2>
         <ul class="lesson-list">
             <li class="disabled">
-                <span class="day-num">待定</span>
-                <span class="title">八佾篇 3.1 ~ 3.XX</span>
+                <span class="day-num">第六天</span>
+                <span class="title">八佾篇 3.1 ~ 3.8</span>
                 <span class="range">待更新</span>
             </li>
         </ul>
@@ -158,24 +220,35 @@
 
 <script>
 (function() {
+    // 统计已学
     var links = document.querySelectorAll('.lesson-list li a[data-words]');
     var totalDays = links.length;
     var totalWords = 0;
-
     links.forEach(function(link) {
         var w = parseInt(link.getAttribute('data-words'), 10);
         if (!isNaN(w)) totalWords += w;
     });
-
     var daysEl = document.getElementById('daysCount');
     var wordsEl = document.getElementById('wordsCount');
     if (daysEl) daysEl.textContent = '📅 已学 ' + totalDays + ' 天';
     if (wordsEl) wordsEl.textContent = '✍️ 约 ' + totalWords + ' 字';
 
+    // 进度条
     var totalBookWords = 16000;
     var percent = Math.min(100, Math.round((totalWords / totalBookWords) * 100));
     var fillEl = document.getElementById('progressFill');
     if (fillEl) fillEl.style.width = percent + '%';
+
+    // 平滑滚动
+    document.querySelectorAll('.book-grid a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            var target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
 })();
 </script>
 </body>
