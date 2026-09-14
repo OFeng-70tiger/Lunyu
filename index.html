@@ -13,8 +13,6 @@
             padding: 3rem 1.5rem;
         }
         .app { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
-
-        /* 头部 */
         .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.8rem; }
         .intro-row {
             display: flex; align-items: center; gap: 2rem;
@@ -46,8 +44,6 @@
             margin-top: 1.2rem;
         }
         .progress-bar .fill { background: #8b6f50; height: 100%; width: 0%; border-radius: 6px; transition: width 0.4s; }
-
-        /* 篇名总览导航 */
         .book-nav {
             background: #fffcf7; border: 1px solid #e2d7c8;
             border-radius: 20px; padding: 1.5rem 1.2rem;
@@ -79,8 +75,6 @@
         .book-grid a.current { background: #eadecd; color: #2c1f12; }
         .book-grid a.current .num { color: #8b6f50; }
         .book-grid a.disabled { opacity: 0.45; pointer-events: none; }
-
-        /* 篇目详情 */
         .section {
             background: #fffcf7; border: 1px solid #e2d7c8;
             border-radius: 20px; padding: 1.5rem 1.8rem;
@@ -113,7 +107,6 @@
         .lesson-list li .range { margin-left: auto; font-size: 0.8rem; color: #8a7a64; white-space: nowrap; }
         .lesson-list li.disabled { opacity: 0.5; background: #f0ede8; pointer-events: none; }
         .lesson-list li.disabled .day-num { background: #d4cec6; }
-
         .footer-note {
             text-align: center; font-size: 0.9rem; color: #8c7a64;
             border-top: 1px solid #ddd0c0; padding-top: 1.5rem;
@@ -148,7 +141,7 @@
             </div>
         </div>
         <div class="sub" id="stats">
-            <span>📘 已学 5 天</span>
+            <span>📘 已学 6 天</span>
             <span id="daysCount">📅 已学 0 天</span>
             <span id="wordsCount">✍️ 约 0 字</span>
         </div>
@@ -233,11 +226,18 @@
 
     <!-- 八佾篇 -->
     <div class="section" id="bayi">
-        <h2>📙 八佾篇第三 <small>共 26 章 · 待更新</small></h2>
+        <h2>📙 八佾篇第三 <small>共 26 章 · 连载中</small></h2>
         <ul class="lesson-list">
+            <li>
+                <a href="day6.html" data-words="240">
+                    <span class="day-num">第六天</span>
+                    <span class="title">八佾篇 3.1 ~ 3.8</span>
+                    <span class="range">约 240 字</span>
+                </a>
+            </li>
             <li class="disabled">
-                <span class="day-num">第六天</span>
-                <span class="title">八佾篇 3.1 ~ 3.8</span>
+                <span class="day-num">第七天</span>
+                <span class="title">八佾篇 3.9 ~ 3.16</span>
                 <span class="range">待更新</span>
             </li>
         </ul>
