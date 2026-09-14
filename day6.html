@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 八佾篇 · 第六天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+        .back-btn {
+            display: inline-block; margin-top: 1rem;
+            color: #826a4e; background: #f0e9df;
+            border: 1px solid #cbbba8; padding: 0.4rem 1.8rem;
+            border-radius: 40px; font-size: 0.9rem;
+            text-decoration: none; transition: 0.2s;
+        }
+        .back-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc {
+            flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .toc h2 {
+            font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li {
+            display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+            color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent;
+        }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge {
+            background: #dacfc0; color: #3e3225; font-size: 0.7rem;
+            padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto;
+            font-weight: 400; letter-spacing: 0.3px;
+        }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content {
+            flex: 1; background: #fffffffa; border: 1px solid #e8dfd3;
+            border-radius: 20px; padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px;
+        }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+        .chapter-card .ref {
+            font-size: 0.9rem; color: #8a7a64; border-bottom: 1px dashed #ddd0c0;
+            padding-bottom: 0.5rem; margin-bottom: 1.2rem;
+            display: flex; justify-content: space-between;
+        }
+        .chapter-card .ref .tag { background: #ede6db; padding: 0 0.8rem; border-radius: 40px; font-size: 0.8rem; }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original {
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
+            font-size: 1.15rem; line-height: 1.8; color: #1f1a14;
+            margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450;
+        }
+        .chapter-card .translation {
+            background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px;
+            font-size: 1.05rem; line-height: 1.8; color: #1f3a1f;
+            margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e;
+        }
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block {
+            background: #fcfaf7; padding: 0.8rem 1.4rem;
+            border-radius: 14px; border: 1px solid #ece3d8;
+        }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep {
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem;
+            font-size: 0.98rem; line-height: 1.7; color: #2f261d;
+        }
+        .chapter-card .annotation .deep i {
+            color: #6f5b45; font-style: normal; background: #e8ddd0;
+            padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px;
+        }
+        .meta-note {
+            margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap;
+        }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 八佾篇</h1>
+        <div class="sub">
+            <span>📅 第六天 · 3.1 ~ 3.8</span>
+            <span>📘 共 8 章</span>
+            <span>✍️ 约 240 字</span>
+            <span>🧠 礼与仁</span>
+        </div>
+        <a href="index.html" class="back-btn">🏠 返回总目录</a>
+    </div>
+
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>3.1 ~ 3.8</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">
+                ⚡ 点击章节跳转
+            </div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap;">
+        <span>📚 今日进度：八佾篇 3.1 — 3.8</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
+    </div>
+</div>
+
+<script>
+var chapters = [
+    {
+        id: '3.1',
+        title: '八佾舞于庭',
+        original: '孔子谓季氏：“八佾舞于庭，是可忍也，孰不可忍也？”',
+        translation: '孔子谈到季氏时说：“他用六十四人在庭院中奏乐舞蹈，这都可以容忍的话，还有什么不可以容忍呢？”',
+        annotation: [
+            { label: '👤 季氏', text: '鲁国大夫季孙氏，权臣。' },
+            { label: '💃 八佾', text: '古代舞蹈奏乐的行列，八人一行叫一佾。八佾就是八行，共六十四人。按周礼，只有天子才能用八佾，诸侯用六佾，大夫用四佾。' },
+            { label: '⚠️ 僭越', text: '季氏是大夫，只能用四佾（三十二人），却用了天子的八佾（六十四人）。这是严重的僭越。' }
+        ],
+        deep: '孔子说“是可忍也，孰不可忍也”，不是说他个人忍不了，而是说这种事如果都能容忍，那还有什么礼制可言？礼崩乐坏，就是从这种僭越开始的。这与2.3“道之以德，齐之以礼”一脉相承：孔子一生最痛心的就是礼制的崩坏。'
+    },
+    {
+        id: '3.2',
+        title: '三家者以《雍》彻',
+        original: '三家者以《雍》彻。子曰：“‘相维辟公，天子穆穆’，奚取于三家之堂？”',
+        translation: '三家在祭祀完毕后，用天子的《雍》诗来撤去祭品。孔子说：“《雍》诗上说‘助祭的是诸侯，天子庄严肃穆’，这样的诗句怎么能用在三家大夫的庙堂上呢？”',
+        annotation: [
+            { label: '👥 三家', text: '鲁国三大权臣家族——孟孙氏、叔孙氏、季孙氏。' },
+            { label: '📖 《雍》', text: '《诗经·周颂》中的一篇，天子祭祀宗庙后撤去祭品时所唱。' },
+            { label: '🚫 僭越', text: '三家是大夫，按礼制不能用天子的乐诗。但他们不仅用了，还堂而皇之地在自家庙堂上演奏。' }
+        ],
+        deep: '这与3.1一脉相承：僭越礼制，就是破坏秩序。孔子引诗讽刺，不是抠字眼，而是指出：礼制不是形式，它承载着秩序和名分。名分一乱，天下就乱了。'
+    },
+    {
+        id: '3.3',
+        title: '人而不仁，如礼何',
+        original: '子曰：“人而不仁，如礼何？人而不仁，如乐何？”',
+        translation: '孔子说：“一个人没有仁德，礼对他还有什么用呢？一个人没有仁德，乐对他还有什么用呢？”',
+        annotation: [
+            { label: '❤️ 不仁', text: '没有仁德。' },
+            { label: '📋 如礼何', text: '把礼怎么办？意思是礼对他还有什么用？' },
+            { label: '🎵 如乐何', text: '把乐怎么办？意思是乐对他还有什么用？' }
+        ],
+        deep: '这是八佾篇的核心命题。礼乐不是外在的形式，而是内在仁德的表现。一个人如果没有仁德，就算他把礼乐表演得再完美，也只是空壳。这与2.3“道之以德，齐之以礼”一脉相承：德是里，礼是表；仁是内核，礼乐是形式。'
+    },
+    {
+        id: '3.4',
+        title: '林放问礼之本',
+        original: '林放问礼之本。子曰：“大哉问！礼，与其奢也，宁俭；丧，与其易也，宁戚。”',
+        translation: '林放问礼的根本是什么。孔子说：“问得好啊！礼，与其铺张浪费，不如俭朴；丧礼，与其办得周全却缺乏真情，不如内心真正悲伤。”',
+        annotation: [
+            { label: '👤 林放', text: '鲁国人，一说孔子弟子。' },
+            { label: '🎯 大哉问', text: '问得好啊！' },
+            { label: '💰 奢与俭', text: '礼的排场，与其铺张，不如俭朴。因为俭朴至少不失真诚，铺张往往流于炫耀。' },
+            { label: '😢 易与戚', text: '丧礼，与其办得周全却缺乏真情，不如内心真正悲伤。丧礼的核心是哀痛，不是排场。' }
+        ],
+        deep: '林放问“礼的根本”，孔子没有直接回答，而是用两个对比来说明：礼的根本不在形式，而在真情。这与1.9“慎终追远”、2.7“不敬何以别乎”、2.8“色难”一脉相承：孔子始终把真情放在形式之上。'
+    },
+    {
+        id: '3.5',
+        title: '夷狄之有君，不如诸夏之亡也',
+        original: '子曰：“夷狄之有君，不如诸夏之亡也。”',
+        translation: '孔子说：“夷狄虽然有君主，还不如中原各国没有君主呢。”',
+        annotation: [
+            { label: '🌍 夷狄', text: '古代对周边少数民族的称呼。' },
+            { label: '🏛️ 诸夏', text: '中原华夏各国。' },
+            { label: '🚫 亡', text: '通“无”，没有。' }
+        ],
+        deep: '这句话历来争议很大。通常的理解是：夷狄虽然有君主，但没有礼制；中原各国虽然有时没有君主，但有礼制。在孔子看来，礼制比君主更重要。一个社会的根本，不是有没有统治者，而是有没有礼制秩序。'
+    },
+    {
+        id: '3.6',
+        title: '季氏旅于泰山',
+        original: '季氏旅于泰山。子谓冉有曰：“女弗能救与？”对曰：“不能。”子曰：“呜呼！曾谓泰山不如林放乎？”',
+        translation: '季氏要去祭祀泰山。孔子对冉有说：“你不能阻止他吗？”冉有回答说：“不能。”孔子说：“唉！难道说泰山之神还不如林放懂礼吗？”',
+        annotation: [
+            { label: '⛰️ 旅', text: '祭祀山川。按礼制，只有天子才能祭祀泰山，诸侯只能祭祀自己境内的山川。' },
+            { label: '👤 冉有', text: '孔子弟子，当时是季氏的家臣。' },
+            { label: '🛑 救', text: '阻止。' },
+            { label: '🤔 曾谓', text: '难道说。林放：前面问礼之本的那个人。' }
+        ],
+        deep: '季氏是鲁国大夫，按礼制只能祭祀自己境内的山川，不能祭祀泰山。泰山是天子的祭祀对象。季氏去祭泰山，又是僭越。孔子感叹：难道泰山之神还不如林放懂礼吗？林放一个普通人都知道问礼之本，泰山之神难道会接受不合礼制的祭祀吗？'
+    },
+    {
+        id: '3.7',
+        title: '君子无所争，必也射乎',
+        original: '子曰：“君子无所争，必也射乎！揖让而升，下而饮，其争也君子。”',
+        translation: '孔子说：“君子没有什么可争的，如果一定要争，那就是射箭吧！作揖谦让然后登堂，射完后下堂饮酒，这种竞争是君子式的竞争。”',
+        annotation: [
+            { label: '🏹 射', text: '射箭，古代六艺之一。' },
+            { label: '🙇 揖让而升', text: '作揖谦让，然后登堂。' },
+            { label: '🍷 下而饮', text: '射完后下堂，饮酒。' },
+            { label: '💡 核心', text: '竞争可以有，但竞争的方式要符合礼。争而不失礼，胜而不骄人，败而不怨人。' }
+        ],
+        deep: '这句话讲的是君子之争。君子不争，但并非完全不争——射箭是比赛，有胜负，但争的方式是君子式的。这与1.12“礼之用，和为贵”、2.14“君子周而不比”一脉相承：君子有原则，但不排他；有竞争，但不失礼。'
+    },
+    {
+        id: '3.8',
+        title: '巧笑倩兮，美目盼兮',
+        original: '子夏问曰：“‘巧笑倩兮，美目盼兮，素以为绚兮。’何谓也？”子曰：“绘事后素。”曰：“礼后乎？”子曰：“起予者商也！始可与言《诗》已矣。”',
+        translation: '子夏问：“‘巧笑倩兮，美目盼兮，素以为绚兮’，这几句诗是什么意思？”孔子说：“先有白底，然后才能画画。”子夏说：“礼是不是在（仁之后）？”孔子说：“能启发我的人是你啊，商！现在可以和你谈《诗》了。”',
+        annotation: [
+            { label: '📖 诗句', text: '出自《诗经·卫风·硕人》，形容女子笑容美好、眼睛明亮。' },
+            { label: '🎨 绘事后素', text: '先有白底，然后才能画画。' },
+            { label: '📋 礼后乎', text: '礼是不是在（仁之后）？意思是：仁是白底，礼是彩绘；先有仁德，然后才有礼。' },
+            { label: '🌟 起予者商也', text: '能启发我的人是你啊，商（子夏的名）。' }
+        ],
+        deep: '这是八佾篇最生动的一章。子夏问《诗经》里的几句描写美人的诗，孔子答“绘事后素”——先有白底，才能画画。子夏立刻联想到：礼是不是也在仁之后？孔子大为赞赏。这与3.3“人而不仁，如礼何”、3.4“礼之本”一脉相承：仁是根本，礼是表现。'
+    }
+];
+
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
+
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
+    if (!ch) return;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
+    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="ref"><span>📖 八佾篇 · ' + ch.id + '</span><span class="tag">第六天</span></div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+        });
+    }
+}
+
+setActiveChapter(chapters[0].id);
+</script>
+</body>
+</html>
