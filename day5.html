@@ -18,7 +18,7 @@
         .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
         .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
         .back-btn {
-            display: inline-block; margin-top: 1rem;
+            display: inline-block; margin-top: 0.7rem;
             color: #826a4e; background: #f0e9df;
             border: 1px solid #cbbba8; padding: 0.4rem 1.8rem;
             border-radius: 40px; font-size: 0.9rem;
@@ -60,12 +60,34 @@
         .chapter-card { display: none; animation: fadeUp 0.25s ease; }
         .chapter-card.active { display: block; }
         @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
-        .chapter-card .ref {
-            font-size: 0.9rem; color: #8a7a64; border-bottom: 1px dashed #ddd0c0;
-            padding-bottom: 0.5rem; margin-bottom: 1.2rem;
-            display: flex; justify-content: space-between;
+        .top-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px dashed #ddd0c0; padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem;
         }
-        .chapter-card .ref .tag { background: #ede6db; padding: 0 0.8rem; border-radius: 40px; font-size: 0.8rem; }
+        .top-nav .ref-left { font-size: 0.9rem; color: #8a7a64; }
+        .top-nav .ref-left .tag {
+            background: #ede6db; padding: 0 0.8rem; border-radius: 40px;
+            font-size: 0.8rem; margin-left: 0.4rem;
+        }
+        .day-nav { display: flex; align-items: center; gap: 0.6rem; }
+        .day-btn {
+            text-decoration: none; color: #826a4e;
+            background: #f0e9df; border: 1px solid #cbbba8;
+            padding: 0.25rem 1rem; border-radius: 40px;
+            font-size: 0.8rem; transition: 0.2s;
+            display: inline-flex; align-items: center;
+        }
+        .day-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .day-btn.disabled {
+            opacity: 0.35; pointer-events: none;
+            background: #f0ede8; border-color: #ddd0c0;
+        }
+        .day-label {
+            font-size: 0.85rem; color: #6b5a44;
+            background: #e8e0d4; padding: 0.25rem 1rem;
+            border-radius: 20px;
+        }
         .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
         .chapter-card .original {
             background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
@@ -105,6 +127,7 @@
             .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
             .content { padding: 1.5rem 1.2rem; }
             .chapter-card h3 { font-size: 1.5rem; }
+            .top-nav { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -272,7 +295,14 @@ function renderChapter(id) {
         annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
     });
     contentArea.innerHTML = '<div class="chapter-card active">' +
-        '<div class="ref"><span>📖 为政篇 · ' + ch.id + '</span><span class="tag">第五天</span></div>' +
+        '<div class="top-nav">' +
+        '<div class="ref-left">📖 为政篇 · ' + ch.id + '<span class="tag">第五天</span></div>' +
+        '<div class="day-nav">' +
+        '<a href="day4.html" class="day-btn">← 前一天</a>' +
+        '<span class="day-label">📅 第五天</span>' +
+        '<a href="day6.html" class="day-btn">后一天 →</a>' +
+        '</div>' +
+        '</div>' +
         '<h3>' + ch.title + '</h3>' +
         '<div class="original">' + ch.original + '</div>' +
         '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
