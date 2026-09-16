@@ -17,14 +17,19 @@
         .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
         .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
         .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
-        .back-btn {
-            display: inline-block; margin-top: 0.7rem;
-            color: #826a4e; background: #f0e9df;
-            border: 1px solid #cbbba8; padding: 0.4rem 1.8rem;
-            border-radius: 40px; font-size: 0.9rem;
-            text-decoration: none; transition: 0.2s;
+
+        .top-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
+        .btn {
+            display: inline-block; padding: 0.4rem 1.8rem; border-radius: 40px;
+            font-size: 0.9rem; text-decoration: none; transition: 0.2s;
         }
-        .back-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .btn-back { color: #826a4e; background: #f0e9df; border: 1px solid #cbbba8; }
+        .btn-back:hover { background: #e8ddd0; border-color: #9b846b; }
+        .btn-jinju {
+            color: #6b4f1d; background: linear-gradient(135deg, #f5e6c8, #e8d3a8);
+            border: 1px solid #d4b97a; font-weight: 500;
+        }
+        .btn-jinju:hover { background: linear-gradient(135deg, #f0dcb5, #ddc696); border-color: #c5a560; }
 
         .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
         .toc {
@@ -61,23 +66,17 @@
         .chapter-card { display: none; animation: fadeUp 0.25s ease; }
         .chapter-card.active { display: block; }
         @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
-
-        /* 顶部导航行：左边篇名，右边跨天导航 */
         .top-nav {
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px dashed #ddd0c0; padding-bottom: 0.6rem;
             margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem;
         }
-        .top-nav .ref-left {
-            font-size: 0.9rem; color: #8a7a64;
-        }
+        .top-nav .ref-left { font-size: 0.9rem; color: #8a7a64; }
         .top-nav .ref-left .tag {
             background: #ede6db; padding: 0 0.8rem; border-radius: 40px;
             font-size: 0.8rem; margin-left: 0.4rem;
         }
-        .day-nav {
-            display: flex; align-items: center; gap: 0.6rem;
-        }
+        .day-nav { display: flex; align-items: center; gap: 0.6rem; }
         .day-btn {
             text-decoration: none; color: #826a4e;
             background: #f0e9df; border: 1px solid #cbbba8;
@@ -95,7 +94,6 @@
             background: #e8e0d4; padding: 0.25rem 1rem;
             border-radius: 20px;
         }
-
         .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
         .chapter-card .original {
             background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
@@ -125,7 +123,7 @@
         }
         .meta-note {
             margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
-            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap; gap:0.5rem 1.5rem;
         }
         @media (max-width: 820px) {
             .main { flex-direction: column; }
@@ -149,10 +147,10 @@
             <span>✍️ 约 300 字</span>
             <span>🧠 八佾篇完结</span>
         </div>
-        <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:0.7rem;">
-    <a href="index.html" style="display:inline-block; color:#826a4e; background:#f0e9df; border:1px solid #cbbba8; padding:0.4rem 1.8rem; border-radius:40px; font-size:0.9rem; text-decoration:none;">🏠 返回总目录</a>
-    <a href="lunyu-jinju.html" style="display:inline-block; color:#6b4f1d; background:linear-gradient(135deg,#f5e6c8,#e8d3a8); border:1px solid #d4b97a; padding:0.4rem 1.8rem; border-radius:40px; font-size:0.9rem; text-decoration:none; font-weight:500;">✨ 论语金句</a>
-</div>
+        <div class="top-btns">
+            <a href="index.html" class="btn btn-back">🏠 返回总目录</a>
+            <a href="lunyu-jinju.html" class="btn btn-jinju">✨ 论语金句</a>
+        </div>
     </div>
 
     <div class="main">
@@ -166,7 +164,7 @@
         <div class="content" id="contentArea"></div>
     </div>
 
-    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap;">
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem 1.5rem;">
         <span>📚 今日进度：八佾篇 3.17 — 3.26（完结）</span>
         <span>🔖 原文 + 译文 + 注解 + 内核</span>
     </div>
@@ -341,7 +339,7 @@ function renderChapter(id) {
         '<div class="day-nav">' +
         '<a href="day7.html" class="day-btn">← 前一天</a>' +
         '<span class="day-label">📅 第八天</span>' +
-        '<span class="day-btn disabled">后一天 →</span>' +
+        '<a href="day9.html" class="day-btn">后一天 →</a>' +
         '</div>' +
         '</div>' +
         '<h3>' + ch.title + '</h3>' +
