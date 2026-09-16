@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语金句 · 第一天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1000px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+
+        /* 头部 */
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.5rem; font-size: 0.95rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.9rem; border-radius: 20px; font-size: 0.85rem; }
+        .top-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
+        .btn {
+            display: inline-block; padding: 0.4rem 1.8rem; border-radius: 40px;
+            font-size: 0.9rem; text-decoration: none; transition: 0.2s;
+        }
+        .btn-back { color: #826a4e; background: #f0e9df; border: 1px solid #cbbba8; }
+        .btn-back:hover { background: #e8ddd0; border-color: #9b846b; }
+        .btn-jinju {
+            color: #6b4f1d; background: linear-gradient(135deg, #f5e6c8, #e8d3a8);
+            border: 1px solid #d4b97a; font-weight: 500;
+        }
+        .btn-jinju:hover { background: linear-gradient(135deg, #f0dcb5, #ddc696); border-color: #c5a560; }
+
+        /* 金句卡片 */
+        .jinju-card {
+            background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 20px; padding: 1.8rem 2rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+        .jinju-card .card-header {
+            display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+        }
+        .jinju-card .card-header .num {
+            background: #eadecd; color: #5f4530; font-size: 0.75rem;
+            padding: 0.15rem 0.8rem; border-radius: 40px; font-weight: 500;
+        }
+        .jinju-card .card-header h2 {
+            font-size: 1.5rem; font-weight: 500; color: #3d2d1c;
+            letter-spacing: 2px;
+        }
+        .jinju-card .card-header .ref {
+            font-size: 0.8rem; color: #8a7a64;
+            background: #f0e9df; padding: 0.15rem 0.7rem; border-radius: 40px;
+        }
+
+        .original {
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 14px;
+            font-size: 1.1rem; line-height: 1.9; color: #1f1a14;
+            border-left: 6px solid #b7a084; margin-bottom: 1rem;
+        }
+        .translation {
+            background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px;
+            font-size: 1rem; line-height: 1.8; color: #1f3a1f;
+            border-left: 6px solid #7ea87e; margin-bottom: 1.5rem;
+        }
+        .translation strong { color: #2e5e2e; }
+
+        /* 两幅图并列 */
+        .img-row {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 1rem; margin-bottom: 1.5rem;
+        }
+        .img-item {
+            display: flex; flex-direction: column; gap: 0.4rem;
+        }
+        .img-item img {
+            width: 100%; aspect-ratio: 4/3; object-fit: cover;
+            border-radius: 12px; border: 1px solid #e2d7c8;
+            background: #f0e9df;
+        }
+        .img-item .caption {
+            font-size: 0.8rem; color: #8a7a64; text-align: center;
+        }
+
+        /* 使用场景 */
+        .scene-box {
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.4rem; border-radius: 12px;
+            font-size: 0.95rem; line-height: 1.8; color: #2f261d;
+        }
+        .scene-box strong { color: #5f4530; }
+
+        /* 底部导航 */
+        .bottom-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid #e3d8ca; padding-top: 1.2rem;
+            flex-wrap: wrap; gap: 0.6rem;
+        }
+        .bottom-nav .label { font-size: 0.9rem; color: #756450; }
+        .bottom-nav .nav-links { display: flex; gap: 0.8rem; }
+        .bottom-nav .nav-links a {
+            color: #7f6952; text-decoration: none; font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .bottom-nav .nav-links a:hover { color: #5f4530; }
+        .bottom-nav .nav-links .disabled { opacity: 0.35; pointer-events: none; }
+
+        .footer-note {
+            text-align: center; font-size: 0.9rem; color: #8c7a64;
+            border-top: 1px solid #ddd0c0; padding-top: 1.5rem;
+            display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1.2rem 0.8rem; }
+            .header h1 { font-size: 1.5rem; letter-spacing: 3px; }
+            .jinju-card { padding: 1.2rem 1rem; }
+            .jinju-card .card-header h2 { font-size: 1.25rem; }
+            .img-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+
+    <div class="header">
+        <h1>📖 论语金句</h1>
+        <div class="sub">
+            <span>📅 第一天</span>
+            <span>✨ 共 2 条</span>
+            <span>🔍 每日两条</span>
+        </div>
+        <div class="top-btns">
+            <a href="index.html" class="btn btn-back">🏠 返回总目录</a>
+            <a href="lunyujinju.html" class="btn btn-jinju">✨ 论语金句总览</a>
+        </div>
+    </div>
+
+    <!-- ===== 第1条：不亦乐乎 ===== -->
+    <div class="jinju-card">
+        <div class="card-header">
+            <span class="num">第 1 条</span>
+            <h2>不亦乐乎</h2>
+            <span class="ref">学而篇第一章（1.1）</span>
+        </div>
+
+        <div class="original">
+            子曰：“学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知而不愠，不亦君子乎？”
+        </div>
+        <div class="translation">
+            <strong>白话译文：</strong>孔子说：“学了知识并且经常在实践中运用，不是很愉快吗？有志同道合的同学从远方来，不是很快乐吗？别人不了解我，我也不生气，不就是一个君子吗？”
+        </div>
+
+        <div class="img-row">
+            <div class="img-item">
+                <img src="images/jinju-day1-kongzi-1.jpg" alt="孔子与弟子讲学">
+                <div class="caption">🏛️ 孔子讲学 · 远方来客</div>
+            </div>
+            <div class="img-item">
+                <img src="images/jinju-day1-richang-1.jpg" alt="现代同学聚会">
+                <div class="caption">🏙️ 现代 · 老友相聚</div>
+            </div>
+        </div>
+
+        <div class="scene-box">
+            <strong>使用场景：</strong>朋友聚会、老同学重逢、工作忙碌时自嘲。“今天忙得不亦乐乎。”“有朋自远方来，不亦乐乎。”
+        </div>
+    </div>
+
+    <!-- ===== 第2条：巧言令色 ===== -->
+    <div class="jinju-card">
+        <div class="card-header">
+            <span class="num">第 2 条</span>
+            <h2>巧言令色</h2>
+            <span class="ref">学而篇第三章（1.3）</span>
+        </div>
+
+        <div class="original">
+            子曰：“巧言令色，鲜矣仁！”
+        </div>
+        <div class="translation">
+            <strong>白话译文：</strong>孔子说：“花言巧语、伪装和善的人，很少有仁德。”
+        </div>
+
+        <div class="img-row">
+            <div class="img-item">
+                <img src="images/jinju-day1-kongzi-2.jpg" alt="孔子批评巧言令色">
+                <div class="caption">🏛️ 孔子 · 批评巧言令色</div>
+            </div>
+            <div class="img-item">
+                <img src="images/jinju-day1-richang-2.jpg" alt="现代职场巧言令色">
+                <div class="caption">🏙️ 现代 · 职场巧言令色</div>
+            </div>
+        </div>
+
+        <div class="scene-box">
+            <strong>使用场景：</strong>形容虚伪的人、拍马屁的人、口蜜腹剑的人。“他最擅长巧言令色，你可别被忽悠了。”
+        </div>
+    </div>
+
+    <!-- ===== 底部导航 ===== -->
+    <div class="bottom-nav">
+        <span class="label">📅 第一天 · 共 2 条</span>
+        <div class="nav-links">
+            <span class="disabled">← 前一天</span>
+            <a href="jinju2.html">后一天 →</a>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <span>📚 每天两条 · 轻松学习</span>
+        <span>🔖 金句配图 · 一目了然</span>
+    </div>
+</div>
+</body>
+</html>

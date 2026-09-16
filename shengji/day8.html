@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 八佾篇 · 第八天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+        .back-btn {
+            display: inline-block; margin-top: 0.7rem;
+            color: #826a4e; background: #f0e9df;
+            border: 1px solid #cbbba8; padding: 0.4rem 1.8rem;
+            border-radius: 40px; font-size: 0.9rem;
+            text-decoration: none; transition: 0.2s;
+        }
+        .back-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc {
+            flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .toc h2 {
+            font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li {
+            display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+            color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent;
+        }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge {
+            background: #dacfc0; color: #3e3225; font-size: 0.7rem;
+            padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto;
+            font-weight: 400; letter-spacing: 0.3px;
+        }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content {
+            flex: 1; background: #fffffffa; border: 1px solid #e8dfd3;
+            border-radius: 20px; padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px;
+        }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        /* 顶部导航行：左边篇名，右边跨天导航 */
+        .top-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px dashed #ddd0c0; padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem;
+        }
+        .top-nav .ref-left {
+            font-size: 0.9rem; color: #8a7a64;
+        }
+        .top-nav .ref-left .tag {
+            background: #ede6db; padding: 0 0.8rem; border-radius: 40px;
+            font-size: 0.8rem; margin-left: 0.4rem;
+        }
+        .day-nav {
+            display: flex; align-items: center; gap: 0.6rem;
+        }
+        .day-btn {
+            text-decoration: none; color: #826a4e;
+            background: #f0e9df; border: 1px solid #cbbba8;
+            padding: 0.25rem 1rem; border-radius: 40px;
+            font-size: 0.8rem; transition: 0.2s;
+            display: inline-flex; align-items: center;
+        }
+        .day-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .day-btn.disabled {
+            opacity: 0.35; pointer-events: none;
+            background: #f0ede8; border-color: #ddd0c0;
+        }
+        .day-label {
+            font-size: 0.85rem; color: #6b5a44;
+            background: #e8e0d4; padding: 0.25rem 1rem;
+            border-radius: 20px;
+        }
+
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original {
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
+            font-size: 1.15rem; line-height: 1.8; color: #1f1a14;
+            margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450;
+        }
+        .chapter-card .translation {
+            background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px;
+            font-size: 1.05rem; line-height: 1.8; color: #1f3a1f;
+            margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e;
+        }
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block {
+            background: #fcfaf7; padding: 0.8rem 1.4rem;
+            border-radius: 14px; border: 1px solid #ece3d8;
+        }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep {
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem;
+            font-size: 0.98rem; line-height: 1.7; color: #2f261d;
+        }
+        .chapter-card .annotation .deep i {
+            color: #6f5b45; font-style: normal; background: #e8ddd0;
+            padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px;
+        }
+        .meta-note {
+            margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap;
+        }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+            .top-nav { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 八佾篇</h1>
+        <div class="sub">
+            <span>📅 第八天 · 3.17 ~ 3.26</span>
+            <span>📘 共 10 章</span>
+            <span>✍️ 约 300 字</span>
+            <span>🧠 八佾篇完结</span>
+        </div>
+        <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:0.7rem;">
+    <a href="index.html" style="display:inline-block; color:#826a4e; background:#f0e9df; border:1px solid #cbbba8; padding:0.4rem 1.8rem; border-radius:40px; font-size:0.9rem; text-decoration:none;">🏠 返回总目录</a>
+    <a href="lunyu-jinju.html" style="display:inline-block; color:#6b4f1d; background:linear-gradient(135deg,#f5e6c8,#e8d3a8); border:1px solid #d4b97a; padding:0.4rem 1.8rem; border-radius:40px; font-size:0.9rem; text-decoration:none; font-weight:500;">✨ 论语金句</a>
+</div>
+    </div>
+
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>3.17 ~ 3.26</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">
+                ⚡ 点击章节跳转
+            </div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap;">
+        <span>📚 今日进度：八佾篇 3.17 — 3.26（完结）</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
+    </div>
+</div>
+
+<script>
+var chapters = [
+    {
+        id: '3.17',
+        title: '尔爱其羊，我爱其礼',
+        original: '子贡欲去告朔之饩羊。子曰：“赐也！尔爱其羊，我爱其礼。”',
+        translation: '子贡想把每月初一告庙用的活羊去掉。孔子说：“赐啊！你可惜那只羊，我可惜的是那种礼。”',
+        annotation: [
+            { label: '📅 告朔', text: '每月初一诸侯告庙听政之礼。' },
+            { label: '🐑 饩羊', text: '告朔时用的活羊。饩（xì）。' },
+            { label: '👤 赐', text: '子贡的名。' },
+            { label: '❤️ 爱', text: '可惜、舍不得。' }
+        ],
+        deep: '告朔之礼到孔子时代已经名存实亡——诸侯不再亲自告庙，只留下一只羊做样子。子贡觉得既然礼已经没了，何必浪费一只羊？孔子却说：你可惜羊，我可惜礼。形式虽然空了，但保留形式，至少还留着一个符号，提醒人们曾经有过这种礼。一旦连形式都去掉，礼就彻底消失了。'
+    },
+    {
+        id: '3.18',
+        title: '事君尽礼，人以为谄也',
+        original: '子曰：“事君尽礼，人以为谄也。”',
+        translation: '孔子说：“完全按照礼制侍奉君主，别人却以为是在谄媚。”',
+        annotation: [
+            { label: '👑 事君尽礼', text: '完全按照礼制侍奉君主。' },
+            { label: '🙇 谄', text: '谄媚。' }
+        ],
+        deep: '这句话道出了孔子的无奈。按礼制侍奉君主，本来是天经地义的事，但在礼崩乐坏的时代，大家都已经不守礼了，你一个人守礼，反而显得“不正常”，被人当成谄媚。这背后是世风日下的悲哀：当所有人都违背礼制时，守礼的人反而成了异类。'
+    },
+    {
+        id: '3.19',
+        title: '君使臣以礼，臣事君以忠',
+        original: '定公问：“君使臣，臣事君，如之何？”孔子对曰：“君使臣以礼，臣事君以忠。”',
+        translation: '鲁定公问：“君主役使臣子，臣子侍奉君主，该怎么做？”孔子回答说：“君主役使臣子要按礼制，臣子侍奉君主要尽忠心。”',
+        annotation: [
+            { label: '👑 定公', text: '鲁定公，鲁国国君。' },
+            { label: '🤝 使', text: '使用、役使。' },
+            { label: '🙇 事', text: '侍奉。' }
+        ],
+        deep: '这句话讲的是君臣关系的对等性。孔子没有单方面要求臣子尽忠，而是先说君使臣以礼，再说臣事君以忠。意思是：君主先要以礼待臣，臣子才会以忠事君。这与后世“君要臣死，臣不得不死”的愚忠完全不同。孔子认为君臣关系是双向的：君有君道，臣有臣道。'
+    },
+    {
+        id: '3.20',
+        title: '关雎，乐而不淫，哀而不伤',
+        original: '子曰：“《关雎》，乐而不淫，哀而不伤。”',
+        translation: '孔子说：“《关雎》这首诗，快乐而不放纵，哀愁而不痛苦。”',
+        annotation: [
+            { label: '📖 《关雎》', text: '《诗经》第一篇。' },
+            { label: '🎭 淫', text: '过度、放纵。' },
+            { label: '💔 伤', text: '损害、痛苦过度。' }
+        ],
+        deep: '《关雎》写的是君子对淑女的追求：追求时“辗转反侧”，是哀；得到后“琴瑟友之”，是乐。但无论哀还是乐，都恰到好处，不过度。孔子用“乐而不淫，哀而不伤”来评价，体现了中庸之道：情感可以表达，但要节制。快乐不过分，悲哀不伤身。'
+    },
+    {
+        id: '3.21',
+        title: '哀公问社于宰我',
+        original: '哀公问社于宰我。宰我对曰：“夏后氏以松，殷人以柏，周人以栗，曰：使民战栗。”子闻之，曰：“成事不说，遂事不谏，既往不咎。”',
+        translation: '鲁哀公问宰我关于社主的事。宰我回答说：“夏朝用松木，殷朝用柏木，周朝用栗木，意思是让百姓害怕得发抖。”孔子听到后，说：“已经做了的事不必再解释，已经完成的事不必再劝阻，已经过去的事不必再追究。”',
+        annotation: [
+            { label: '🌳 社', text: '土地神，这里指社主（木制牌位）。' },
+            { label: '👤 宰我', text: '宰予，孔子弟子。' },
+            { label: '🌲 夏后氏', text: '夏朝。以松：用松木。' },
+            { label: '😨 使民战栗', text: '让百姓害怕得发抖。' }
+        ],
+        deep: '宰我的回答有问题——他把“栗”解释为“使民战栗”，这是在暗示周朝用栗木是为了威慑百姓。这不符合周朝礼制的本意，也容易让鲁哀公产生误解。孔子没有直接批评宰我，而是说了三句话：“成事不说，遂事不谏，既往不咎。”这既是对宰我的委婉批评，也是对鲁哀公的提醒。'
+    },
+    {
+        id: '3.22',
+        title: '管仲之器小哉',
+        original: '子曰：“管仲之器小哉！”或曰：“管仲俭乎？”曰：“管氏有三归，官事不摄，焉得俭？”“然则管仲知礼乎？”曰：“邦君树塞门，管氏亦树塞门；邦君为两君之好，有反坫，管氏亦有反坫。管氏而知礼，孰不知礼？”',
+        translation: '孔子说：“管仲的器量真小啊！”有人说：“管仲节俭吗？”孔子说：“管仲有三处府邸，官员不兼职，怎么算节俭？”“那么管仲懂礼吗？”孔子说：“国君宫殿前有屏墙，管仲家也有屏墙；国君招待别国君主时有放酒杯的土台，管仲家也有。管仲如果懂礼，谁不懂礼？”',
+        annotation: [
+            { label: '👤 管仲', text: '齐国名相，辅佐齐桓公称霸。' },
+            { label: '🍶 器小', text: '器量小。' },
+            { label: '🏠 三归', text: '一说指三处府邸，一说指赋税归己。' },
+            { label: '🚧 塞门', text: '国君宫殿前的屏墙。' },
+            { label: '🍷 反坫', text: '国君招待别国君主时放酒杯的土台。坫（diàn）。' }
+        ],
+        deep: '管仲是齐国名相，辅佐齐桓公称霸，功业很大。但孔子批评他“器小”——器量小，格局不够。因为管仲虽然功业大，但个人生活奢侈，且僭越礼制：他有三处府邸，官员不兼职，还用了国君才能用的屏墙和反坫。孔子认为：管仲虽然有功于齐国，但他没有做到“以礼自守”，所以器量小。'
+    },
+    {
+        id: '3.23',
+        title: '始作翕如也',
+        original: '子语鲁大师乐，曰：“乐其可知也：始作，翕如也；从之，纯如也，皦如也，绎如也，以成。”',
+        translation: '孔子对鲁国太师讲音乐，说：“音乐是可以知道的：开始演奏时，和谐整齐；展开之后，纯净和谐，清晰分明，连绵不断，然后完成。”',
+        annotation: [
+            { label: '🎵 大师', text: '太师，乐官。' },
+            { label: '🎼 翕如', text: '和谐、整齐的样子。翕（xī）。' },
+            { label: '✨ 纯如', text: '纯净、和谐。' },
+            { label: '🔍 皦如', text: '清晰、分明。皦（jiǎo）。' },
+            { label: '🔗 绎如', text: '连绵不断。' }
+        ],
+        deep: '孔子用五个词描述音乐的演奏过程：翕如、纯如、皦如、绎如、以成。这是音乐的美学，也是人生的隐喻：开始时要和谐整齐，展开时要纯净和谐，要清晰分明，要连绵不断，最终完成。这与2.4“吾十有五而志于学”一脉相承：人生也像一首乐曲，有开始、展开、高潮、收尾，每个阶段都要恰到好处。'
+    },
+    {
+        id: '3.24',
+        title: '仪封人请见',
+        original: '仪封人请见，曰：“君子之至于斯也，吾未尝不得见也。”从者见之。出曰：“二三子何患于丧乎？天下之无道也久矣，天将以夫子为木铎。”',
+        translation: '仪地的边防官请求见孔子，说：“有德行的人到这里，我没有不见的。”孔子的随从引他见了孔子。他出来后说：“你们何必担心失去官位呢？天下无道已经很久了，上天将把夫子当作木铎来传道。”',
+        annotation: [
+            { label: '📍 仪', text: '地名。封人：管理边疆的官。' },
+            { label: '👋 请见', text: '请求见孔子。' },
+            { label: '👥 二三子', text: '你们这些人。' },
+            { label: '🔔 木铎', text: '木舌的铜铃，古代宣布政教法令时用。' }
+        ],
+        deep: '仪封人是一个边防小官，但他眼光非凡。他见了孔子后，对孔子的弟子说：你们何必担心失去官位？天下无道已经很久了，上天将把夫子当作木铎来传道。“木铎”是古代宣布政令时用的铃铛。仪封人的意思是：孔子虽然现在不得志，但他是上天派来传播大道的人。这是对孔子使命的最高肯定。'
+    },
+    {
+        id: '3.25',
+        title: '子谓《韶》，尽美矣，又尽善也',
+        original: '子谓《韶》：“尽美矣，又尽善也。”谓《武》：“尽美矣，未尽善也。”',
+        translation: '孔子评论《韶》乐：“形式美极了，内容也好极了。”评论《武》乐：“形式美极了，但内容还不够好。”',
+        annotation: [
+            { label: '🎵 《韶》', text: '舜时的乐曲。' },
+            { label: '🎵 《武》', text: '周武王时的乐曲。' },
+            { label: '🌸 尽美', text: '形式完美。' },
+            { label: '💛 尽善', text: '内容完善。' }
+        ],
+        deep: '孔子评价两种音乐：《韶》是舜时的音乐，舜以禅让得天下，尽美又尽善；《武》是周武王时的音乐，武王以征伐得天下，尽美但未尽善。孔子的标准是：美是形式，善是内容。形式和内容要统一，美和善要兼备。'
+    },
+    {
+        id: '3.26',
+        title: '居上不宽，为礼不敬',
+        original: '子曰：“居上不宽，为礼不敬，临丧不哀，吾何以观之哉？”',
+        translation: '孔子说：“居于上位却不宽厚，举行礼仪却不恭敬，参加丧事却不哀痛，我还有什么可看的呢？”',
+        annotation: [
+            { label: '👑 居上', text: '居于上位。' },
+            { label: '🤝 宽', text: '宽厚。' },
+            { label: '🙏 为礼', text: '举行礼仪。' },
+            { label: '😢 临丧', text: '参加丧事。' }
+        ],
+        deep: '这是《八佾篇》的收尾之章，也是孔子对礼崩乐坏的总结。他举了三种情况：居上不宽，失去民心；为礼不敬，流于形式；临丧不哀，失去真情。孔子说“吾何以观之哉”——我还有什么可看的呢？如果连这些最基本的都做不到，那还有什么可看的？'
+    }
+];
+
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
+
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
+    if (!ch) return;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
+    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="top-nav">' +
+        '<div class="ref-left">📖 八佾篇 · ' + ch.id + '<span class="tag">第八天</span></div>' +
+        '<div class="day-nav">' +
+        '<a href="day7.html" class="day-btn">← 前一天</a>' +
+        '<span class="day-label">📅 第八天</span>' +
+        '<span class="day-btn disabled">后一天 →</span>' +
+        '</div>' +
+        '</div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+        });
+    }
+}
+
+// 支持从金句页跳转，自动定位到指定章节
+(function() {
+    var hash = window.location.hash.replace('#', '');
+    var found = false;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === hash) { found = true; break; }
+    }
+    setActiveChapter(found ? hash : chapters[0].id);
+})();
+</script>
+</body>
+</html>
