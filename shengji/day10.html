@@ -85,10 +85,6 @@
             display: inline-flex; align-items: center;
         }
         .day-btn:hover { background: #e8ddd0; border-color: #9b846b; }
-        .day-btn.disabled {
-            opacity: 0.35; pointer-events: none;
-            background: #f0ede8; border-color: #ddd0c0;
-        }
         .day-label {
             font-size: 0.85rem; color: #6b5a44;
             background: #e8e0d4; padding: 0.25rem 1rem;
@@ -311,7 +307,7 @@ function renderChapter(id) {
         '<div class="day-nav">' +
         '<a href="day9.html" class="day-btn">← 前一天</a>' +
         '<span class="day-label">📅 第十天</span>' +
-        '<span class="day-btn disabled">后一天 →</span>' +
+        '<a href="day11.html" class="day-btn">后一天 →</a>' +
         '</div>' +
         '</div>' +
         '<h3>' + ch.title + '</h3>' +
