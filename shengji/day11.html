@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 里仁篇 · 第十一天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+
+        .top-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
+        .btn {
+            display: inline-block; padding: 0.4rem 1.8rem; border-radius: 40px;
+            font-size: 0.9rem; text-decoration: none; transition: 0.2s;
+        }
+        .btn-back { color: #826a4e; background: #f0e9df; border: 1px solid #cbbba8; }
+        .btn-back:hover { background: #e8ddd0; border-color: #9b846b; }
+        .btn-jinju {
+            color: #6b4f1d; background: linear-gradient(135deg, #f5e6c8, #e8d3a8);
+            border: 1px solid #d4b97a; font-weight: 500;
+        }
+        .btn-jinju:hover { background: linear-gradient(135deg, #f0dcb5, #ddc696); border-color: #c5a560; }
+
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc {
+            flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .toc h2 {
+            font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li {
+            display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+            color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent;
+        }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge {
+            background: #dacfc0; color: #3e3225; font-size: 0.7rem;
+            padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto;
+            font-weight: 400; letter-spacing: 0.3px;
+        }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content {
+            flex: 1; background: #fffffffa; border: 1px solid #e8dfd3;
+            border-radius: 20px; padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px;
+        }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+        .top-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px dashed #ddd0c0; padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem;
+        }
+        .top-nav .ref-left { font-size: 0.9rem; color: #8a7a64; }
+        .top-nav .ref-left .tag {
+            background: #ede6db; padding: 0 0.8rem; border-radius: 40px;
+            font-size: 0.8rem; margin-left: 0.4rem;
+        }
+        .day-nav { display: flex; align-items: center; gap: 0.6rem; }
+        .day-btn {
+            text-decoration: none; color: #826a4e;
+            background: #f0e9df; border: 1px solid #cbbba8;
+            padding: 0.25rem 1rem; border-radius: 40px;
+            font-size: 0.8rem; transition: 0.2s;
+            display: inline-flex; align-items: center;
+        }
+        .day-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .day-label {
+            font-size: 0.85rem; color: #6b5a44;
+            background: #e8e0d4; padding: 0.25rem 1rem;
+            border-radius: 20px;
+        }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original {
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
+            font-size: 1.15rem; line-height: 1.8; color: #1f1a14;
+            margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450;
+        }
+        .chapter-card .translation {
+            background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px;
+            font-size: 1.05rem; line-height: 1.8; color: #1f3a1f;
+            margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e;
+        }
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block {
+            background: #fcfaf7; padding: 0.8rem 1.4rem;
+            border-radius: 14px; border: 1px solid #ece3d8;
+        }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep {
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem;
+            font-size: 0.98rem; line-height: 1.7; color: #2f261d;
+        }
+        .chapter-card .annotation .deep i {
+            color: #6f5b45; font-style: normal; background: #e8ddd0;
+            padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px;
+        }
+        .meta-note {
+            margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap; gap:0.5rem 1.5rem;
+        }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+            .top-nav { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 里仁篇</h1>
+        <div class="sub">
+            <span>📅 第十一天 · 4.17 ~ 4.26</span>
+            <span>📘 共 10 章</span>
+            <span>✍️ 约 260 字</span>
+            <span>🧠 里仁篇完结</span>
+        </div>
+        <div class="top-btns">
+            <a href="index.html" class="btn btn-back">🏠 返回总目录</a>
+            <a href="lunyu-jinju.html" class="btn btn-jinju">✨ 论语金句</a>
+        </div>
+    </div>
+
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>4.17 ~ 4.26</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">
+                ⚡ 点击章节跳转
+            </div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem 1.5rem;">
+        <span>📚 今日进度：里仁篇 4.17 — 4.26（完结）</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
+    </div>
+</div>
+
+<script>
+var chapters = [
+    {
+        id: '4.17',
+        title: '见贤思齐焉',
+        original: '子曰：“见贤思齐焉，见不贤而内自省也。”',
+        translation: '孔子说：“见到贤德的人，就想着向他看齐；见到不贤的人，就在内心反省自己有没有同样的毛病。”',
+        annotation: [
+            { label: '⬆️ 见贤思齐', text: '见到贤德的人，就想着向他看齐。' },
+            { label: '⬇️ 内自省', text: '见到不贤的人，就在内心反省自己有没有同样的毛病。' },
+            { label: '💡 核心', text: '见到比自己强的人，不是嫉妒，而是想赶上；见到不如自己的人，不是轻视，而是反省自己。' }
+        ],
+        deep: '“见贤思齐”是向上看，“见不贤内自省”是向内看。一个向外学习，一个向内检视。这与1.4“吾日三省吾身”、4.7“观过斯知仁矣”一脉相承。'
+    },
+    {
+        id: '4.18',
+        title: '事父母几谏',
+        original: '子曰：“事父母几谏。见志不从，又敬不违，劳而不怨。”',
+        translation: '孔子说：“侍奉父母，要委婉地劝谏。看到自己的意见不被听从，仍然恭敬，不违背礼，虽然忧虑，但不怨恨。”',
+        annotation: [
+            { label: '🤫 几谏', text: '委婉地劝谏。几（jī）。' },
+            { label: '🙇 又敬不违', text: '仍然恭敬，不违背礼。' },
+            { label: '😔 劳而不怨', text: '虽然忧虑，但不怨恨。' }
+        ],
+        deep: '父母有错，子女不能不说，但要说得很委婉，不能顶撞。如果父母不听，也不能生气、不能怨恨，仍然要恭敬。这不是盲从，而是以礼相待。'
+    },
+    {
+        id: '4.19',
+        title: '父母在，不远游',
+        original: '子曰：“父母在，不远游，游必有方。”',
+        translation: '孔子说：“父母在世时，不要远行；如果一定要远行，必须告诉父母明确的去处。”',
+        annotation: [
+            { label: '🚶 远游', text: '远行。' },
+            { label: '📍 方', text: '方向、去处。' },
+            { label: '💡 核心', text: '不是不许远行，而是要让父母知道你在哪里，不让父母担心。' }
+        ],
+        deep: '这句话常被误解为“父母在就不能出门”。其实孔子的重点是“游必有方”——孝的核心是让父母安心。这与2.6“父母唯其疾之忧”一脉相承。'
+    },
+    {
+        id: '4.20',
+        title: '三年无改于父之道',
+        original: '子曰：“三年无改于父之道，可谓孝矣。”',
+        translation: '孔子说：“三年不改变父亲留下的合理做法，就可以称为孝了。”',
+        annotation: [
+            { label: '📅 三年', text: '较长一段时间。' },
+            { label: '📜 父之道', text: '父亲留下的合理做法。' },
+            { label: '💡 核心', text: '继承：父母去世后，不要急于推翻旧规矩，要给合理传统一个延续的时间。' }
+        ],
+        deep: '这句话在1.11已经出现过一次，这里再次出现。同一句话在《论语》中重复出现，说明它的重要性。'
+    },
+    {
+        id: '4.21',
+        title: '父母之年，不可不知也',
+        original: '子曰：“父母之年，不可不知也。一则以喜，一则以惧。”',
+        translation: '孔子说：“父母的年龄，不能不记在心里。一方面因他们长寿而欢喜，一方面因他们年迈而担忧。”',
+        annotation: [
+            { label: '🎂 年', text: '年龄。' },
+            { label: '😊 一则以喜', text: '一方面因父母长寿而欢喜。' },
+            { label: '😟 一则以惧', text: '一方面因父母年迈而担忧。' }
+        ],
+        deep: '“一则以喜，一则以惧”六个字，道尽了天下子女的心声。喜的是父母还在，惧的是父母越来越老。这与2.6“父母唯其疾之忧”一脉相承。'
+    },
+    {
+        id: '4.22',
+        title: '古者言之不出',
+        original: '子曰：“古者言之不出，耻躬之不逮也。”',
+        translation: '孔子说：“古人话不轻易说出口，是因为以自己做不到为耻。”',
+        annotation: [
+            { label: '🤐 言之不出', text: '话不轻易说出口。' },
+            { label: '😳 耻', text: '以……为耻。' },
+            { label: '🏃 躬之不逮', text: '自己做不到。躬，亲身；逮，赶上。' }
+        ],
+        deep: '古人为什么不轻易说话？因为怕说了做不到，那是耻辱。说出去的话，就是承诺。这与1.14“敏于事而慎于言”、2.13“先行其言而后从之”一脉相承。'
+    },
+    {
+        id: '4.23',
+        title: '以约失之者鲜矣',
+        original: '子曰：“以约失之者鲜矣。”',
+        translation: '孔子说：“因为自我约束而犯错的，很少见。”',
+        annotation: [
+            { label: '🔒 约', text: '约束、检点。' },
+            { label: '❌ 失', text: '犯错。' },
+            { label: '✅ 鲜', text: '少。' }
+        ],
+        deep: '懂得约束自己的人，很少犯错。约束不是束缚，而是保护。这与4.5“君子无终食之间违仁”、4.12“放于利而行多怨”一脉相承。'
+    },
+    {
+        id: '4.24',
+        title: '讷于言而敏于行',
+        original: '子曰：“君子欲讷于言而敏于行。”',
+        translation: '孔子说：“君子说话要谨慎，做事要勤快。”',
+        annotation: [
+            { label: '🗣️ 讷', text: '言语迟钝，指说话谨慎。讷（nè）。' },
+            { label: '⚡ 敏', text: '敏捷、勤快。' },
+            { label: '💡 核心', text: '说话要慢，做事要快。“讷于言”不是不会说话，而是不轻易说；“敏于行”不是忙乱，而是行动力强。' }
+        ],
+        deep: '这句话是君子言行的总纲。这与1.14“敏于事而慎于言”、2.13“先行其言而后从之”一脉相承。'
+    },
+    {
+        id: '4.25',
+        title: '德不孤，必有邻',
+        original: '子曰：“德不孤，必有邻。”',
+        translation: '孔子说：“有德之人不会孤单，一定会有同道相伴。”',
+        annotation: [
+            { label: '❤️ 德', text: '有德之人。' },
+            { label: '👤 孤', text: '孤单。' },
+            { label: '🤝 邻', text: '邻居，引申为同道。' }
+        ],
+        deep: '有德之人不会孤单，因为德行本身就有吸引力，会吸引同道之人。这不是说好人一定不孤单，而是说德行会聚人。这与1.10“温良恭俭让以得之”一脉相承。'
+    },
+    {
+        id: '4.26',
+        title: '事君数，斯辱矣',
+        original: '子游曰：“事君数，斯辱矣；朋友数，斯疏矣。”',
+        translation: '子游说：“侍奉君主太啰嗦，就会招来羞辱；对朋友太啰嗦，就会被疏远。”',
+        annotation: [
+            { label: '🗣️ 数', text: '频繁、啰嗦。数（shuò）。' },
+            { label: '😳 辱', text: '受辱。' },
+            { label: '🚶 疏', text: '疏远。' }
+        ],
+        deep: '劝谏君主太频繁，君主会烦，你就会受辱；劝朋友太频繁，朋友会烦，你就会疏远。关心也要有度。这与4.18“事父母几谏”、1.12“礼之用和为贵”一脉相承。'
+    }
+];
+
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
+
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
+    if (!ch) return;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
+    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="top-nav">' +
+        '<div class="ref-left">📖 里仁篇 · ' + ch.id + '<span class="tag">第十一天</span></div>' +
+        '<div class="day-nav">' +
+        '<a href="day10.html" class="day-btn">← 前一天</a>' +
+        '<span class="day-label">📅 第十一天</span>' +
+        '<a href="day12.html" class="day-btn">后一天 →</a>' +
+        '</div>' +
+        '</div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+        });
+    }
+}
+
+(function() {
+    var hash = window.location.hash.replace('#', '');
+    var found = false;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === hash) { found = true; break; }
+    }
+    setActiveChapter(found ? hash : chapters[0].id);
+})();
+</script>
+</body>
+</html>
