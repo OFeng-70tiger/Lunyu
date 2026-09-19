@@ -27,7 +27,6 @@
         }
         .back-btn:hover { background: #e8ddd0; border-color: #9b846b; }
 
-        /* 封面三图 */
         .cover-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -44,7 +43,6 @@
             font-size: 0.8rem; color: #8a7a64; text-align: center;
         }
 
-        /* 说明文字 */
         .intro-text {
             font-size: 1.05rem; line-height: 1.9; color: #5a4a38;
             padding: 1rem 1.4rem;
@@ -57,7 +55,6 @@
             font-size: 0.9rem; color: #8a7a64;
         }
 
-        /* 学习计划 */
         .plan-wrap {
             background: #fffcf7; border: 1px solid #e2d7c8;
             border-radius: 20px; padding: 1.5rem 1.8rem;
@@ -71,7 +68,6 @@
         }
         .plan-wrap h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
 
-        /* 数字长条 */
         .plan-grid {
             display: grid;
             grid-template-columns: repeat(25, 1fr);
@@ -94,7 +90,6 @@
         .plan-grid a.current { background: #e8d98a; color: #5a4a1a; border-color: #c5a560; font-weight: 600; }
         .plan-grid a.disabled { background: #f5f0e8; opacity: 0.5; pointer-events: none; }
 
-        /* 图例长条 */
         .plan-legend {
             display: flex;
             gap: 1.5rem;
@@ -107,9 +102,7 @@
             font-size: 0.85rem;
             color: #5f4530;
         }
-        .legend-item {
-            display: flex; align-items: center; gap: 0.4rem;
-        }
+        .legend-item { display: flex; align-items: center; gap: 0.4rem; }
         .legend-box {
             display: inline-block;
             width: 22px; height: 22px;
@@ -121,7 +114,6 @@
         .legend-box.current { background: #e8d98a; border-color: #c5a560; }
         .legend-box.disabled { background: #f5f0e8; opacity: 0.5; }
 
-        /* 金句一览 */
         .grid-wrap {
             background: #fffcf7; border: 1px solid #e2d7c8;
             border-radius: 20px; padding: 1.5rem 1.8rem;
@@ -170,7 +162,6 @@
         }
         .jinju-cell .ref:hover { background: #dacfc0; color: #5f4530; }
 
-        /* 详情区 */
         .detail-section {
             background: #fffcf7; border: 1px solid #e2d7c8;
             border-radius: 20px; padding: 1.5rem 1.8rem;
@@ -194,6 +185,16 @@
             margin-bottom: 0.3rem; display: flex; align-items: center; gap: 8px;
             flex-wrap: wrap;
         }
+        .detail-card .title .name-link {
+            color: #3d2d1c; text-decoration: none;
+            border-bottom: 1px dashed #cbbba8; cursor: pointer;
+        }
+        .detail-card .title .name-link:hover {
+            color: #8b6f50; border-bottom-color: #8b6f50;
+        }
+        .detail-card .title .name-plain {
+            color: #3d2d1c;
+        }
         .detail-card .meaning {
             font-size: 0.95rem; color: #2f261d; line-height: 1.7;
             margin-bottom: 0.5rem;
@@ -212,7 +213,6 @@
             display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
         }
 
-        /* 响应式 */
         @media (max-width: 850px) {
             .jinju-grid { grid-template-columns: repeat(8, 1fr); }
         }
@@ -245,7 +245,7 @@
     <div class="header">
         <h1>📖 论语金句</h1>
         <div class="sub">
-            <span>📘 已学 8 天</span>
+            <span>📘 已学 11 天</span>
             <span>✨ 共 20 条</span>
             <span>🔍 点击跳转</span>
         </div>
@@ -291,7 +291,7 @@
     </div>
 
     <div class="detail-section">
-        <h2>📖 详细解释与应用 <small>点击上方金句跳转至此</small></h2>
+        <h2>📖 详细解释与应用 <small>点击金句名看配图，点击出处跳学习页</small></h2>
         <div id="detailArea"></div>
     </div>
 
@@ -303,64 +303,64 @@
 
 <script>
 var entries = [
-    { id: 'bylh', name: '不亦乐乎', ref: '1.1', refName: '学而篇第一章', page: 'day1.html',
+    { id: 'bylh', name: '不亦乐乎', ref: '1.1', refName: '学而篇第一章', page: 'day1.html', jinjuPage: 'jinju1.html',
       meaning: '原意是“不也是很快乐吗”，形容学习实践、朋友相聚的喜悦。现在多用来形容忙得很起劲、很热闹。',
       scene: '朋友聚会、工作忙碌时自嘲。“今天忙得不亦乐乎。”' },
-    { id: 'qyls', name: '巧言令色', ref: '1.3', refName: '学而篇第三章', page: 'day1.html',
+    { id: 'qyls', name: '巧言令色', ref: '1.3', refName: '学而篇第三章', page: 'day1.html', jinjuPage: 'jinju1.html',
       meaning: '花言巧语，伪装和善。形容用言语和表情讨好别人，但内心不真诚。',
       scene: '形容虚伪的人。“他最擅长巧言令色，你可别被忽悠了。”' },
-    { id: 'sxws', name: '三省吾身', ref: '1.4', refName: '学而篇第四章', page: 'day1.html',
+    { id: 'sxws', name: '三省吾身', ref: '1.4', refName: '学而篇第四章', page: 'day1.html', jinjuPage: 'jinju2.html',
       meaning: '每天多次反省自己。形容严于律己、经常自我检讨。',
       scene: '自我反省、团队复盘。“每天三省吾身，才能不断进步。”' },
-    { id: 'yeyx', name: '言而有信', ref: '1.7', refName: '学而篇第七章', page: 'day1.html',
+    { id: 'yeyx', name: '言而有信', ref: '1.7', refName: '学而篇第七章', page: 'day1.html', jinjuPage: 'jinju2.html',
       meaning: '说话算数，讲信用。形容承诺了就一定做到。',
       scene: '评价一个人的信用。“他这个人言而有信，可以放心合作。”' },
-    { id: 'szzy', name: '慎终追远', ref: '1.9', refName: '学而篇第九章', page: 'day1.html',
+    { id: 'szzy', name: '慎终追远', ref: '1.9', refName: '学而篇第九章', page: 'day1.html', jinjuPage: 'jinju3.html',
       meaning: '慎重办理丧事，追念祖先。引申为不忘根本、感恩先人。',
       scene: '清明祭祖、家族传承。“慎终追远，民德归厚。”' },
-    { id: 'wlgjr', name: '温良恭俭让', ref: '1.10', refName: '学而篇第十章', page: 'day2.html',
+    { id: 'wlgjr', name: '温良恭俭让', ref: '1.10', refName: '学而篇第十章', page: 'day2.html', jinjuPage: 'jinju3.html',
       meaning: '温和、善良、恭敬、俭朴、谦让。形容人格修养全面，待人接物有分寸。',
       scene: '形容有修养的人。“他温良恭俭让，谁都愿意跟他共事。”' },
-    { id: 'hwg', name: '和为贵', ref: '1.12', refName: '学而篇第十二章', page: 'day2.html',
+    { id: 'hwg', name: '和为贵', ref: '1.12', refName: '学而篇第十二章', page: 'day2.html', jinjuPage: 'jinju4.html',
       meaning: '以和谐为贵。形容处理关系时以和睦为重。',
       scene: '家庭、团队、外交。“礼之用，和为贵，大家各退一步。”' },
-    { id: 'rqrc', name: '如切如磋', ref: '1.15', refName: '学而篇第十五章', page: 'day2.html',
+    { id: 'rqrc', name: '如切如磋', ref: '1.15', refName: '学而篇第十五章', page: 'day2.html', jinjuPage: 'jinju4.html',
       meaning: '像加工玉石一样切磋琢磨。形容精益求精、反复打磨。',
       scene: '学术讨论、技艺精进。“做学问要如切如磋，如琢如磨。”' },
-    { id: 'ssel', name: '三十而立', ref: '2.4', refName: '为政篇第四章', page: 'day3.html',
+    { id: 'ssel', name: '三十而立', ref: '2.4', refName: '为政篇第四章', page: 'day3.html', jinjuPage: null,
       meaning: '三十岁能立身于社会。形容人到三十，应有所成就和担当。',
       scene: '人生阶段总结。“三十而立，该有自己的事业了。”' },
-    { id: 'ssbh', name: '四十不惑', ref: '2.4', refName: '为政篇第四章', page: 'day3.html',
+    { id: 'ssbh', name: '四十不惑', ref: '2.4', refName: '为政篇第四章', page: 'day3.html', jinjuPage: null,
       meaning: '四十岁不再迷惑。形容人到中年，对是非方向有了清晰判断。',
       scene: '人生感悟。“四十不惑，很多事看开了。”' },
-    { id: 'ztm', name: '知天命', ref: '2.4', refName: '为政篇第四章', page: 'day3.html',
+    { id: 'ztm', name: '知天命', ref: '2.4', refName: '为政篇第四章', page: 'day3.html', jinjuPage: null,
       meaning: '五十岁懂得天命。形容明白自己的使命和局限，不再怨天尤人。',
       scene: '中年感悟。“五十知天命，尽力而为，顺其自然。”' },
-    { id: 'wgzx', name: '温故知新', ref: '2.11', refName: '为政篇第十一章', page: 'day4.html',
+    { id: 'wgzx', name: '温故知新', ref: '2.11', refName: '为政篇第十一章', page: 'day4.html', jinjuPage: null,
       meaning: '温习旧知识，获得新理解。形容在旧内容里发现新意义。',
       scene: '学习、复习、复盘。“温故而知新，可以为师矣。”' },
-    { id: 'jzbq', name: '君子不器', ref: '2.12', refName: '为政篇第十二章', page: 'day4.html',
+    { id: 'jzbq', name: '君子不器', ref: '2.12', refName: '为政篇第十二章', page: 'day4.html', jinjuPage: null,
       meaning: '君子不像器皿只有一种用途。形容不自我设限，追求通才与格局。',
       scene: '职业发展、人才培养。“君子不器，别把自己限定在一个岗位上。”' },
-    { id: 'xebs', name: '学而不思则罔', ref: '2.15', refName: '为政篇第十五章', page: 'day4.html',
+    { id: 'xebs', name: '学而不思则罔', ref: '2.15', refName: '为政篇第十五章', page: 'day4.html', jinjuPage: null,
       meaning: '只学不思会迷惑，只思不学会危险。形容学和思必须结合。',
       scene: '学习方法、教育。“学而不思则罔，光刷题不总结是没用的。”' },
-    { id: 'zzwz', name: '知之为知之', ref: '2.17', refName: '为政篇第十七章', page: 'day5.html',
+    { id: 'zzwz', name: '知之为知之', ref: '2.17', refName: '为政篇第十七章', page: 'day5.html', jinjuPage: null,
       meaning: '知道就是知道，不知道就是不知道。形容诚实面对自己的认知边界。',
       scene: '求知、科研、做人。“知之为知之，不知为不知，是知也。”' },
-    { id: 'ewbx', name: '人而无信', ref: '2.22', refName: '为政篇第二十二章', page: 'day5.html',
+    { id: 'ewbx', name: '人而无信', ref: '2.22', refName: '为政篇第二十二章', page: 'day5.html', jinjuPage: null,
       meaning: '人没有信用，不知道他怎么能行。形容信用是立身之本。',
       scene: '评价信用、合作。“人而无信，不知其可也，这单生意不能跟他做。”' },
-    { id: 'skrs', name: '是可忍孰不可忍', ref: '3.1', refName: '八佾篇第一章', page: 'day6.html',
+    { id: 'skrs', name: '是可忍孰不可忍', ref: '3.1', refName: '八佾篇第一章', page: 'day6.html', jinjuPage: null,
       meaning: '这都能容忍，还有什么不能容忍？形容对某件事忍无可忍。',
       scene: '表达愤怒、底线被触碰。“他居然做出这种事，是可忍孰不可忍！”' },
-    { id: 'qxqx', name: '巧笑倩兮', ref: '3.8', refName: '八佾篇第八章', page: 'day6.html',
+    { id: 'qxqx', name: '巧笑倩兮', ref: '3.8', refName: '八佾篇第八章', page: 'day6.html', jinjuPage: null,
       meaning: '笑容美好，眼睛明亮。形容女子容貌美丽动人。',
       scene: '文学描写、赞美。“巧笑倩兮，美目盼兮，形容美人再合适不过。”' },
-    { id: 'jwbb', name: '既往不咎', ref: '3.21', refName: '八佾篇第二十一章', page: 'day8.html',
+    { id: 'jwbb', name: '既往不咎', ref: '3.21', refName: '八佾篇第二十一章', page: 'day8.html', jinjuPage: null,
       meaning: '已经过去的事不再追究。形容宽容、向前看。',
       scene: '和解、团队重启。“既往不咎，咱们重新开始。”' },
-    { id: 'jmjs', name: '尽美尽善', ref: '3.25', refName: '八佾篇第二十五章', page: 'day8.html',
+    { id: 'jmjs', name: '尽美尽善', ref: '3.25', refName: '八佾篇第二十五章', page: 'day8.html', jinjuPage: null,
       meaning: '形式美极了，内容也好极了。形容事物完美无缺。',
       scene: '评价作品、方案。“这个方案尽美尽善，无可挑剔。”' }
 ];
@@ -381,16 +381,27 @@ entries.forEach(function(e) {
     var card = document.createElement('div');
     card.className = 'detail-card';
     card.id = e.id;
-    card.innerHTML = '<div class="title">' + e.name +
-                     '<a href="' + e.page + '#' + e.ref + '" title="点击跳转到' + e.refName + '" style="font-size:0.75rem; font-weight:400; color:#8a7a64; background:#ede6db; padding:0.1rem 0.7rem; border-radius:40px; text-decoration:none; border-bottom:none;">' + e.refName + '（' + e.ref + '）</a></div>' +
+
+    // 金句名：有 jinjuPage 就做链接（跳到每日金句页），没有就纯文字
+    var nameHtml;
+    if (e.jinjuPage) {
+        nameHtml = '<a href="' + e.jinjuPage + '#' + e.id + '" class="name-link" title="点击查看配图">' + e.name + '</a>';
+    } else {
+        nameHtml = '<span class="name-plain">' + e.name + '</span>';
+    }
+
+    // 出处：跳到每日学习页
+    var refHtml = '<a href="' + e.page + '#' + e.ref + '" title="点击跳转到' + e.refName + '" style="font-size:0.75rem; font-weight:400; color:#8a7a64; background:#ede6db; padding:0.1rem 0.7rem; border-radius:40px; text-decoration:none; border-bottom:none;">' + e.refName + '（' + e.ref + '）</a>';
+
+    card.innerHTML = '<div class="title">' + nameHtml + refHtml + '</div>' +
                      '<div class="meaning"><strong>释义：</strong>' + e.meaning + '</div>' +
                      '<div class="scene"><strong>使用场景：</strong>' + e.scene + '</div>';
     detailArea.appendChild(card);
 });
 
 (function() {
-    var completedDays = 1;
-    var currentDay = 2;
+    var completedDays = 4;
+    var currentDay = 5;
     var totalDays = 50;
 
     for (var i = 1; i <= totalDays; i++) {
