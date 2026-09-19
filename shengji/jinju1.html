@@ -14,25 +14,16 @@
         }
         .app { max-width: 1000px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
 
-        /* ===== 头部 ===== */
         .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
         .header h1 { font-size: 2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
-
-        /* 说明文字（楷体·大而醒目） */
         .daily-intro {
             font-family: '楷体', 'KaiTi', 'STKaiti', 'Kaiti SC', serif;
-            font-size: 1.15rem;
-            line-height: 2;
-            color: #3d2d1c;
-            background: #fffcf7;
-            border: 1px solid #e2d7c8;
-            border-left: 5px solid #b7a084;
-            border-radius: 10px;
-            padding: 1.1rem 1.6rem;
-            margin: 1rem 0 1.2rem 0;
+            font-size: 1.15rem; line-height: 2; color: #3d2d1c;
+            background: #fffcf7; border: 1px solid #e2d7c8;
+            border-left: 5px solid #b7a084; border-radius: 10px;
+            padding: 1.1rem 1.6rem; margin: 1rem 0 1.2rem 0;
             letter-spacing: 0.5px;
         }
-
         .header .sub { color: #6b5a44; margin-top: 0.5rem; font-size: 0.95rem; display: flex; gap: 1rem; flex-wrap: wrap; }
         .header .sub span { background: #e8e0d4; padding: 0.2rem 0.9rem; border-radius: 20px; font-size: 0.85rem; }
         .top-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
@@ -48,11 +39,11 @@
         }
         .btn-jinju:hover { background: linear-gradient(135deg, #f0dcb5, #ddc696); border-color: #c5a560; }
 
-        /* ===== 金句卡片 ===== */
         .jinju-card {
             background: #fffcf7; border: 1px solid #e2d7c8;
             border-radius: 20px; padding: 1.8rem 2rem;
             box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+            scroll-margin-top: 1.5rem;
         }
         .jinju-card .card-header {
             display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
@@ -63,28 +54,24 @@
             padding: 0.15rem 0.8rem; border-radius: 40px; font-weight: 500;
         }
         .jinju-card .card-header h2 {
-            font-size: 1.6rem; font-weight: 600; color: #3d2d1c;
-            letter-spacing: 3px;
+            font-size: 1.6rem; font-weight: 600; color: #3d2d1c; letter-spacing: 3px;
         }
         .jinju-card .card-header .ref {
             font-size: 0.8rem; color: #8a7a64;
             background: #f0e9df; padding: 0.15rem 0.7rem; border-radius: 40px;
         }
-
         .meaning {
             background: #f0f7f0; padding: 1rem 1.6rem; border-radius: 14px;
             font-size: 1.05rem; line-height: 1.8; color: #1f3a1f;
             border-left: 6px solid #7ea87e; margin-bottom: 0.9rem;
         }
         .meaning strong { color: #2e5e2e; }
-
         .original {
             background: #f7f2ea; padding: 0.8rem 1.4rem; border-radius: 12px;
             font-size: 0.9rem; line-height: 1.8; color: #6b5a44;
             border-left: 4px solid #cbbba8; margin-bottom: 1.5rem;
         }
         .original strong { color: #8a7a64; font-weight: 600; }
-
         .img-row {
             display: grid; grid-template-columns: 1fr 1fr;
             gap: 1rem; margin-bottom: 1.5rem;
@@ -95,10 +82,7 @@
             border-radius: 12px; border: 1px solid #e2d7c8;
             background: #f0e9df;
         }
-        .img-item .caption {
-            font-size: 0.8rem; color: #8a7a64; text-align: center;
-        }
-
+        .img-item .caption { font-size: 0.8rem; color: #8a7a64; text-align: center; }
         .scene-box {
             background: #f6f0e8; border-left: 4px solid #a3876b;
             padding: 1rem 1.4rem; border-radius: 12px;
@@ -113,19 +97,13 @@
         }
         .bottom-nav .label { font-size: 0.9rem; color: #756450; }
         .bottom-nav .nav-links { display: flex; gap: 0.8rem; }
-        .bottom-nav .nav-links a {
-            color: #7f6952; text-decoration: none; font-size: 0.9rem;
-            cursor: pointer;
-        }
+        .bottom-nav .nav-links a { color: #7f6952; text-decoration: none; font-size: 0.9rem; }
         .bottom-nav .nav-links a:hover { color: #5f4530; }
-        .bottom-nav .nav-links .disabled { opacity: 0.35; pointer-events: none; }
-
         .footer-note {
             text-align: center; font-size: 0.9rem; color: #8c7a64;
             border-top: 1px solid #ddd0c0; padding-top: 1.5rem;
             display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
         }
-
         @media (max-width: 600px) {
             body { padding: 1.2rem 0.8rem; }
             .header h1 { font-size: 1.5rem; letter-spacing: 3px; }
@@ -154,21 +132,19 @@
         </div>
     </div>
 
-    <!-- ===== 第1条：不亦乐乎 ===== -->
-    <div class="jinju-card">
+    <!-- 第1条：不亦乐乎 -->
+    <div class="jinju-card" id="bylh">
         <div class="card-header">
             <span class="num">第 1 条</span>
             <h2>不亦乐乎</h2>
             <span class="ref">学而篇第一章（1.1）</span>
         </div>
-
         <div class="meaning">
             <strong>释义：</strong>原意是“不也是很快乐吗”，形容学习实践、朋友相聚的喜悦。现在多用来形容忙得很起劲、很热闹。
         </div>
         <div class="original">
             <strong>原文：</strong>子曰：“学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知而不愠，不亦君子乎？”
         </div>
-
         <div class="img-row">
             <div class="img-item">
                 <img src="images/jinju-day1-kongzi-1.jpg" alt="孔子与弟子讲学">
@@ -179,27 +155,24 @@
                 <div class="caption">🏙️ 现代 · 老友相聚</div>
             </div>
         </div>
-
         <div class="scene-box">
             <strong>使用场景：</strong>朋友聚会、老同学重逢、工作忙碌时自嘲。“今天忙得不亦乐乎。”“有朋自远方来，不亦乐乎。”
         </div>
     </div>
 
-    <!-- ===== 第2条：巧言令色 ===== -->
-    <div class="jinju-card">
+    <!-- 第2条：巧言令色 -->
+    <div class="jinju-card" id="qyls">
         <div class="card-header">
             <span class="num">第 2 条</span>
             <h2>巧言令色</h2>
             <span class="ref">学而篇第三章（1.3）</span>
         </div>
-
         <div class="meaning">
             <strong>释义：</strong>花言巧语，伪装和善。形容用言语和表情讨好别人，但内心不真诚。
         </div>
         <div class="original">
             <strong>原文：</strong>子曰：“巧言令色，鲜矣仁！”
         </div>
-
         <div class="img-row">
             <div class="img-item">
                 <img src="images/jinju-day1-kongzi-2.jpg" alt="孔子批评巧言令色">
@@ -210,17 +183,14 @@
                 <div class="caption">🏙️ 现代 · 职场巧言令色</div>
             </div>
         </div>
-
         <div class="scene-box">
             <strong>使用场景：</strong>形容虚伪的人、拍马屁的人、口蜜腹剑的人。“他最擅长巧言令色，你可别被忽悠了。”
         </div>
     </div>
 
-    <!-- ===== 底部导航 ===== -->
     <div class="bottom-nav">
         <span class="label">📅 第一天 · 共 2 条</span>
         <div class="nav-links">
-            <span class="disabled">← 昨日学习</span>
             <a href="jinju2.html">明日学习 →</a>
         </div>
     </div>
@@ -230,5 +200,19 @@
         <span>🔖 金句配图 · 一目了然</span>
     </div>
 </div>
+
+<script>
+(function() {
+    var hash = window.location.hash.replace('#', '');
+    if (hash) {
+        var target = document.getElementById(hash);
+        if (target) {
+            setTimeout(function() {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 150);
+        }
+    }
+})();
+</script>
 </body>
 </html>
