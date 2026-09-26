@@ -46,6 +46,71 @@
         }
         .progress-bar .fill { background: #8b6f50; height: 100%; width: 0%; border-radius: 6px; transition: width 0.4s; }
 
+        .jinju-section {
+            background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 20px; padding: 1.6rem 1.8rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+        .jinju-section h2 {
+            font-size: 1.15rem; font-weight: 600; color: #4d3e2b;
+            letter-spacing: 1px; border-bottom: 1px solid #dacfc0;
+            padding-bottom: 0.7rem; margin-bottom: 0.9rem;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .jinju-section h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .jinju-section .intro-text {
+            font-size: 0.9rem; line-height: 1.8; color: #5a4a38;
+            margin-bottom: 1.2rem; padding: 0.8rem 1.2rem;
+            background: #fcfaf7; border-left: 4px solid #b7a084;
+            border-radius: 10px;
+        }
+        .jinju-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .jinju-grid a {
+            display: block; text-decoration: none;
+            padding: 0.55rem 0.6rem; border-radius: 10px;
+            background: #f7f2ea; transition: 0.15s;
+            font-size: 0.85rem; color: #3d3429;
+            text-align: center; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis;
+        }
+        .jinju-grid a:hover { background: #ede6db; color: #2c1f12; }
+        .jinju-grid a .ref { font-size: 0.7rem; color: #8a7a64; margin-left: 2px; }
+
+        /* 折叠区域：默认隐藏 */
+        .jinju-grid a.jinju-hidden {
+            display: none;
+        }
+        .jinju-grid.expanded a.jinju-hidden {
+            display: block;
+        }
+
+        .jinju-toggle {
+            text-align: center; padding-top: 0.6rem;
+            border-top: 1px dashed #e2d7c8;
+            display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap;
+        }
+        .jinju-toggle button {
+            color: #826a4e; background: #f0e9df;
+            border: 1px solid #cbbba8;
+            padding: 0.4rem 2rem; border-radius: 40px;
+            font-size: 0.9rem; cursor: pointer;
+            transition: 0.2s; font-family: inherit;
+        }
+        .jinju-toggle button:hover { background: #e8ddd0; border-color: #9b846b; }
+        .jinju-toggle a {
+            display: inline-block; color: #826a4e;
+            background: #f0e9df; border: 1px solid #cbbba8;
+            padding: 0.4rem 2rem; border-radius: 40px;
+            font-size: 0.9rem; text-decoration: none;
+            transition: 0.2s;
+        }
+        .jinju-toggle a:hover { background: #e8ddd0; border-color: #9b846b; }
+
         .book-nav {
             background: #fffcf7; border: 1px solid #e2d7c8;
             border-radius: 20px; padding: 1.5rem 1.2rem;
@@ -125,6 +190,8 @@
             .section { padding: 1.2rem 1rem; }
             .lesson-list li .range { display: none; }
             .book-grid { grid-template-columns: repeat(4, 1fr); }
+            .jinju-grid { grid-template-columns: repeat(2, 1fr); }
+            .jinju-section { padding: 1.2rem 1rem; }
         }
         @media (max-width: 400px) {
             .book-grid { grid-template-columns: repeat(3, 1fr); }
@@ -146,12 +213,14 @@
             </div>
         </div>
         <div class="sub" id="stats">
-            <span>📘 已学 16 天</span>
+            <span>📘 已学 19 天</span>
             <span id="daysCount">📅 已学 0 天</span>
             <span id="wordsCount">✍️ 约 0 字</span>
         </div>
         <div class="progress-bar"><div class="fill" id="progressFill" style="width: 0%;"></div></div>
     </div>
+
+
 
     <div class="book-nav">
         <h2>📚 全书篇目 <small>点击跳转</small></h2>
@@ -161,8 +230,8 @@
             <a href="#bayi" class="done"><span class="num">第三篇</span><span class="name">八佾</span></a>
             <a href="#liren" class="done"><span class="num">第四篇</span><span class="name">里仁</span></a>
             <a href="#gongye" class="done"><span class="num">第五篇</span><span class="name">公冶长</span></a>
-            <a href="#yongye" class="current"><span class="num">第六篇</span><span class="name">雍也</span></a>
-            <a href="#shuer" class="disabled"><span class="num">第七篇</span><span class="name">述而</span></a>
+            <a href="#yongye" class="done"><span class="num">第六篇</span><span class="name">雍也</span></a>
+            <a href="#shuer" class="current"><span class="num">第七篇</span><span class="name">述而</span></a>
             <a href="#taibo" class="disabled"><span class="num">第八篇</span><span class="name">泰伯</span></a>
             <a href="#zihan" class="disabled"><span class="num">第九篇</span><span class="name">子罕</span></a>
             <a href="#xiangdang" class="disabled"><span class="num">第十篇</span><span class="name">乡党</span></a>
@@ -315,7 +384,7 @@
     </div>
 
     <div class="section" id="yongye">
-        <h2>📓 雍也篇第六 <small>共 30 章 · 进行中</small></h2>
+        <h2>📓 雍也篇第六 <small>共 30 章 · 已完结</small></h2>
         <ul class="lesson-list">
             <li>
                 <a href="day16.html" data-words="250">
@@ -324,9 +393,36 @@
                     <span class="range">约 250 字</span>
                 </a>
             </li>
+            <li>
+                <a href="day17.html" data-words="250">
+                    <span class="day-num">第十七天</span>
+                    <span class="title">雍也篇 6.9 ~ 6.16</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day18.html" data-words="250">
+                    <span class="day-num">第十八天</span>
+                    <span class="title">雍也篇 6.17 ~ 6.24</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day19.html" data-words="230">
+                    <span class="day-num">第十九天</span>
+                    <span class="title">雍也篇 6.25 ~ 6.30</span>
+                    <span class="range">约 230 字</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="section" id="shuer">
+        <h2>📔 述而篇第七 <small>共 38 章 · 待更新</small></h2>
+        <ul class="lesson-list">
             <li class="disabled">
-                <span class="day-num">第十七天</span>
-                <span class="title">雍也篇 6.9 ~ 6.17</span>
+                <span class="day-num">第二十天</span>
+                <span class="title">述而篇 7.1 ~ 7.8</span>
                 <span class="range">待更新</span>
             </li>
         </ul>
