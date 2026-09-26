@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 雍也篇 · 第十八天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+
+        .top-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
+        .btn {
+            display: inline-block; padding: 0.4rem 1.8rem; border-radius: 40px;
+            font-size: 0.9rem; text-decoration: none; transition: 0.2s;
+        }
+        .btn-back { color: #826a4e; background: #f0e9df; border: 1px solid #cbbba8; }
+        .btn-back:hover { background: #e8ddd0; border-color: #9b846b; }
+        .btn-jinju {
+            color: #6b4f1d; background: linear-gradient(135deg, #f5e6c8, #e8d3a8);
+            border: 1px solid #d4b97a; font-weight: 500;
+        }
+        .btn-jinju:hover { background: linear-gradient(135deg, #f0dcb5, #ddc696); border-color: #c5a560; }
+
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc {
+            flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .toc h2 {
+            font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li {
+            display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+            color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent;
+        }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge {
+            background: #dacfc0; color: #3e3225; font-size: 0.7rem;
+            padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto;
+            font-weight: 400; letter-spacing: 0.3px;
+        }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content {
+            flex: 1; background: #fffffffa; border: 1px solid #e8dfd3;
+            border-radius: 20px; padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px;
+        }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+        .top-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px dashed #ddd0c0; padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem;
+        }
+        .top-nav .ref-left { font-size: 0.9rem; color: #8a7a64; }
+        .top-nav .ref-left .tag {
+            background: #ede6db; padding: 0 0.8rem; border-radius: 40px;
+            font-size: 0.8rem; margin-left: 0.4rem;
+        }
+        .day-nav { display: flex; align-items: center; gap: 0.6rem; }
+        .day-btn {
+            text-decoration: none; color: #826a4e;
+            background: #f0e9df; border: 1px solid #cbbba8;
+            padding: 0.25rem 1rem; border-radius: 40px;
+            font-size: 0.8rem; transition: 0.2s;
+            display: inline-flex; align-items: center;
+        }
+        .day-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .day-label {
+            font-size: 0.85rem; color: #6b5a44;
+            background: #e8e0d4; padding: 0.25rem 1rem;
+            border-radius: 20px;
+        }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original {
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
+            font-size: 1.15rem; line-height: 1.8; color: #1f1a14;
+            margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450;
+        }
+        .chapter-card .translation {
+            background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px;
+            font-size: 1.05rem; line-height: 1.8; color: #1f3a1f;
+            margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e;
+        }
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block {
+            background: #fcfaf7; padding: 0.8rem 1.4rem;
+            border-radius: 14px; border: 1px solid #ece3d8;
+        }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep {
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem;
+            font-size: 0.98rem; line-height: 1.7; color: #2f261d;
+        }
+        .chapter-card .annotation .deep i {
+            color: #6f5b45; font-style: normal; background: #e8ddd0;
+            padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px;
+        }
+        .meta-note {
+            margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap; gap:0.5rem 1.5rem;
+        }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+            .top-nav { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 雍也篇</h1>
+        <div class="sub">
+            <span>📅 第十八天 · 6.17 ~ 6.24</span>
+            <span>📘 共 8 章</span>
+            <span>✍️ 约 250 字</span>
+            <span>🧠 智与仁</span>
+        </div>
+        <div class="top-btns">
+            <a href="index.html" class="btn btn-back">🏠 返回总目录</a>
+            <a href="lunyu-jinju.html" class="btn btn-jinju">✨ 论语金句</a>
+        </div>
+    </div>
+
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>6.17 ~ 6.24</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">
+                ⚡ 点击章节跳转
+            </div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem 1.5rem;">
+        <span>📚 今日进度：雍也篇 6.17 — 6.24</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
+    </div>
+</div>
+
+<script>
+var chapters = [
+    {
+        id: '6.17',
+        title: '人之生也直',
+        original: '子曰：“人之生也直，罔之生也幸而免。”',
+        translation: '孔子说：“人能生存于世，靠的是正直。不正直的人也能生存，那是侥幸免于灾祸罢了。”',
+        annotation: [
+            { label: '🌱 生', text: '生存、立身。' },
+            { label: '📏 直', text: '正直。' },
+            { label: '🎭 罔', text: '不直、欺罔。' },
+            { label: '🍀 幸而免', text: '侥幸免于灾祸。' }
+        ],
+        deep: '孔子认为，正直是人立身的根本。不正直的人虽然也能活着，但那是侥幸，早晚会出事。这不是道德说教，而是对规律的洞察。与2.22“人而无信，不知其可也”一脉相承。'
+    },
+    {
+        id: '6.18',
+        title: '知之者不如好之者',
+        original: '子曰：“知之者不如好之者，好之者不如乐之者。”',
+        translation: '孔子说：“知道它的人不如喜爱它的人，喜爱它的人不如以它为乐的人。”',
+        annotation: [
+            { label: '📖 知之者', text: '知道它的人。' },
+            { label: '❤️ 好之者', text: '喜爱它的人。' },
+            { label: '😊 乐之者', text: '以它为乐的人。' }
+        ],
+        deep: '这是孔子论学习三重境界：知之——被动接受；好之——主动追求；乐之——融为一体。最高境界是“乐之”，学习不再是负担，而是享受。与1.1“学而时习之，不亦说乎”一脉相承。'
+    },
+    {
+        id: '6.19',
+        title: '中人以上，可以语上也',
+        original: '子曰：“中人以上，可以语上也；中人以下，不可以语上也。”',
+        translation: '孔子说：“中等以上才智的人，可以给他讲高深的道理；中等以下才智的人，不可以给他讲高深的道理。”',
+        annotation: [
+            { label: '🧠 中人', text: '中等才智的人。' },
+            { label: '📚 语上', text: '讲高深的道理。' },
+            { label: '⬇️ 中人以下', text: '中等以下的人。' }
+        ],
+        deep: '这句话讲的是因材施教。孔子不是看不起人，而是根据对方的接受能力，选择讲什么、怎么讲。对中人以下讲高深道理，不是他笨，是你不会教。'
+    },
+    {
+        id: '6.20',
+        title: '敬鬼神而远之',
+        original: '樊迟问知。子曰：“务民之义，敬鬼神而远之，可谓知矣。”问仁。曰：“仁者先难而后获，可谓仁矣。”',
+        translation: '樊迟问什么是智慧。孔子说：“致力于百姓该做的事，尊敬鬼神但保持距离，就可以说是智慧了。”问什么是仁。孔子说：“仁者先付出艰难，后获得成果，就可以说是仁了。”',
+        annotation: [
+            { label: '👤 樊迟', text: '孔子弟子。' },
+            { label: '🧠 问知', text: '问什么是智慧。知，通“智”。' },
+            { label: '🏛️ 务民之义', text: '致力于百姓该做的事。' },
+            { label: '🙏 敬鬼神而远之', text: '尊敬鬼神，但保持距离。' },
+            { label: '💪 先难而后获', text: '先付出艰难，后获得成果。' }
+        ],
+        deep: '“敬鬼神而远之”是成语，出自这里。孔子的态度是：对鬼神保持敬意，但不迷信、不依赖。重心在“务民之义”——先把人事做好。与5.12“夫子之言性与天道，不可得而闻也”一脉相承。'
+    },
+    {
+        id: '6.21',
+        title: '知者乐水，仁者乐山',
+        original: '子曰：“知者乐水，仁者乐山。知者动，仁者静。知者乐，仁者寿。”',
+        translation: '孔子说：“智者喜爱水，仁者喜爱山。智者活跃，仁者沉静。智者快乐，仁者长寿。”',
+        annotation: [
+            { label: '💧 知者乐水', text: '智者喜爱水。知，通“智”。乐（yào），喜爱。' },
+            { label: '⛰️ 仁者乐山', text: '仁者喜爱山。' },
+            { label: '🏃 动', text: '活跃。' },
+            { label: '🧘 静', text: '沉静。' },
+            { label: '😊 乐', text: '快乐。' },
+            { label: '🎂 寿', text: '长寿。' }
+        ],
+        deep: '这是《论语》中最美的比喻之一：智者乐水，水流动、变通；仁者乐山，山稳固、厚重。智与仁，是君子的两面。与6.16“文质彬彬”一脉相承。'
+    },
+    {
+        id: '6.22',
+        title: '齐一变，至于鲁',
+        original: '子曰：“齐一变，至于鲁；鲁一变，至于道。”',
+        translation: '孔子说：“齐国一变革，就可以达到鲁国的水平；鲁国一变革，就可以达到王道了。”',
+        annotation: [
+            { label: '🏛️ 齐', text: '齐国。' },
+            { label: '🏛️ 鲁', text: '鲁国。' },
+            { label: '👑 道', text: '王道。' }
+        ],
+        deep: '孔子认为，鲁国比齐国更接近王道。因为鲁国是周公的封国，保留了更多周礼。但鲁国也需要变革，才能达到真正的王道。与3.14“周监于二代，郁郁乎文哉”一脉相承。'
+    },
+    {
+        id: '6.23',
+        title: '觚不觚',
+        original: '子曰：“觚不觚，觚哉！觚哉！”',
+        translation: '孔子说：“觚不像觚了，这还叫觚吗！这还叫觚吗！”',
+        annotation: [
+            { label: '🍶 觚', text: '古代酒器，有棱角。觚（gū）。' },
+            { label: '❓ 不觚', text: '不像觚了。' },
+            { label: '😔 觚哉', text: '这还叫觚吗？' }
+        ],
+        deep: '觚是礼器，有固定的形制。孔子感叹觚已经不像觚了——名存实亡。这是对礼崩乐坏的感叹。名字还在，实质已变。与3.17“尔爱其羊，我爱其礼”一脉相承。'
+    },
+    {
+        id: '6.24',
+        title: '井有仁焉',
+        original: '宰我问曰：“仁者，虽告之曰：‘井有仁焉。’其从之也？”子曰：“何为其然也？君子可逝也，不可陷也；可欺也，不可罔也。”',
+        translation: '宰我问：“对于仁者，如果告诉他‘井里掉进了一个仁人’，他会跟着跳下去吗？”孔子说：“怎么会这样呢？君子可以前往救人，但不可以被陷害；可以被欺骗，但不可以被愚弄。”',
+        annotation: [
+            { label: '👤 宰我', text: '宰予，孔子弟子。' },
+            { label: '🕳️ 井有仁焉', text: '井里掉进了一个仁人。一说“仁”通“人”。' },
+            { label: '🏃 逝', text: '前往。陷：陷害。' },
+            { label: '🎭 欺', text: '欺骗。罔：愚弄。' }
+        ],
+        deep: '宰我问了一个刁钻的问题：仁者会不会为了救人跳井？孔子回答：可逝也，不可陷也；可欺也，不可罔也。仁者不是傻子。仁德不等于愚蠢，救人也讲究方法。与6.17“人之生也直”一脉相承。'
+    }
+];
+
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
+
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
+    if (!ch) return;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
+    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="top-nav">' +
+        '<div class="ref-left">📖 雍也篇 · ' + ch.id + '<span class="tag">第十八天</span></div>' +
+        '<div class="day-nav">' +
+        '<a href="day17.html" class="day-btn">← 前一天</a>' +
+        '<span class="day-label">📅 第十八天</span>' +
+        '<a href="day19.html" class="day-btn">后一天 →</a>' +
+        '</div>' +
+        '</div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+        });
+    }
+}
+
+(function() {
+    var hash = window.location.hash.replace('#', '');
+    var found = false;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === hash) { found = true; break; }
+    }
+    setActiveChapter(found ? hash : chapters[0].id);
+})();
+</script>
+</body>
+</html>
