@@ -245,8 +245,8 @@
     <div class="header">
         <h1>📖 论语金句</h1>
         <div class="sub">
-            <span>📘 已学 8 天</span>
-            <span>✨ 共 20 条</span>
+            <span>📘 共 33 条</span>
+            <span>✨ 每日两条</span>
             <span>🔍 点击跳转</span>
         </div>
         <a href="index.html" class="back-btn">🏠 返回总目录</a>
@@ -351,60 +351,58 @@ var entries = [
     { id: 'ewbx', name: '人而无信', ref: '2.22', refName: '为政篇第二十二章', page: 'day5.html', jinjuPage: 'jinju8.html',
       meaning: '人没有信用，不知道他怎么能行。形容信用是立身之本。',
       scene: '评价信用、合作。“人而无信，不知其可也，这单生意不能跟他做。”' },
+
     { id: 'skrs', name: '是可忍孰不可忍', ref: '3.1', refName: '八佾篇第一章', page: 'day6.html', jinjuPage: 'jinju9.html',
       meaning: '这都能容忍，还有什么不能容忍？形容对某件事忍无可忍。',
       scene: '表达愤怒、底线被触碰。“他居然做出这种事，是可忍孰不可忍！”' },
-    { id: 'qxqx', name: '巧笑倩兮', ref: '3.8', refName: '八佾篇第八章', page: 'day6.html', jinjuPage: 'jinju9.html',
+    { id: 'jzws', name: '君子无所争', ref: '3.7', refName: '八佾篇第七章', page: 'day6.html', jinjuPage: 'jinju9.html',
+      meaning: '君子没有什么可争的。形容君子以礼相待，不争强好胜。',
+      scene: '修养、竞争观。“君子无所争，必也射乎，竞争也要有风度。”' },
+    { id: 'qxqx', name: '巧笑倩兮', ref: '3.8', refName: '八佾篇第八章', page: 'day6.html', jinjuPage: 'jinju10.html',
       meaning: '笑容美好，眼睛明亮。形容女子容貌美丽动人。',
       scene: '文学描写、赞美。“巧笑倩兮，美目盼兮，形容美人再合适不过。”' },
-    { id: 'jwbb', name: '既往不咎', ref: '3.21', refName: '八佾篇第二十一章', page: 'day8.html', jinjuPage: 'jinju10.html',
+    { id: 'lbey', name: '乐而不淫，哀而不伤', ref: '3.20', refName: '八佾篇第二十章', page: 'day8.html', jinjuPage: 'jinju10.html',
+      meaning: '快乐而不放纵，哀愁而不痛苦。形容情感表达恰到好处。',
+      scene: '评价文艺作品、情感管理。“乐而不淫，哀而不伤，这才是高级的表达。”' },
+    { id: 'jwbb', name: '既往不咎', ref: '3.21', refName: '八佾篇第二十一章', page: 'day8.html', jinjuPage: 'jinju11.html',
       meaning: '已经过去的事不再追究。形容宽容、向前看。',
       scene: '和解、团队重启。“既往不咎，咱们重新开始。”' },
-    { id: 'jmjs', name: '尽美尽善', ref: '3.25', refName: '八佾篇第二十五章', page: 'day8.html', jinjuPage: 'jinju10.html',
+    { id: 'jmjs', name: '尽美尽善', ref: '3.25', refName: '八佾篇第二十五章', page: 'day8.html', jinjuPage: 'jinju11.html',
       meaning: '形式美极了，内容也好极了。形容事物完美无缺。',
-      scene: '评价作品、方案。"这个方案尽美尽善，无可挑剔。"' },
-    { id: 'jyyb', name: '见义不为，无勇也', ref: '2.24', refName: '为政篇第二十四章', page: 'day5.html', jinjuPage: 'jinju11.html',
-      meaning: '见到正义的事不去做，就是没有勇气。形容人应当见义勇为。',
-      scene: '鼓励见义勇为、社会责任。"见义不为，无勇也，我们应当挺身而出。"' },
-    { id: 'jzws', name: '君子无所争', ref: '3.7', refName: '八佾篇第七章', page: 'day6.html', jinjuPage: 'jinju11.html',
-      meaning: '君子没有什么可争的事情。形容心胸宽广，不与人争小利。',
-      scene: '劝解争执、修身养性。"君子无所争，何必为这点小事计较。"' },
-    { id: 'lbey', name: '乐而不淫，哀而不伤', ref: '3.20', refName: '八佾篇第二十章', page: 'day7.html', jinjuPage: 'jinju12.html',
-      meaning: '快乐而不放荡，悲哀而不伤痛。形容情感表达恰到好处，有节制。',
-      scene: '评价文艺作品、情感表达。"这首诗乐而不淫，哀而不伤，恰到好处。"' },
-    { id: 'zwd', name: '朝闻道，夕死可矣', ref: '4.8', refName: '里仁篇第八章', page: 'day9.html', jinjuPage: 'jinju12.html',
-      meaning: '早晨领悟了真理，晚上死去也甘心。形容对真理的渴求和重视。',
-      scene: '表达求知渴望、信仰追求。"朝闻道，夕死可矣，真理值得用一生去追寻。"' },
-    { id: 'jzyy', name: '君子喻于义', ref: '4.16', refName: '里仁篇第十六章', page: 'day10.html', jinjuPage: 'jinju13.html',
-      meaning: '君子懂得的是义，小人懂得的是利。形容君子重道义，小人重利益。',
-      scene: '评价人品、商业道德。"君子喻于义，小人喻于利，做人做事要看长远。"' },
-    { id: 'jxsi', name: '见贤思齐', ref: '4.17', refName: '里仁篇第十七章', page: 'day10.html', jinjuPage: 'jinju13.html',
-      meaning: '见到贤人就想着向他看齐。形容虚心学习、追求进步。',
-      scene: '自我激励、团队学习。"见贤思齐焉，见到优秀的同事就要向他学习。"' },
-    { id: 'fmzb', name: '父母在，不远游', ref: '4.19', refName: '里仁篇第十九章', page: 'day10.html', jinjuPage: 'jinju14.html',
-      meaning: '父母在世，不远离家乡。形容孝顺父母、侍奉在侧。',
-      scene: '谈论孝道、家庭责任。"父母在，不远游，我还是留在本地工作吧。"' },
-    { id: 'nyey', name: '讷于言而敏于行', ref: '4.24', refName: '里仁篇第二十四章', page: 'day11.html', jinjuPage: 'jinju14.html',
-      meaning: '说话谨慎，行动敏捷。形容少说多做，务实肯干。',
-      scene: '评价工作态度、为人风格。"他讷于言而敏于行，实干家一个。"' },
-    { id: 'xmbd', name: '朽木不可雕', ref: '5.9', refName: '公冶长篇第九章', page: 'day13.html', jinjuPage: 'jinju15.html',
-      meaning: '腐烂的木头无法雕刻。形容人或事物本质败坏，难以造就。',
-      scene: '评价不可教化的人。"这孩子朽木不可雕，再怎么教也没用。"' },
-    { id: 'tqyg', name: '听其言而观其行', ref: '5.9', refName: '公冶长篇第九章', page: 'day13.html', jinjuPage: 'jinju15.html',
-      meaning: '听他说什么，还要看他做什么。形容评判人要言行一致。',
-      scene: '识人用人、考察下属。"听其言而观其行，别光听他嘴上怎么说。"' },
-    { id: 'bcxw', name: '不耻下问', ref: '5.14', refName: '公冶长篇第十四章', page: 'day13.html', jinjuPage: 'jinju16.html',
-      meaning: '不以向地位低或学问浅的人请教为耻。形容虚心好学。',
-      scene: '学习态度、职场请教。"敏而好学，不耻下问，这才是正确的学习态度。"' },
-    { id: 'sssh', name: '三思而后行', ref: '5.19', refName: '公冶长篇第十九章', page: 'day14.html', jinjuPage: 'jinju16.html',
-      meaning: '多次思考后再行动。形容做事谨慎，不鲁莽。',
-      scene: '决策前提醒、做事谨慎。"三思而后行，别急着做决定。"' },
-    { id: 'ybkj', name: '愚不可及', ref: '5.20', refName: '公冶长篇第二十章', page: 'day14.html', jinjuPage: 'jinju17.html',
-      meaning: '愚笨到无人能比。原意是大智若愚，现多形容愚蠢至极。',
-      scene: '批评愚蠢行为。"他这种操作真是愚不可及。"' },
-    { id: 'bnhje', name: '不念旧恶', ref: '5.22', refName: '公冶长篇第二十二章', page: 'day14.html', jinjuPage: 'jinju17.html',
-      meaning: '不记恨过去的仇怨。形容心胸宽广，以德报怨。',
-      scene: '化解矛盾、宽容待人。"伯夷叔齐不念旧恶，怨是用希。"' }
+      scene: '评价作品、方案。“这个方案尽美尽善，无可挑剔。”' },
+    { id: 'zwd', name: '朝闻道，夕死可矣', ref: '4.8', refName: '里仁篇第八章', page: 'day9.html', jinjuPage: null,
+      meaning: '早晨领悟了道，晚上死去也值了。形容对真理的极致渴望。',
+      scene: '求知、人生感悟。“朝闻道，夕死可矣。”' },
+    { id: 'jzyy', name: '君子喻于义', ref: '4.16', refName: '里仁篇第十六章', page: 'day10.html', jinjuPage: null,
+      meaning: '君子懂得的是道义，小人懂得的是私利。形容君子把义放在利前。',
+      scene: '义利之辨、价值观。“君子喻于义，小人喻于利。”' },
+    { id: 'jxsi', name: '见贤思齐', ref: '4.17', refName: '里仁篇第十七章', page: 'day11.html', jinjuPage: null,
+      meaning: '见到贤德的人，就想着向他看齐。形容向上学习、自我提升。',
+      scene: '自我修养、学习榜样。“见贤思齐，见不贤而内自省。”' },
+    { id: 'fmzb', name: '父母在，不远游', ref: '4.19', refName: '里仁篇第十九章', page: 'day11.html', jinjuPage: null,
+      meaning: '父母在世时，不要远行；如果一定要远行，必须告诉父母去处。',
+      scene: '孝道、家庭责任。“父母在，不远游，游必有方。”' },
+    { id: 'nyey', name: '讷于言而敏于行', ref: '4.24', refName: '里仁篇第二十四章', page: 'day11.html', jinjuPage: null,
+      meaning: '君子说话要谨慎，做事要勤快。形容行动先于言语。',
+      scene: '做人做事、职场。“讷于言而敏于行，少说多做。”' },
+    { id: 'xmbd', name: '朽木不可雕', ref: '5.9', refName: '公冶长篇第九章', page: 'day13.html', jinjuPage: null,
+      meaning: '腐烂的木头无法雕刻。形容人不可造就，或事无可挽回。',
+      scene: '批评教育、形容无可救药。“朽木不可雕也。”' },
+    { id: 'tqyg', name: '听其言而观其行', ref: '5.9', refName: '公冶长篇第九章', page: 'day13.html', jinjuPage: null,
+      meaning: '听他说什么，还要看他做什么。形容识人要言行并重。',
+      scene: '识人、用人、交友。“听其言而观其行。”' },
+    { id: 'bcxw', name: '不耻下问', ref: '5.14', refName: '公冶长篇第十四章', page: 'day13.html', jinjuPage: null,
+      meaning: '不以向地位比自己低的人请教为耻。形容虚心好学。',
+      scene: '学习态度、谦虚。“敏而好学，不耻下问。”' },
+    { id: 'sssh', name: '三思而后行', ref: '5.19', refName: '公冶长篇第十九章', page: 'day14.html', jinjuPage: null,
+      meaning: '做事要考虑多次才行动。形容谨慎。',
+      scene: '决策、做事。“三思而后行，但别想太多。”' },
+    { id: 'ybkj', name: '愚不可及', ref: '5.20', refName: '公冶长篇第二十章', page: 'day14.html', jinjuPage: null,
+      meaning: '原意是装傻的本事没人比得上。形容大智若愚。',
+      scene: '处世智慧、乱世自保。“其知可及也，其愚不可及也。”' },
+    { id: 'bnhje', name: '不念旧恶', ref: '5.22', refName: '公冶长篇第二十二章', page: 'day14.html', jinjuPage: null,
+      meaning: '不记过去的仇恨。形容宽厚待人，不记旧怨。',
+      scene: '和解、宽恕、放下旧怨。“不念旧恶，怨是用希。”' }
 ];
 
 var jinjuGrid = document.getElementById('jinjuGrid');
@@ -424,7 +422,6 @@ entries.forEach(function(e) {
     card.className = 'detail-card';
     card.id = e.id;
 
-    // 金句名：有 jinjuPage 就做链接（跳到每日金句页），没有就纯文字
     var nameHtml;
     if (e.jinjuPage) {
         nameHtml = '<a href="' + e.jinjuPage + '#' + e.id + '" class="name-link" title="点击查看配图">' + e.name + '</a>';
@@ -432,7 +429,6 @@ entries.forEach(function(e) {
         nameHtml = '<span class="name-plain">' + e.name + '</span>';
     }
 
-    // 出处：跳到每日学习页
     var refHtml = '<a href="' + e.page + '#' + e.ref + '" title="点击跳转到' + e.refName + '" style="font-size:0.75rem; font-weight:400; color:#8a7a64; background:#ede6db; padding:0.1rem 0.7rem; border-radius:40px; text-decoration:none; border-bottom:none;">' + e.refName + '（' + e.ref + '）</a>';
 
     card.innerHTML = '<div class="title">' + nameHtml + refHtml + '</div>' +
@@ -442,8 +438,8 @@ entries.forEach(function(e) {
 });
 
 (function() {
-var completedDays = 8;
-    var currentDay = 9;
+    var completedDays = 11;
+    var currentDay = 12;
     var totalDays = 50;
 
     for (var i = 1; i <= totalDays; i++) {
