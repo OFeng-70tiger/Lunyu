@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 述而篇 · 第二十一天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+
+        .top-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
+        .btn {
+            display: inline-block; padding: 0.4rem 1.8rem; border-radius: 40px;
+            font-size: 0.9rem; text-decoration: none; transition: 0.2s;
+        }
+        .btn-back { color: #826a4e; background: #f0e9df; border: 1px solid #cbbba8; }
+        .btn-back:hover { background: #e8ddd0; border-color: #9b846b; }
+        .btn-jinju {
+            color: #6b4f1d; background: linear-gradient(135deg, #f5e6c8, #e8d3a8);
+            border: 1px solid #d4b97a; font-weight: 500;
+        }
+        .btn-jinju:hover { background: linear-gradient(135deg, #f0dcb5, #ddc696); border-color: #c5a560; }
+
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc {
+            flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .toc h2 {
+            font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li {
+            display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+            color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent;
+        }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge {
+            background: #dacfc0; color: #3e3225; font-size: 0.7rem;
+            padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto;
+            font-weight: 400; letter-spacing: 0.3px;
+        }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content {
+            flex: 1; background: #fffffffa; border: 1px solid #e8dfd3;
+            border-radius: 20px; padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px;
+        }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+        .top-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px dashed #ddd0c0; padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem;
+        }
+        .top-nav .ref-left { font-size: 0.9rem; color: #8a7a64; }
+        .top-nav .ref-left .tag {
+            background: #ede6db; padding: 0 0.8rem; border-radius: 40px;
+            font-size: 0.8rem; margin-left: 0.4rem;
+        }
+        .day-nav { display: flex; align-items: center; gap: 0.6rem; }
+        .day-btn {
+            text-decoration: none; color: #826a4e;
+            background: #f0e9df; border: 1px solid #cbbba8;
+            padding: 0.25rem 1rem; border-radius: 40px;
+            font-size: 0.8rem; transition: 0.2s;
+            display: inline-flex; align-items: center;
+        }
+        .day-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .day-label {
+            font-size: 0.85rem; color: #6b5a44;
+            background: #e8e0d4; padding: 0.25rem 1rem;
+            border-radius: 20px;
+        }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original {
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
+            font-size: 1.15rem; line-height: 1.8; color: #1f1a14;
+            margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450;
+        }
+        .chapter-card .translation {
+            background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px;
+            font-size: 1.05rem; line-height: 1.8; color: #1f3a1f;
+            margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e;
+        }
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block {
+            background: #fcfaf7; padding: 0.8rem 1.4rem;
+            border-radius: 14px; border: 1px solid #ece3d8;
+        }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep {
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem;
+            font-size: 0.98rem; line-height: 1.7; color: #2f261d;
+        }
+        .chapter-card .annotation .deep i {
+            color: #6f5b45; font-style: normal; background: #e8ddd0;
+            padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px;
+        }
+        .meta-note {
+            margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap; gap:0.5rem 1.5rem;
+        }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+            .top-nav { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 述而篇</h1>
+        <div class="sub">
+            <span>📅 第二十一天 · 7.9 ~ 7.16</span>
+            <span>📘 共 8 章</span>
+            <span>✍️ 约 250 字</span>
+            <span>🧠 安贫乐道</span>
+        </div>
+        <div class="top-btns">
+            <a href="index.html" class="btn btn-back">🏠 返回总目录</a>
+            <a href="lunyu-jinju.html" class="btn btn-jinju">✨ 论语金句</a>
+        </div>
+    </div>
+
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>7.9 ~ 7.16</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">
+                ⚡ 点击章节跳转
+            </div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem 1.5rem;">
+        <span>📚 今日进度：述而篇 7.9 — 7.16</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
+    </div>
+</div>
+
+<script>
+var chapters = [
+    {
+        id: '7.9',
+        title: '子食于有丧者之侧',
+        original: '子食于有丧者之侧，未尝饱也。子于是日哭，则不歌。',
+        translation: '孔子在办丧事的人旁边吃饭，从来没有吃饱过。孔子在这一天哭过，就不唱歌。',
+        annotation: [
+            { label: '🍚 食于有丧者之侧', text: '在办丧事的人旁边吃饭。' },
+            { label: '😔 未尝饱也', text: '从来没有吃饱过。' },
+            { label: '😢 于是日哭', text: '在这一天哭过。' },
+            { label: '🚫 则不歌', text: '就不唱歌。' }
+        ],
+        deep: '这句话写孔子的同理心。别人在办丧事，他吃饭都不忍心吃饱；今天哭过，就不再唱歌。这不是规矩，是发自内心的恻隐。与1.9“慎终追远”、3.26“临丧不哀”一脉相承。'
+    },
+    {
+        id: '7.10',
+        title: '用之则行，舍之则藏',
+        original: '子谓颜渊曰：“用之则行，舍之则藏，惟我与尔有是夫！”子路曰：“子行三军，则谁与？”子曰：“暴虎冯河，死而无悔者，吾不与也。必也临事而惧，好谋而成者也。”',
+        translation: '孔子对颜渊说：“被任用就施展，不被任用就隐藏，只有我和你做到这样吧！”子路说：“老师如果率领军队，和谁一起？”孔子说：“空手打虎、徒步过河，死了也不后悔的人，我不和他一起。一定要遇事谨慎、善于谋划而成功的人。”',
+        annotation: [
+            { label: '✅ 用之则行', text: '被任用就施展。' },
+            { label: '🙈 舍之则藏', text: '不被任用就隐藏。' },
+            { label: '⚔️ 行三军', text: '率领军队。' },
+            { label: '🐯 暴虎冯河', text: '空手打虎，徒步过河。冯（píng），徒步过河。' },
+            { label: '⚠️ 临事而惧', text: '遇事谨慎。' },
+            { label: '🧠 好谋而成', text: '善于谋划而成功。' }
+        ],
+        deep: '这句话讲两种境界：用之则行，舍之则藏，能进能退，从容自如，这是颜渊的境界；暴虎冯河，有勇无谋，孔子不取。子路好勇，孔子借机提醒他：勇要有谋。与5.7“由也好勇过我”一脉相承。'
+    },
+    {
+        id: '7.11',
+        title: '富而可求也',
+        original: '子曰：“富而可求也，虽执鞭之士，吾亦为之。如不可求，从吾所好。”',
+        translation: '孔子说：“如果富贵可以求得，即使是拿着鞭子为人开路的差事，我也愿意做。如果不可以求得，那就做我喜欢做的事。”',
+        annotation: [
+            { label: '💰 富而可求', text: '如果富贵可以求得。' },
+            { label: '🏃 执鞭之士', text: '拿着鞭子为人开路的人，指低贱的差事。' },
+            { label: '❤️ 从吾所好', text: '做我喜欢做的事。' }
+        ],
+        deep: '孔子不反对富贵，但前提是合乎道义。如果可以正当地求得，再低贱的差事也愿意做。但如果不合道义，就不强求，做自己喜欢的事。与4.5“不以其道得之，不处也”一脉相承。'
+    },
+    {
+        id: '7.12',
+        title: '子之所慎：齐、战、疾',
+        original: '子之所慎：齐、战、疾。',
+        translation: '孔子谨慎对待的三件事：斋戒、战争、疾病。',
+        annotation: [
+            { label: '🙏 齐', text: '通“斋”，斋戒。' },
+            { label: '⚔️ 战', text: '战争。' },
+            { label: '🤒 疾', text: '疾病。' }
+        ],
+        deep: '孔子慎重的三件事，都有共同点：斋戒，面对神明，要诚敬；战争，面对生死，要慎重；疾病，面对身体，要小心。这三件事，都关乎生命和敬畏。与6.20“敬鬼神而远之”一脉相承。'
+    },
+    {
+        id: '7.13',
+        title: '三月不知肉味',
+        original: '子在齐闻《韶》，三月不知肉味，曰：“不图为乐之至于斯也。”',
+        translation: '孔子在齐国听到《韶》乐，很长时间尝不出肉的滋味，说：“没想到音乐能达到这种境界。”',
+        annotation: [
+            { label: '🎵 《韶》', text: '舜时的乐曲。' },
+            { label: '📅 三月', text: '较长一段时间。' },
+            { label: '🍖 不知肉味', text: '尝不出肉的滋味。' },
+            { label: '😮 不图', text: '没想到。' }
+        ],
+        deep: '这是《论语》中最动人的章节之一。孔子被《韶》乐深深打动，三个月尝不出肉味。这不是夸张，而是艺术感染力的真实写照。与3.25“尽美矣，又尽善也”一脉相承。'
+    },
+    {
+        id: '7.14',
+        title: '不义而富且贵，于我如浮云',
+        original: '子曰：“饭疏食饮水，曲肱而枕之，乐亦在其中矣。不义而富且贵，于我如浮云。”',
+        translation: '孔子说：“吃粗粮，喝冷水，弯着胳膊当枕头，快乐也在其中。不合道义的富贵，对我来说像浮云一样。”',
+        annotation: [
+            { label: '🍚 饭疏食', text: '吃粗粮。' },
+            { label: '💧 饮水', text: '喝冷水。' },
+            { label: '💪 曲肱而枕之', text: '弯着胳膊当枕头。肱（gōng），胳膊。' },
+            { label: '😊 乐亦在其中', text: '快乐也在其中。' },
+            { label: '☁️ 于我如浮云', text: '对我来说像浮云一样。' }
+        ],
+        deep: '这是《论语》中最著名的安贫乐道篇章之一。“不义而富且贵，于我如浮云”——不合道义的富贵，像浮云一样。孔子不是不要富贵，而是不要“不义”的富贵。与6.9“一箪食，一瓢饮”一脉相承。'
+    },
+    {
+        id: '7.15',
+        title: '五十以学易',
+        original: '子曰：“加我数年，五十以学《易》，可以无大过矣。”',
+        translation: '孔子说：“再给我几年时间，到五十岁学习《易》，就可以没有大的过错了。”',
+        annotation: [
+            { label: '⏳ 加我数年', text: '再给我几年。' },
+            { label: '📖 《易》', text: '《易经》。' },
+            { label: '❌ 无大过', text: '没有大的过错。' }
+        ],
+        deep: '孔子晚年嗜《易》，认为学《易》可以知天命、避大过。这说明孔子终身学习，永不满足。与7.2“学而不厌”一脉相承。'
+    },
+    {
+        id: '7.16',
+        title: '子所雅言',
+        original: '子所雅言，《诗》、《书》、执礼，皆雅言也。',
+        translation: '孔子用标准语的时候，是读《诗》、读《书》、行礼的时候，都用标准语。',
+        annotation: [
+            { label: '🗣️ 雅言', text: '标准语、普通话。' },
+            { label: '📖 《诗》', text: '《诗经》。' },
+            { label: '📖 《书》', text: '《尚书》。' },
+            { label: '🙇 执礼', text: '行礼。' }
+        ],
+        deep: '这句话讲孔子的语言习惯。平时说方言，但读经典、行礼时用标准语。这体现了孔子对经典的尊重。与7.1“述而不作”一脉相承。'
+    }
+];
+
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
+
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
+    if (!ch) return;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
+    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="top-nav">' +
+        '<div class="ref-left">📖 述而篇 · ' + ch.id + '<span class="tag">第二十一天</span></div>' +
+        '<div class="day-nav">' +
+        '<a href="day20.html" class="day-btn">← 前一天</a>' +
+        '<span class="day-label">📅 第二十一天</span>' +
+        '<a href="day22.html" class="day-btn">后一天 →</a>' +
+        '</div>' +
+        '</div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+        });
+    }
+}
+
+(function() {
+    var hash = window.location.hash.replace('#', '');
+    var found = false;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === hash) { found = true; break; }
+    }
+    setActiveChapter(found ? hash : chapters[0].id);
+})();
+</script>
+</body>
+</html>
