@@ -245,7 +245,7 @@
     <div class="header">
         <h1>📖 论语金句</h1>
         <div class="sub">
-            <span>📘 共 44 条</span>
+            <span>📘 共 46 条</span>
             <span>✨ 每日两条</span>
             <span>🔍 点击跳转</span>
         </div>
@@ -435,7 +435,13 @@ var entries = [
       scene: '义利之辨、安贫乐道。“不义而富且贵，于我如浮云。”' },
     { id: 'ffws', name: '发愤忘食，乐以忘忧', ref: '7.17', refName: '述而篇第十七章', page: 'day22.html', jinjuPage: 'jinju22.html',
       meaning: '发愤用功忘了吃饭，快乐得忘了忧愁。形容专注投入、乐观豁达。',
-      scene: '形容专注投入、学习工作。“发愤忘食，乐以忘忧。”' }
+      scene: '形容专注投入、学习工作。“发愤忘食，乐以忘忧。”' },
+    { id: 'srxs', name: '三人行，必有我师焉', ref: '7.20', refName: '述而篇第二十章', page: 'day22.html', jinjuPage: 'jinju23.html',
+      meaning: '几个人一起走，其中一定有可以做我老师的人。形容虚心好学、处处有师。',
+      scene: '学习态度、自我提升。“三人行，必有我师焉。”' },
+    { id: 'jztd', name: '君子坦荡荡', ref: '7.37', refName: '述而篇第三十七章', page: 'day24.html', jinjuPage: 'jinju23.html',
+      meaning: '君子心胸坦荡，小人经常忧愁。形容君子心中无愧，所以坦然。',
+      scene: '形容心胸开阔、坦然自信。“君子坦荡荡，小人长戚戚。”' }
 ];
 
 var jinjuGrid = document.getElementById('jinjuGrid');
@@ -471,8 +477,8 @@ entries.forEach(function(e) {
 });
 
 (function() {
-    var completedDays = 22;
-    var currentDay = 23;
+    var completedDays = 23;
+    var currentDay = 24;
     var totalDays = 50;
 
     for (var i = 1; i <= totalDays; i++) {
