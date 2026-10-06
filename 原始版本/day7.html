@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 八佾篇 · 第七天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+        .back-btn {
+            display: inline-block; margin-top: 1rem;
+            color: #826a4e; background: #f0e9df;
+            border: 1px solid #cbbba8; padding: 0.4rem 1.8rem;
+            border-radius: 40px; font-size: 0.9rem;
+            text-decoration: none; transition: 0.2s;
+        }
+        .back-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc {
+            flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .toc h2 {
+            font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li {
+            display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+            color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent;
+        }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge {
+            background: #dacfc0; color: #3e3225; font-size: 0.7rem;
+            padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto;
+            font-weight: 400; letter-spacing: 0.3px;
+        }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content {
+            flex: 1; background: #fffffffa; border: 1px solid #e8dfd3;
+            border-radius: 20px; padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px;
+        }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+        .chapter-card .ref {
+            font-size: 0.9rem; color: #8a7a64; border-bottom: 1px dashed #ddd0c0;
+            padding-bottom: 0.5rem; margin-bottom: 1.2rem;
+            display: flex; justify-content: space-between;
+        }
+        .chapter-card .ref .tag { background: #ede6db; padding: 0 0.8rem; border-radius: 40px; font-size: 0.8rem; }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original {
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
+            font-size: 1.15rem; line-height: 1.8; color: #1f1a14;
+            margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450;
+        }
+        .chapter-card .translation {
+            background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px;
+            font-size: 1.05rem; line-height: 1.8; color: #1f3a1f;
+            margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e;
+        }
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block {
+            background: #fcfaf7; padding: 0.8rem 1.4rem;
+            border-radius: 14px; border: 1px solid #ece3d8;
+        }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep {
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem;
+            font-size: 0.98rem; line-height: 1.7; color: #2f261d;
+        }
+        .chapter-card .annotation .deep i {
+            color: #6f5b45; font-style: normal; background: #e8ddd0;
+            padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px;
+        }
+        .meta-note {
+            margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap;
+        }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 八佾篇</h1>
+        <div class="sub">
+            <span>📅 第七天 · 3.9 ~ 3.16</span>
+            <span>📘 共 8 章</span>
+            <span>✍️ 约 250 字</span>
+            <span>🧠 礼与诚</span>
+        </div>
+        <a href="index.html" class="back-btn">🏠 返回总目录</a>
+    </div>
+
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>3.9 ~ 3.16</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">
+                ⚡ 点击章节跳转
+            </div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap;">
+        <span>📚 今日进度：八佾篇 3.9 — 3.16</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
+    </div>
+</div>
+
+<script>
+var chapters = [
+    {
+        id: '3.9',
+        title: '夏礼吾能言之',
+        original: '子曰：“夏礼，吾能言之，杞不足征也；殷礼，吾能言之，宋不足征也。文献不足故也。足，则吾能征之矣。”',
+        translation: '孔子说：“夏朝的礼，我能说出来，但杞国不足以验证；殷朝的礼，我能说出来，但宋国不足以验证。这是因为典籍和贤人不足的缘故。如果足够，我就能验证了。”',
+        annotation: [
+            { label: '🏛️ 杞', text: '杞国，夏朝后代的封国。' },
+            { label: '✅ 征', text: '验证、证明。' },
+            { label: '🏛️ 宋', text: '宋国，商朝后代的封国。' },
+            { label: '📚 文献', text: '文指典籍，献指贤人。' }
+        ],
+        deep: '孔子对夏商两代的礼制有研究，但苦于证据不足——杞国、宋国虽然是夏商后代的封国，但保存的典籍和贤人太少，无法验证。这体现了孔子的治学态度：知之为知之，不知为不知。这与2.17“知之为知之，不知为不知”一脉相承。'
+    },
+    {
+        id: '3.10',
+        title: '禘自既灌而往者',
+        original: '子曰：“禘自既灌而往者，吾不欲观之矣。”',
+        translation: '孔子说：“禘祭，从灌礼之后，我就不想再看了。”',
+        annotation: [
+            { label: '🙏 禘', text: '古代天子祭祀祖先的大祭。禘（dì）。' },
+            { label: '🍷 灌', text: '祭祀开始时，用酒洒地以请神。' },
+            { label: '👀 既灌而往', text: '灌礼之后。' }
+        ],
+        deep: '灌礼是祭祀的开始，是最真诚、最庄重的环节。之后的部分，往往流于形式，失去了诚意。孔子看重的不是排场，而是真诚。这与3.4“礼，与其奢也，宁俭；丧，与其易也，宁戚”一脉相承：礼的核心是真情，不是形式。'
+    },
+    {
+        id: '3.11',
+        title: '或问禘之说',
+        original: '或问禘之说。子曰：“不知也。知其说者之于天下也，其如示诸斯乎！”指其掌。',
+        translation: '有人问禘祭的道理。孔子说：“我不知道。知道这个道理的人，对于治理天下，就像把东西展示在这里一样容易吧！”他指着自己的手掌。',
+        annotation: [
+            { label: '❓ 禘之说', text: '禘祭的道理。' },
+            { label: '🤲 示诸斯', text: '展示在这里。斯，指手掌。' },
+            { label: '🖐️ 指其掌', text: '指着自己的手掌。表示“易如反掌”。' }
+        ],
+        deep: '有人问禘祭的道理，孔子说“不知也”——不是真不知道，而是不愿说。因为禘祭是天子之礼，鲁国作为诸侯却举行禘祭，本身就是僭越。但紧接着，他又说：知道禘祭道理的人，治理天下易如反掌。意思是：禘祭的核心是敬天法祖、不忘根本。'
+    },
+    {
+        id: '3.12',
+        title: '祭如在，祭神如神在',
+        original: '祭如在，祭神如神在。子曰：“吾不与祭，如不祭。”',
+        translation: '祭祀祖先时，好像祖先真的在那里；祭祀神灵时，好像神灵真的在那里。孔子说：“我如果没有亲自参加祭祀，就等于没有祭祀。”',
+        annotation: [
+            { label: '🙏 祭如在', text: '祭祀祖先时，好像祖先真的在那里。' },
+            { label: '✨ 祭神如神在', text: '祭祀神灵时，好像神灵真的在那里。' },
+            { label: '🙋 吾不与祭', text: '我如果没有亲自参加祭祀。与，参与。' }
+        ],
+        deep: '不是说祖先和神灵真的在场，而是说祭祀时要有真诚的敬畏之心，就好像他们真的在面前一样。孔子又说：“吾不与祭，如不祭。”——亲自参加才有意义，别人代祭等于没祭。因为祭祀的核心是自己的诚心，不是走形式。'
+    },
+    {
+        id: '3.13',
+        title: '与其媚于奥，宁媚于灶',
+        original: '王孙贾问曰：“与其媚于奥，宁媚于灶，何谓也？”子曰：“不然。获罪于天，无所祷也。”',
+        translation: '王孙贾问：“‘与其讨好奥神，不如讨好灶神’，这句话是什么意思？”孔子说：“不对。如果得罪了上天，就没有地方可以祈祷了。”',
+        annotation: [
+            { label: '👤 王孙贾', text: '卫国大夫。' },
+            { label: '🙇 媚', text: '谄媚、讨好。' },
+            { label: '🏠 奥', text: '屋内西南角，指地位尊贵的神。' },
+            { label: '🔥 灶', text: '灶神，指地位较低但实用的神。' }
+        ],
+        deep: '王孙贾用“奥”和“灶”比喻权贵和实权，意思是：与其讨好高高在上的君主，不如讨好掌握实权的权臣。这是在暗示孔子走权臣的门路。孔子回答：“不然。获罪于天，无所祷也。”——做事要合乎道义，不能靠谄媚。这与2.24“非其鬼而祭之，谄也”一脉相承。'
+    },
+    {
+        id: '3.14',
+        title: '周监于二代，郁郁乎文哉',
+        original: '子曰：“周监于二代，郁郁乎文哉！吾从周。”',
+        translation: '孔子说：“周朝借鉴了夏、商两代的礼制，真是丰富多彩啊！我遵从周朝的礼制。”',
+        annotation: [
+            { label: '🔍 监', text: '通“鉴”，借鉴。' },
+            { label: '📜 二代', text: '夏、商两代。' },
+            { label: '🌺 郁郁', text: '文采丰富、繁盛的样子。' },
+            { label: '📋 文', text: '礼乐制度。' }
+        ],
+        deep: '这是孔子对周朝礼制的高度评价。周朝借鉴了夏商两代的经验，形成了完备的礼乐制度，孔子认为这是最理想的政治文明。“吾从周”三个字，表明了孔子的政治立场：他不是要复古到夏商，而是以周礼为典范。'
+    },
+    {
+        id: '3.15',
+        title: '子入太庙，每事问',
+        original: '子入太庙，每事问。或曰：“孰谓鄹人之子知礼乎？入太庙，每事问。”子闻之，曰：“是礼也。”',
+        translation: '孔子进入太庙，每件事都要问。有人说：“谁说鄹人的儿子懂礼呢？进了太庙，每件事都要问。”孔子听到后，说：“这就是礼啊。”',
+        annotation: [
+            { label: '🏛️ 太庙', text: '鲁国祭祀始祖周公的庙。' },
+            { label: '❓ 每事问', text: '每件事都要问。' },
+            { label: '👤 鄹人之子', text: '指孔子。孔子父亲叔梁纥曾任鄹邑大夫。' },
+            { label: '💡 是礼也', text: '这就是礼啊。' }
+        ],
+        deep: '为什么“每事问”就是礼？因为礼的核心是敬。进入太庙，面对祖先和神灵，不敢自作主张，凡事都要确认，这正是敬畏的表现。不懂装懂、自作主张，才是失礼。这与2.17“知之为知之，不知为不知”一脉相承。'
+    },
+    {
+        id: '3.16',
+        title: '射不主皮',
+        original: '子曰：“射不主皮，为力不同科，古之道也。”',
+        translation: '孔子说：“射箭不一定要射穿靶子，因为每个人的力气不同，这是古代的道理。”',
+        annotation: [
+            { label: '🏹 射', text: '射箭。' },
+            { label: '🎯 主皮', text: '以射穿靶子为主。皮，指箭靶。' },
+            { label: '💪 为力不同科', text: '因为每个人的力气不同。科，等级。' },
+            { label: '📜 古之道', text: '古代的道理。' }
+        ],
+        deep: '射箭比赛，有人力气大，能射穿靶子；有人力气小，只能射中。孔子说：射箭不一定要射穿靶子，因为每个人的力气不同。这体现了礼的包容性：礼制不是要求所有人都做到最好，而是在各自的能力范围内尽力。关键不是结果，而是态度。'
+    }
+];
+
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
+
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
+    if (!ch) return;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
+    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="ref"><span>📖 八佾篇 · ' + ch.id + '</span><span class="tag">第七天</span></div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+        });
+    }
+}
+
+setActiveChapter(chapters[0].id);
+</script>
+</body>
+</html>

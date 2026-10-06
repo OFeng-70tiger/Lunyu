@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 为政篇 · 第四天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+        .back-btn {
+            display: inline-block; margin-top: 1rem;
+            color: #826a4e; background: #f0e9df;
+            border: 1px solid #cbbba8; padding: 0.4rem 1.8rem;
+            border-radius: 40px; font-size: 0.9rem;
+            text-decoration: none; transition: 0.2s;
+        }
+        .back-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc {
+            flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .toc h2 {
+            font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li {
+            display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+            color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent;
+        }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge {
+            background: #dacfc0; color: #3e3225; font-size: 0.7rem;
+            padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto;
+            font-weight: 400; letter-spacing: 0.3px;
+        }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content {
+            flex: 1; background: #fffffffa; border: 1px solid #e8dfd3;
+            border-radius: 20px; padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px;
+        }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+        .chapter-card .ref {
+            font-size: 0.9rem; color: #8a7a64; border-bottom: 1px dashed #ddd0c0;
+            padding-bottom: 0.5rem; margin-bottom: 1.2rem;
+            display: flex; justify-content: space-between;
+        }
+        .chapter-card .ref .tag { background: #ede6db; padding: 0 0.8rem; border-radius: 40px; font-size: 0.8rem; }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original {
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
+            font-size: 1.15rem; line-height: 1.8; color: #1f1a14;
+            margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450;
+        }
+        .chapter-card .translation {
+            background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px;
+            font-size: 1.05rem; line-height: 1.8; color: #1f3a1f;
+            margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e;
+        }
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block {
+            background: #fcfaf7; padding: 0.8rem 1.4rem;
+            border-radius: 14px; border: 1px solid #ece3d8;
+        }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep {
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem;
+            font-size: 0.98rem; line-height: 1.7; color: #2f261d;
+        }
+        .chapter-card .annotation .deep i {
+            color: #6f5b45; font-style: normal; background: #e8ddd0;
+            padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px;
+        }
+        .meta-note {
+            margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap;
+        }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 为政篇</h1>
+        <div class="sub">
+            <span>📅 第四天 · 2.9 ~ 2.16</span>
+            <span>📘 共 8 章</span>
+            <span>✍️ 约 250 字</span>
+            <span>🧠 学思并重</span>
+        </div>
+        <a href="index.html" class="back-btn">🏠 返回总目录</a>
+    </div>
+
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>2.9 ~ 2.16</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">
+                ⚡ 点击章节跳转
+            </div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap;">
+        <span>📚 今日进度：为政篇 2.9 — 2.16</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
+    </div>
+</div>
+
+<script>
+var chapters = [
+    {
+        id: '2.9',
+        title: '吾与回言终日',
+        original: '子曰：“吾与回言终日，不违，如愚。退而省其私，亦足以发，回也不愚。”',
+        translation: '孔子说：“我整天给颜回讲学，他从不提出异议，看起来像个愚笨的人。但等他退下去后，我考察他私下的言行，发现他对我所讲的道理有充分的发挥。颜回啊，他并不愚笨。”',
+        annotation: [
+            { label: '👤 颜回', text: '颜回，字子渊，孔子最得意的弟子。' },
+            { label: '🤐 不违', text: '不提出异议，不反问。课堂上看起来像个“愚人”。' },
+            { label: '🔍 退而省其私', text: '退下去之后，考察他私下的言行。孔子识人，不看表面，看独处时的真实表现。' },
+            { label: '💡 核心', text: '真正的学习是消化吸收，体现在行动上。课堂最活跃的人不一定学得最好。' }
+        ],
+        deep: '这一章讲的是真正的学习态度。颜回在课堂上从不插嘴、不反驳，看起来像个“愚人”，但孔子考察他私下的言行后发现，颜回不仅听懂了，还能“发挥”——把老师的道理变成自己的行动。这与1.14“敏于事而慎于言”一脉相承：行动比言语更重要。'
+    },
+    {
+        id: '2.10',
+        title: '视其所以，观其所由，察其所安',
+        original: '子曰：“视其所以，观其所由，察其所安。人焉廋哉？人焉廋哉？”',
+        translation: '孔子说：“看他做什么，再看他为什么这样做，再看他安心于什么。这个人还能隐藏到哪里去呢？这个人还能隐藏到哪里去呢？”',
+        annotation: [
+            { label: '👀 视其所以', text: '看行为——他做了什么。' },
+            { label: '🎯 观其所由', text: '看动机——他为什么这么做。' },
+            { label: '🏠 察其所安', text: '看志趣——他内心真正安于什么。' },
+            { label: '🔍 廋', text: '隐藏、藏匿。孔子连说两遍“人焉廋哉”，强调一个人无论如何伪装，最终都会暴露真实面目。' }
+        ],
+        deep: '这是孔子识人三部曲，层层深入：由外到内，从行为到动机，再到心灵归宿。这与1.10“温良恭俭让以得之”形成呼应：孔子靠人格魅力了解别人，也靠这套方法识人。在用人、交友、择偶上，这套方法至今仍然有效。'
+    },
+    {
+        id: '2.11',
+        title: '温故而知新',
+        original: '子曰：“温故而知新，可以为师矣。”',
+        translation: '孔子说：“温习旧知识时能有新发现、新理解，就可以当老师了。”',
+        annotation: [
+            { label: '📖 温故', text: '温习旧知识。' },
+            { label: '✨ 知新', text: '在旧知识里发现新意义、新理解。不是简单地“复习旧知识就能学新知识”。' },
+            { label: '🎓 可以为师', text: '为什么能当老师？因为真正理解了，能举一反三，能教学相长。' }
+        ],
+        deep: '这句话常被误解为“复习旧知识就能学新知识”，但孔子的重点在“知新”——在旧知识里发现新意义。这与1.15“告往知来”一脉相承：子贡能“告往知来”，孔子说“始可与言诗已矣”。温故而知新，就是“告往知来”的另一种表达。'
+    },
+    {
+        id: '2.12',
+        title: '君子不器',
+        original: '子曰：“君子不器。”',
+        translation: '孔子说：“君子不像器皿那样，只有一种用途。”',
+        annotation: [
+            { label: '🍶 器', text: '器皿，引申为只有单一用途的工具。碗盛饭，杯盛水，不能互换。' },
+            { label: '🚫 不器', text: '君子不应该被限定在单一功能里。' },
+            { label: '💡 三层意思', text: '① 通才而非专才；② 不自我设限；③ 以道为本，追求的是道，不是成为某种工具。' }
+        ],
+        deep: '孔子培养的是完整的人，不是工具人。这与1.6“行有余力则以学文”、1.7“虽曰未学吾必谓之学矣”一脉相承：君子要博学多识，能应对各种情况，而不是只会一样技能。'
+    },
+    {
+        id: '2.13',
+        title: '先行其言而后从之',
+        original: '子贡问君子。子曰：“先行其言而后从之。”',
+        translation: '子贡问什么是君子。孔子说：“先做，然后再说出来。”',
+        annotation: [
+            { label: '⚡ 先行其言', text: '先做，然后再说。' },
+            { label: '🗣️ 针对性', text: '子贡口才极好，善于言辞，孔子提醒他：别光说，先做出来。' },
+            { label: '💡 三层', text: '说了不做，是空话；做了再说，是实在；做了也不说，是厚道。' }
+        ],
+        deep: '这与1.3“巧言令色鲜矣仁”、1.14“敏于事而慎于言”一脉相承。孔子一贯主张行动先于言语。'
+    },
+    {
+        id: '2.14',
+        title: '君子周而不比，小人比而不周',
+        original: '子曰：“君子周而不比，小人比而不周。”',
+        translation: '孔子说：“君子以道义团结众人而不结党营私，小人结党营私而不团结众人。”',
+        annotation: [
+            { label: '🤝 周', text: '以道义团结众人。开放的、以道义为基础的。' },
+            { label: '🔗 比', text: '以私利勾结少数人。封闭的、以私利为基础的。' },
+            { label: '💡 核心', text: '君子有原则，但不排他；小人有圈子，但无原则。' }
+        ],
+        deep: '“周”和“比”表面都是“联合”，但本质完全不同。这与1.8“无友不如己者”形成呼应：君子择友慎重，但不搞小圈子。'
+    },
+    {
+        id: '2.15',
+        title: '学而不思则罔，思而不学则殆',
+        original: '子曰：“学而不思则罔，思而不学则殆。”',
+        translation: '孔子说：“只学习不思考，就会迷惑而无所得；只思考不学习，就会陷入危险。”',
+        annotation: [
+            { label: '📚 学而不思则罔', text: '只吸收知识，不消化思考，就会迷惑——知道很多，但理不清头绪，无法内化为自己的东西。' },
+            { label: '🤔 思而不学则殆', text: '只空想，不学习，就会危险——容易钻牛角尖，陷入主观臆断，甚至走火入魔。' },
+            { label: '💡 核心', text: '学和思，缺一不可。学是输入，思是消化；学是基础，思是升华。' }
+        ],
+        deep: '这是孔子学习论的核心。这与2.11“温故而知新”一脉相承：温故是学，知新是思。也与你之前说的“学而不思则罔”直接呼应。'
+    },
+    {
+        id: '2.16',
+        title: '攻乎异端，斯害也已',
+        original: '子曰：“攻乎异端，斯害也已。”',
+        translation: '孔子说：“专攻不合正道的东西，这是有害的。”',
+        annotation: [
+            { label: '⚔️ 攻', text: '专攻、钻研。' },
+            { label: '🔀 异端', text: '不合正道的东西，另一说指事物的两端。' },
+            { label: '⚠️ 两种理解', text: '① 专攻异端邪说，会害了自己；② 只抓住事物的一端（走极端），是有害的。' }
+        ],
+        deep: '无论哪种理解，核心都是：不要走极端，不要偏执一端。这与1.12“礼之用，和为贵”、1.13“信近于义，恭近于礼”一脉相承：儒家讲究恰到好处，反对过犹不及。'
+    }
+];
+
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
+
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
+    if (!ch) return;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
+    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="ref"><span>📖 为政篇 · ' + ch.id + '</span><span class="tag">第四天</span></div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+        });
+    }
+}
+
+setActiveChapter(chapters[0].id);
+</script>
+</body>
+</html>

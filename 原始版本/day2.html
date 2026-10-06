@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 学而篇 · 第二天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc {
+            flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .toc h2 {
+            font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li {
+            display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+            color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent;
+        }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge {
+            background: #dacfc0; color: #3e3225; font-size: 0.7rem;
+            padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto;
+            font-weight: 400; letter-spacing: 0.3px;
+        }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content {
+            flex: 1; background: #fffffffa; border: 1px solid #e8dfd3;
+            border-radius: 20px; padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px;
+        }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+        .chapter-card .ref {
+            font-size: 0.9rem; color: #8a7a64; border-bottom: 1px dashed #ddd0c0;
+            padding-bottom: 0.5rem; margin-bottom: 1.2rem;
+            display: flex; justify-content: space-between;
+        }
+        .chapter-card .ref .tag { background: #ede6db; padding: 0 0.8rem; border-radius: 40px; font-size: 0.8rem; }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original {
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
+            font-size: 1.15rem; line-height: 1.8; color: #1f1a14;
+            margin: 1.2rem 0 1.8rem 0; border-left: 6px solid #b7a084; font-weight: 450;
+        }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block {
+            background: #fcfaf7; padding: 0.8rem 1.4rem;
+            border-radius: 14px; border: 1px solid #ece3d8;
+        }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep {
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem;
+            font-size: 0.98rem; line-height: 1.7; color: #2f261d;
+        }
+        .chapter-card .annotation .deep i {
+            color: #6f5b45; font-style: normal; background: #e8ddd0;
+            padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px;
+        }
+        .meta-note {
+            margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap;
+        }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 学而篇</h1>
+        <div class="sub">
+            <span>📅 第二天 · 1.10 ~ 1.16</span>
+            <span>📘 共 7 章</span>
+            <span>✍️ 约 276 字</span>
+            <span>🧠 学而篇完结</span>
+        </div>
+    </div>
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>1.10 ~ 1.16</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">
+                ⚡ 点击章节跳转
+            </div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap;">
+        <span>📚 今日进度：学而篇 1.10 — 1.16（完结）</span>
+        <span>🔖 深度注解 · 字字落实</span>
+    </div>
+</div>
+
+<script>
+const chapters = [
+    {
+        id: '1.10',
+        title: '温良恭俭让以得之',
+        original: '子禽问于子贡曰：“夫子至于是邦也，必闻其政，求之与？抑与之与？”子贡曰：“夫子温、良、恭、俭、让以得之。夫子之求之也，其诸异乎人之求之与？”',
+        annotation: [
+            { label: '📌 背景', text: '子禽疑惑：孔子到每个国家都能了解政事，是自己求来的，还是别人主动告诉他的？' },
+            { label: '🌟 五德', text: '温（温和）、良（善良）、恭（恭敬）、俭（俭朴）、让（谦让）。这五种品质让人主动愿意亲近和信任。' },
+            { label: '💡 核心', text: '真正的领导力不来自职位或强求，而来自德行。你是什么样的人，就会吸引什么样的对待。' }
+        ],
+        deep: '子贡的回答点出了孔子人格魅力的本质——不是靠打听或权谋，而是靠温良恭俭让这五种品质，让别人主动愿意向他敞开心扉。这与1.1“人不知而不愠”一脉相承：君子求诸己，不向外索求。'
+    },
+    {
+        id: '1.11',
+        title: '三年无改于父之道',
+        original: '子曰：“父在，观其志；父没，观其行；三年无改于父之道，可谓孝矣。”',
+        annotation: [
+            { label: '👀 观志观行', text: '父亲在世时看他的志向，父亲去世后看他的行为。观察一个人是否真正继承父亲的道。' },
+            { label: '⏳ 三年', text: '“三”是虚数，指较长一段时间。不急于推翻父亲留下的合理传统。' },
+            { label: '⚖️ 关键', text: '核心是“道”——合理的部分。如果父亲的道本身不合理，孔子并不主张盲从。' }
+        ],
+        deep: '真正的孝，是给父亲留下的合理传统一个延续的时间。这既是对逝者的尊重，也是对自己的克制——避免因一时冲动而丢掉有价值的传统。'
+    },
+    {
+        id: '1.12',
+        title: '礼之用，和为贵',
+        original: '有子曰：“礼之用，和为贵。先王之道，斯为美；小大由之。有所不行，知和而和，不以礼节之，亦不可行也。”',
+        annotation: [
+            { label: '⚖️ 礼与和', text: '礼是外在规范，和是内在目标。礼的作用是为了达到和谐。' },
+            { label: '⚠️ 关键', text: '但如果一味求和而不用礼来节制，就会变成和稀泥、无原则的妥协。' },
+            { label: '💡 核心', text: '和谐不是目的本身，有原则的和谐才是。先王之道之所以美，是因为既讲礼又讲和。' }
+        ],
+        deep: '儒家从来不主张死守形式，也从来不主张放弃原则。只讲礼不讲和就僵化冰冷，只讲和不讲礼就混乱无序。'
+    },
+    {
+        id: '1.13',
+        title: '信近于义，恭近于礼',
+        original: '有子曰：“信近于义，言可复也。恭近于礼，远耻辱也。因不失其亲，亦可宗也。”',
+        annotation: [
+            { label: '📝 信近于义', text: '承诺要符合道义，说出的话才能兑现。不合道义的承诺，不该兑现。' },
+            { label: '🤝 恭近于礼', text: '恭敬要符合礼制，否则会变成谄媚，招来耻辱。' },
+            { label: '👥 择友', text: '依靠谁、亲近谁，要有选择。不是所有人都值得深交。' }
+        ],
+        deep: '一切美德都要有“度”，都要符合更高的原则。信要合义，恭要合礼，交友要择善。这与“巧言令色鲜矣仁”一样，儒家反对走极端。'
+    },
+    {
+        id: '1.14',
+        title: '食无求饱，居无求安',
+        original: '子曰：“君子食无求饱，居无求安，敏于事而慎于言，就有道而正焉，可谓好学也已。”',
+        annotation: [
+            { label: '🍚 食无求饱', text: '不追求饱足安逸，不被物质享受牵绊，把精力放在更重要的事上。' },
+            { label: '⚡ 敏事慎言', text: '做事勤快，说话谨慎。行动多于言语。' },
+            { label: '📚 就有道而正', text: '主动找比自己强的人请教，不断修正自己。这才是好学的真谛。' }
+        ],
+        deep: '孔子对“好学”的定义和今天完全不同：好学不是读了多少书，而是有没有在做人做事上不断修正自己。好学是一种生活态度，不是一种学习行为。'
+    },
+    {
+        id: '1.15',
+        title: '贫而乐，富而好礼',
+        original: '子贡曰：“贫而无谄，富而无骄，何如？”子曰：“可也。未若贫而乐，富而好礼者也。”子贡曰：“《诗》云：‘如切如磋，如琢如磨’，其斯之谓与？”子曰：“赐也，始可与言《诗》已矣，告诸往而知来者。”',
+        annotation: [
+            { label: '📊 三层境界', text: '① 贫而无谄、富而无骄——克制；② 贫而乐、富而好礼——自然；③ 如切如磋、如琢如磨——精益求精。' },
+            { label: '🎓 教学相长', text: '孔子赞赏子贡不是因为答对了，而是因为他能从具体对话中推及普遍道理——“告往知来”。' },
+            { label: '💎 如切如磋', text: '出自《诗经》，形容打磨玉石，比喻修身要不断精进。' }
+        ],
+        deep: '这是《学而篇》最生动的一章。孔子欣赏子贡，是因为子贡能“告往知来”——从一段对话中领悟到普遍的学习之道。这才是真正的学习能力。'
+    },
+    {
+        id: '1.16',
+        title: '不患人之不己知，患不知人',
+        original: '子曰：“不患人之不己知，患不知人也。”',
+        annotation: [
+            { label: '🔄 首尾呼应', text: '与1.1“人不知而不愠”首尾呼应，是《学而篇》的收束。' },
+            { label: '🎯 求诸己', text: '不担心别人不了解自己，担心的是自己不了解别人。把注意力从“别人怎么看我”转向“我怎么看别人”。' },
+            { label: '💡 为什么', text: '不了解别人，就无法知人善任、无法择友；别人不了解你，并不影响你的德行和成长。' }
+        ],
+        deep: '真正的君子，不活在他人的评价里，而活在自己的修养里。学而篇从“学而时习之”开始，到“不患人不知”结束，完成了一个完整的修身闭环。'
+    }
+];
+
+const tocList = document.getElementById('tocList');
+const contentArea = document.getElementById('contentArea');
+
+chapters.forEach(ch => {
+    const li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = `<span class="num">${ch.id}</span><span>${ch.title}</span><span class="badge">…</span>`;
+    li.addEventListener('click', () => setActiveChapter(ch.id));
+    tocList.appendChild(li);
+});
+
+let currentId = chapters[0].id;
+
+function setActiveChapter(id) {
+    currentId = id;
+    document.querySelectorAll('.toc-list li').forEach(el => {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    const ch = chapters.find(c => c.id === id);
+    if (!ch) return;
+    let annotationHtml = '';
+    ch.annotation.forEach(a => {
+        annotationHtml += `<div class="block"><strong>${a.label}</strong> ${a.text}</div>`;
+    });
+    contentArea.innerHTML = `
+        <div class="chapter-card active">
+            <div class="ref"><span>📖 学而篇 · ${ch.id}</span><span class="tag">第二天</span></div>
+            <h3>${ch.title}</h3>
+            <div class="original">${ch.original}</div>
+            <div class="annotation">${annotationHtml}</div>
+            <div class="deep"><i>🧠 内核</i> ${ch.deep}</div>
+            <div class="meta-note">
+                <span>🔗 章节 ${ch.id}</span>
+                <span style="display:flex;gap:0.8rem;">
+                    <span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>
+                    <span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>
+                </span>
+            </div>
+        </div>
+    `;
+    const idx = chapters.findIndex(c => c.id === id);
+    document.getElementById('prevBtn')?.addEventListener('click', () => {
+        if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+    });
+    document.getElementById('nextBtn')?.addEventListener('click', () => {
+        if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+    });
+}
+
+setActiveChapter(chapters[0].id);
+</script>
+</body>
+</html>

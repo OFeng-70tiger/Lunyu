@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 为政篇 · 第五天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+        .back-btn {
+            display: inline-block; margin-top: 1rem;
+            color: #826a4e; background: #f0e9df;
+            border: 1px solid #cbbba8; padding: 0.4rem 1.8rem;
+            border-radius: 40px; font-size: 0.9rem;
+            text-decoration: none; transition: 0.2s;
+        }
+        .back-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc {
+            flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .toc h2 {
+            font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li {
+            display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+            color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent;
+        }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge {
+            background: #dacfc0; color: #3e3225; font-size: 0.7rem;
+            padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto;
+            font-weight: 400; letter-spacing: 0.3px;
+        }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content {
+            flex: 1; background: #fffffffa; border: 1px solid #e8dfd3;
+            border-radius: 20px; padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px;
+        }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+        .chapter-card .ref {
+            font-size: 0.9rem; color: #8a7a64; border-bottom: 1px dashed #ddd0c0;
+            padding-bottom: 0.5rem; margin-bottom: 1.2rem;
+            display: flex; justify-content: space-between;
+        }
+        .chapter-card .ref .tag { background: #ede6db; padding: 0 0.8rem; border-radius: 40px; font-size: 0.8rem; }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original {
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
+            font-size: 1.15rem; line-height: 1.8; color: #1f1a14;
+            margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450;
+        }
+        .chapter-card .translation {
+            background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px;
+            font-size: 1.05rem; line-height: 1.8; color: #1f3a1f;
+            margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e;
+        }
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block {
+            background: #fcfaf7; padding: 0.8rem 1.4rem;
+            border-radius: 14px; border: 1px solid #ece3d8;
+        }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep {
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem;
+            font-size: 0.98rem; line-height: 1.7; color: #2f261d;
+        }
+        .chapter-card .annotation .deep i {
+            color: #6f5b45; font-style: normal; background: #e8ddd0;
+            padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px;
+        }
+        .meta-note {
+            margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap;
+        }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 为政篇</h1>
+        <div class="sub">
+            <span>📅 第五天 · 2.17 ~ 2.24</span>
+            <span>📘 共 8 章</span>
+            <span>✍️ 约 240 字</span>
+            <span>🧠 知与信</span>
+        </div>
+        <a href="index.html" class="back-btn">🏠 返回总目录</a>
+    </div>
+
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>2.17 ~ 2.24</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">
+                ⚡ 点击章节跳转
+            </div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap;">
+        <span>📚 今日进度：为政篇 2.17 — 2.24</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
+    </div>
+</div>
+
+<script>
+var chapters = [
+    {
+        id: '2.17',
+        title: '知之为知之，不知为不知',
+        original: '子曰：“由，诲女知之乎！知之为知之，不知为不知，是知也。”',
+        translation: '孔子说：“仲由，我教你的道理，你明白了吗？知道就是知道，不知道就是不知道，这才是真正的智慧。”',
+        annotation: [
+            { label: '👤 由', text: '仲由，字子路，孔子弟子。性格直率、好勇。' },
+            { label: '🎯 针对性', text: '子路容易不懂装懂，或凭血气之勇强出头，孔子这句话是对他说的。' },
+            { label: '💡 核心', text: '真正的智慧，不是无所不知，而是清楚知道自己知道什么、不知道什么。承认“不知道”不是丢脸，而是求知的起点。' }
+        ],
+        deep: '这与2.9“颜回不愚”形成鲜明对比：颜回看起来愚笨，其实真懂；而有些人看起来聪明，其实不懂装懂。知与不知的边界，是智慧的起点。'
+    },
+    {
+        id: '2.18',
+        title: '多闻阙疑，慎言其余',
+        original: '子张学干禄。子曰：“多闻阙疑，慎言其余，则寡尤；多见阙殆，慎行其余，则寡悔。言寡尤，行寡悔，禄在其中矣。”',
+        translation: '子张要学习谋求官职俸禄的方法。孔子说：“多听，把疑惑不解的问题暂时搁置，其余有把握的谨慎地说出来，就能少犯错误；多看，把危险不安的事暂时搁置，其余有把握的谨慎地做，就能少后悔。言语少犯错，行动少后悔，官职俸禄就在其中了。”',
+        annotation: [
+            { label: '📝 阙疑', text: '把疑惑不解的问题暂时搁置。“阙”通“缺”，保留、搁置。' },
+            { label: '⚠️ 寡尤', text: '少犯错。尤，过失。多听，不懂的先放一边，有把握的谨慎说。' },
+            { label: '🛡️ 寡悔', text: '少后悔。多看，危险的事先放一边，有把握的谨慎做。' },
+            { label: '💡 核心', text: '不要把心思放在“怎么求禄”上，而要把心思放在“怎么减少过失”上。言行少犯错、少后悔，官职俸禄自然就来了。' }
+        ],
+        deep: '子张问的是“怎么当官”，孔子答的却是“怎么做人”。这与1.14“敏于事而慎于言”、2.13“先行其言而后从之”一脉相承：孔子始终把修身放在求利之前。'
+    },
+    {
+        id: '2.19',
+        title: '举直错诸枉，则民服',
+        original: '哀公问曰：“何为则民服？”孔子对曰：“举直错诸枉，则民服；举枉错诸直，则民不服。”',
+        translation: '鲁哀公问：“怎么做才能让百姓服从？”孔子回答说：“把正直的人提拔起来，放在邪曲的人之上，百姓就服从；把邪曲的人提拔起来，放在正直的人之上，百姓就不服从。”',
+        annotation: [
+            { label: '👑 哀公', text: '鲁哀公，鲁国国君。' },
+            { label: '⚖️ 举直错诸枉', text: '把正直的人提拔起来，放在邪曲的人之上。“错”通“措”，安置。' },
+            { label: '💡 核心', text: '百姓服不服，不取决于你说了什么，而取决于你用了什么人。提拔正直的人，百姓就知道这个国家有公道，自然信服。' }
+        ],
+        deep: '这与2.1“为政以德”、2.3“道之以德，齐之以礼”一脉相承：为政的核心是用人，用人的核心是正直。一个国家的风气，从它提拔什么样的人就能看出来。'
+    },
+    {
+        id: '2.20',
+        title: '临之以庄，则敬',
+        original: '季康子问：“使民敬、忠以劝，如之何？”子曰：“临之以庄，则敬；孝慈，则忠；举善而教不能，则劝。”',
+        translation: '季康子问：“要使百姓恭敬、尽忠并且互相勉励，该怎么做？”孔子说：“你用庄重的态度对待他们，他们就恭敬；你孝顺父母、慈爱子女，他们就尽忠；你提拔好人、教育能力差的人，他们就互相勉励了。”',
+        annotation: [
+            { label: '👤 季康子', text: '鲁国大夫，权臣。他问的是“怎么让百姓听话”。' },
+            { label: '🎯 临之以庄', text: '你用庄重的态度对待百姓，他们就恭敬。你自己轻浮，百姓凭什么敬你？' },
+            { label: '❤️ 孝慈则忠', text: '你孝顺父母、慈爱子女，百姓才尽忠。你自己不孝不慈，百姓凭什么忠你？' },
+            { label: '💡 核心', text: '百姓的态度，是执政者态度的镜子。你想让百姓怎么样，你自己先要做到。' }
+        ],
+        deep: '孔子给的答案，全是执政者自己该做的事。这与2.1“为政以德，譬如北辰”一脉相承：领导力是感召，不是要求。'
+    },
+    {
+        id: '2.21',
+        title: '是亦为政',
+        original: '或谓孔子曰：“子奚不为政？”子曰：“《书》云：‘孝乎惟孝，友于兄弟，施于有政。’是亦为政，奚其为为政？”',
+        translation: '有人对孔子说：“你为什么不去做官从政呢？”孔子说：“《尚书》上说：‘孝啊，只有孝，对兄弟友爱，把孝悌之道推广到政治上。’这也是为政啊，为什么一定要做官才算为政呢？”',
+        annotation: [
+            { label: '📖 《书》', text: '《尚书》。' },
+            { label: '🏠 孝乎惟孝', text: '孝啊，只有孝。友于兄弟：对兄弟友爱。' },
+            { label: '💡 核心', text: '政治不只是做官，更是影响人心。一个人在家里孝顺父母、友爱兄弟，就是在为社会秩序做贡献。' }
+        ],
+        deep: '这与1.2“孝悌为仁之本”、2.20“孝慈则忠”一脉相承：家庭伦理是政治的基础。孔子不是不做官，而是认为修身本身就是政治。'
+    },
+    {
+        id: '2.22',
+        title: '人而无信，不知其可也',
+        original: '子曰：“人而无信，不知其可也。大车无輗，小车无軏，其何以行之哉？”',
+        translation: '孔子说：“一个人没有信用，不知道他怎么能行得通。就像大车没有輗、小车没有軏，靠什么行走呢？”',
+        annotation: [
+            { label: '🚗 大车无輗', text: '牛车辕前横木两端的键。輗（ní）。' },
+            { label: '🐎 小车无軏', text: '马车辕前横木两端的销钉。軏（yuè）。' },
+            { label: '💡 核心', text: '信用就是人的“輗軏”——没有信用，人就无法在社会上立足。一切合作、交往、共事，都建立在信任的基础上。' }
+        ],
+        deep: '这与1.4“与朋友交而不信乎”、1.7“与朋友交，言而有信”一脉相承。孔子把“信”看得极重，因为信是人与人之间最基本的纽带。'
+    },
+    {
+        id: '2.23',
+        title: '十世可知也',
+        original: '子张问：“十世可知也？”子曰：“殷因于夏礼，所损益，可知也；周因于殷礼，所损益，可知也。其或继周者，虽百世，可知也。”',
+        translation: '子张问：“十代以后的礼仪制度可以预先知道吗？”孔子说：“殷朝沿袭夏朝的礼仪，减少了什么、增加了什么，是可以知道的；周朝沿袭殷朝的礼仪，减少了什么、增加了什么，也是可以知道的。将来继承周朝的，即使一百代，也是可以预先知道的。”',
+        annotation: [
+            { label: '📅 十世', text: '十代。一世约三十年。' },
+            { label: '🔄 因', text: '沿袭、继承。损益：减少和增加。' },
+            { label: '💡 核心', text: '制度不是凭空产生的，而是在继承中变革的。变中有不变，不变中有变。根本的原则不变，具体的制度随时代增减。' }
+        ],
+        deep: '孔子的核心洞见是：了解过去，才能预知未来。这与2.11“温故而知新”一脉相承。'
+    },
+    {
+        id: '2.24',
+        title: '非其鬼而祭之，谄也',
+        original: '子曰：“非其鬼而祭之，谄也。见义不为，无勇也。”',
+        translation: '孔子说：“不是自己的祖先却去祭祀，这是谄媚。看到该做的事却不做，这是没有勇气。”',
+        annotation: [
+            { label: '👻 非其鬼而祭之', text: '不是自己的祖先却去祭祀。比如讨好别人的祖先、巴结权贵，都是“非其鬼而祭”。这背后是动机不纯。' },
+            { label: '⚔️ 见义不为', text: '看到该做的事却不做，这是没有勇气。这背后是行动不够。' },
+            { label: '💡 核心', text: '一个是做多了（不该做的做了），一个是做少了（该做的没做）。两者都是毛病。做什么、不做什么，都要有准则。' }
+        ],
+        deep: '这与1.13“信近于义，恭近于礼”一脉相承：该做的要勇敢去做，不该做的绝不做。'
+    }
+];
+
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
+
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
+    if (!ch) return;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
+    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="ref"><span>📖 为政篇 · ' + ch.id + '</span><span class="tag">第五天</span></div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+        });
+    }
+}
+
+setActiveChapter(chapters[0].id);
+</script>
+</body>
+</html>
