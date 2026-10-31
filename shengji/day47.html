@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 宪问篇 · 第四十七天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+        .top-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
+        .btn { display: inline-block; padding: 0.4rem 1.8rem; border-radius: 40px; font-size: 0.9rem; text-decoration: none; transition: 0.2s; }
+        .btn-back { color: #826a4e; background: #f0e9df; border: 1px solid #cbbba8; }
+        .btn-back:hover { background: #e8ddd0; border-color: #9b846b; }
+        .btn-jinju { color: #6b4f1d; background: linear-gradient(135deg, #f5e6c8, #e8d3a8); border: 1px solid #d4b97a; font-weight: 500; }
+        .btn-jinju:hover { background: linear-gradient(135deg, #f0dcb5, #ddc696); border-color: #c5a560; }
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc { flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8; border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem; box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem; max-height: 90vh; overflow-y: auto; }
+        .toc h2 { font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px; border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 6px; }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li { display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem; border-radius: 12px; cursor: pointer; transition: all 0.15s ease; color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent; }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge { background: #dacfc0; color: #3e3225; font-size: 0.7rem; padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto; font-weight: 400; }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content { flex: 1; background: #fffffffa; border: 1px solid #e8dfd3; border-radius: 20px; padding: 2rem 2.2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px; }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+        .top-nav { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #ddd0c0; padding-bottom: 0.6rem; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem; }
+        .top-nav .ref-left { font-size: 0.9rem; color: #8a7a64; }
+        .top-nav .ref-left .tag { background: #ede6db; padding: 0 0.8rem; border-radius: 40px; font-size: 0.8rem; margin-left: 0.4rem; }
+        .day-nav { display: flex; align-items: center; gap: 0.6rem; }
+        .day-btn { text-decoration: none; color: #826a4e; background: #f0e9df; border: 1px solid #cbbba8; padding: 0.25rem 1rem; border-radius: 40px; font-size: 0.8rem; transition: 0.2s; display: inline-flex; align-items: center; }
+        .day-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .day-label { font-size: 0.85rem; color: #6b5a44; background: #e8e0d4; padding: 0.25rem 1rem; border-radius: 20px; }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original { background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px; font-size: 1.15rem; line-height: 1.8; color: #1f1a14; margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450; }
+        .chapter-card .translation { background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px; font-size: 1.05rem; line-height: 1.8; color: #1f3a1f; margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e; }
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block { background: #fcfaf7; padding: 0.8rem 1.4rem; border-radius: 14px; border: 1px solid #ece3d8; }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep { background: #f6f0e8; border-left: 4px solid #a3876b; padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem; font-size: 0.98rem; line-height: 1.7; color: #2f261d; }
+        .chapter-card .annotation .deep i { color: #6f5b45; font-style: normal; background: #e8ddd0; padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px; }
+        .meta-note { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca; font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+            .top-nav { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 宪问篇</h1>
+        <div class="sub">
+            <span>📅 第四十七天 · 14.17 ~ 14.24</span>
+            <span>📘 共 8 章</span>
+            <span>✍️ 约 340 字</span>
+            <span>🧠 论人论世</span>
+        </div>
+        <div class="top-btns">
+            <a href="index.html" class="btn btn-back">🏠 返回总目录</a>
+            <a href="lunyu-jinju.html" class="btn btn-jinju">✨ 论语金句</a>
+        </div>
+    </div>
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>14.17 ~ 14.24</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">⚡ 点击章节跳转</div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem 1.5rem;">
+        <span>📚 今日进度：宪问篇 14.17 — 14.24</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
+    </div>
+</div>
+<script>
+var chapters = [
+    {
+        id: '14.17', title: '管仲非仁者与',
+        original: '子贡曰：“管仲非仁者与？桓公杀公子纠，不能死，又相之。”子曰：“管仲相桓公，霸诸侯，一匡天下，民到于今受其赐。微管仲，吾其被发左衽矣。岂若匹夫匹妇之为谅也，自经于沟渎而莫之知也？”',
+        translation: '子贡说：“管仲不是仁者吧？齐桓公杀了公子纠，管仲不能殉难，反而辅佐桓公。”孔子说：“管仲辅佐桓公，称霸诸侯，匡正天下，百姓到今天还受他的恩惠。如果没有管仲，我们恐怕都要披散头发、衣襟向左开了。难道要像普通男女那样守着小信，在沟渠里上吊自杀而没人知道吗？”',
+        annotation: [
+            { label: '👤 子贡', text: '端木赐。' },
+            { label: '👤 管仲', text: '齐国名相。' },
+            { label: '👑 桓公', text: '齐桓公。' },
+            { label: '💀 公子纠', text: '桓公之兄。' },
+            { label: '🤝 一匡天下', text: '匡正天下。' },
+            { label: '🎁 受其赐', text: '受他的恩惠。' },
+            { label: '💇 被发左衽', text: '披散头发、衣襟向左开。' },
+            { label: '🙅 匹夫匹妇之为谅', text: '普通男女守着小信。' },
+            { label: '💀 自经于沟渎', text: '在沟渠里上吊自杀。' }
+        ],
+        deep: '子贡质疑管仲不死君难，孔子说管仲一匡天下，民受其赐。评人要看大节。与14.16“如其仁”一脉相承。'
+    },
+    {
+        id: '14.18', title: '可以为文矣',
+        original: '公叔文子之臣大夫僎与文子同升诸公。子闻之，曰：“可以为‘文’矣。”',
+        translation: '公叔文子的家臣大夫僎，和文子一同升为公朝大夫。孔子听说后，说：“可以给他‘文’的谥号了。”',
+        annotation: [
+            { label: '👤 公叔文子', text: '卫国大夫。' },
+            { label: '👤 僎', text: '公叔文子的家臣。' },
+            { label: '⬆️ 同升诸公', text: '一同升为公朝大夫。' },
+            { label: '🏷️ 文', text: '谥号。' }
+        ],
+        deep: '公叔文子推荐家臣与自己同升，孔子说他可以谥为“文”。荐贤不忌。与14.17“管仲”一脉相承。'
+    },
+    {
+        id: '14.19', title: '奚其丧',
+        original: '子言卫灵公之无道也，康子曰：“夫如是，奚而不丧？”孔子曰：“仲叔圉治宾客，祝鮀治宗庙，王孙贾治军旅。夫如是，奚其丧？”',
+        translation: '孔子讲到卫灵公的无道，季康子说：“既然这样，为什么他不败亡？”孔子说：“他有仲叔圉接待宾客，祝鮀管理宗庙，王孙贾统率军队。像这样，怎么会败亡？”',
+        annotation: [
+            { label: '👤 卫灵公', text: '卫国国君。' },
+            { label: '🌑 无道', text: '无道。' },
+            { label: '👤 康子', text: '季康子。' },
+            { label: '❓ 奚而不丧', text: '为什么他不败亡？' },
+            { label: '👤 仲叔圉', text: '卫国大夫。圉（yǔ）。' },
+            { label: '👤 祝鮀', text: '卫国大夫。鮀（tuó）。' },
+            { label: '👤 王孙贾', text: '卫国大夫。' }
+        ],
+        deep: '卫灵公无道却不亡，因为有三个贤臣各司其职。用人之功。与14.18“可以为文”一脉相承。'
+    },
+    {
+        id: '14.20', title: '其言之不怍',
+        original: '子曰：“其言之不怍，则为之也难。”',
+        translation: '孔子说：“一个人说话大言不惭，做起来就难了。”',
+        annotation: [
+            { label: '🗣️ 言之不怍', text: '说话大言不惭。怍（zuò），惭愧。' },
+            { label: '⚠️ 为之也难', text: '做起来就难了。' }
+        ],
+        deep: '孔子说大言不惭的人，做起来难。与14.19“奚其丧”一脉相承。'
+    },
+    {
+        id: '14.21', title: '陈成子弑简公',
+        original: '陈成子弑简公。孔子沐浴而朝，告于哀公曰：“陈恒弑其君，请讨之。”公曰：“告夫三子。”孔子曰：“以吾从大夫之后，不敢不告也。君曰‘告夫三子’者。”之三子告，不可。孔子曰：“以吾从大夫之后，不敢不告也。”',
+        translation: '陈成子杀了齐简公。孔子沐浴后上朝，告诉鲁哀公说：“陈恒杀了他的国君，请出兵讨伐他。”哀公说：“你去告诉那三位大夫。”孔子说：“因为我曾忝居大夫之后，不敢不来报告。国君却说‘去告诉那三位大夫’。”孔子去告诉三位大夫，他们不同意。孔子说：“因为我曾忝居大夫之后，不敢不来报告。”',
+        annotation: [
+            { label: '👤 陈成子', text: '陈恒。' },
+            { label: '💀 弑简公', text: '杀了齐简公。' },
+            { label: '🛁 沐浴而朝', text: '沐浴后上朝。' },
+            { label: '👤 哀公', text: '鲁哀公。' },
+            { label: '⚔️ 请讨之', text: '请出兵讨伐他。' },
+            { label: '👥 三子', text: '季孙、叔孙、孟孙三家。' },
+            { label: '🙇 从大夫之后', text: '忝居大夫之后。' }
+        ],
+        deep: '陈成子弑君，孔子沐浴而朝，请讨之。虽不见用，仍尽己责。与14.20“言之不怍”一脉相承。'
+    },
+    {
+        id: '14.22', title: '勿欺也，而犯之',
+        original: '子路问事君。子曰：“勿欺也，而犯之。”',
+        translation: '子路问怎样侍奉君主。孔子说：“不要欺骗他，但要犯颜直谏。”',
+        annotation: [
+            { label: '👤 子路', text: '仲由。' },
+            { label: '❓ 事君', text: '侍奉君主。' },
+            { label: '🚫 勿欺', text: '不要欺骗他。' },
+            { label: '💪 犯之', text: '犯颜直谏。' }
+        ],
+        deep: '孔子说事君勿欺而犯之。不欺骗，敢直谏。与14.21“陈成子”一脉相承。'
+    },
+    {
+        id: '14.23', title: '君子上达，小人下达',
+        original: '子曰：“君子上达，小人下达。”',
+        translation: '孔子说：“君子向上通达仁义，小人向下通达财利。”',
+        annotation: [
+            { label: '⬆️ 上达', text: '向上通达仁义。' },
+            { label: '⬇️ 下达', text: '向下通达财利。' }
+        ],
+        deep: '孔子说君子上达仁义，小人下达财利。与14.22“事君”一脉相承。'
+    },
+    {
+        id: '14.24', title: '古之学者为己',
+        original: '子曰：“古之学者为己，今之学者为人。”',
+        translation: '孔子说：“古代学者学习是为了充实自己，现在学者学习是为了炫耀给别人看。”',
+        annotation: [
+            { label: '📚 古之学者', text: '古代学者。' },
+            { label: '🧘 为己', text: '为了充实自己。' },
+            { label: '📚 今之学者', text: '现在学者。' },
+            { label: '🎭 为人', text: '为了炫耀给别人看。' }
+        ],
+        deep: '孔子说古之学者为己，今之学者为人。学习的目的在自己，不在炫耀。与14.23“上达下达”一脉相承。'
+    }
+];
+
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
+
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
+    if (!ch) return;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
+    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="top-nav">' +
+        '<div class="ref-left">📖 宪问篇 · ' + ch.id + '<span class="tag">第四十七天</span></div>' +
+        '<div class="day-nav">' +
+        '<a href="day46.html" class="day-btn">← 前一天</a>' +
+        '<span class="day-label">📅 第四十七天</span>' +
+        '<a href="day48.html" class="day-btn">后一天 →</a>' +
+        '</div></div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) prevBtn.addEventListener('click', function() { if (idx > 0) setActiveChapter(chapters[idx - 1].id); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id); });
+}
+
+(function() {
+    var hash = window.location.hash.replace('#', '');
+    var found = false;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === hash) { found = true; break; }
+    }
+    setActiveChapter(found ? hash : chapters[0].id);
+})();
+</script>
+</body>
+</html>

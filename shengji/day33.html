@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 乡党篇 · 第三十三天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+
+        .top-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
+        .btn {
+            display: inline-block; padding: 0.4rem 1.8rem; border-radius: 40px;
+            font-size: 0.9rem; text-decoration: none; transition: 0.2s;
+        }
+        .btn-back { color: #826a4e; background: #f0e9df; border: 1px solid #cbbba8; }
+        .btn-back:hover { background: #e8ddd0; border-color: #9b846b; }
+        .btn-jinju {
+            color: #6b4f1d; background: linear-gradient(135deg, #f5e6c8, #e8d3a8);
+            border: 1px solid #d4b97a; font-weight: 500;
+        }
+        .btn-jinju:hover { background: linear-gradient(135deg, #f0dcb5, #ddc696); border-color: #c5a560; }
+
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc {
+            flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .toc h2 {
+            font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li {
+            display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+            color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent;
+        }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge {
+            background: #dacfc0; color: #3e3225; font-size: 0.7rem;
+            padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto;
+            font-weight: 400; letter-spacing: 0.3px;
+        }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content {
+            flex: 1; background: #fffffffa; border: 1px solid #e8dfd3;
+            border-radius: 20px; padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px;
+        }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+        .top-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px dashed #ddd0c0; padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem;
+        }
+        .top-nav .ref-left { font-size: 0.9rem; color: #8a7a64; }
+        .top-nav .ref-left .tag {
+            background: #ede6db; padding: 0 0.8rem; border-radius: 40px;
+            font-size: 0.8rem; margin-left: 0.4rem;
+        }
+        .day-nav { display: flex; align-items: center; gap: 0.6rem; }
+        .day-btn {
+            text-decoration: none; color: #826a4e;
+            background: #f0e9df; border: 1px solid #cbbba8;
+            padding: 0.25rem 1rem; border-radius: 40px;
+            font-size: 0.8rem; transition: 0.2s;
+            display: inline-flex; align-items: center;
+        }
+        .day-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .day-label {
+            font-size: 0.85rem; color: #6b5a44;
+            background: #e8e0d4; padding: 0.25rem 1rem;
+            border-radius: 20px;
+        }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original {
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
+            font-size: 1.15rem; line-height: 1.8; color: #1f1a14;
+            margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450;
+        }
+        .chapter-card .translation {
+            background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px;
+            font-size: 1.05rem; line-height: 1.8; color: #1f3a1f;
+            margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e;
+        }
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block {
+            background: #fcfaf7; padding: 0.8rem 1.4rem;
+            border-radius: 14px; border: 1px solid #ece3d8;
+        }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep {
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem;
+            font-size: 0.98rem; line-height: 1.7; color: #2f261d;
+        }
+        .chapter-card .annotation .deep i {
+            color: #6f5b45; font-style: normal; background: #e8ddd0;
+            padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px;
+        }
+        .meta-note {
+            margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap; gap:0.5rem 1.5rem;
+        }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+            .top-nav { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 乡党篇</h1>
+        <div class="sub">
+            <span>📅 第三十三天 · 10.7 ~ 10.12</span>
+            <span>📘 共 6 章</span>
+            <span>✍️ 约 250 字</span>
+            <span>🧠 食不厌精</span>
+        </div>
+        <div class="top-btns">
+            <a href="index.html" class="btn btn-back">🏠 返回总目录</a>
+            <a href="lunyu-jinju.html" class="btn btn-jinju">✨ 论语金句</a>
+        </div>
+    </div>
+
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>10.7 ~ 10.12</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">
+                ⚡ 点击章节跳转
+            </div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem 1.5rem;">
+        <span>📚 今日进度：乡党篇 10.7 — 10.12</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
+    </div>
+</div>
+
+<script>
+var chapters = [
+    {
+        id: '10.7',
+        title: '齐，必有明衣',
+        original: '齐，必有明衣，布。齐必变食，居必迁坐。',
+        translation: '斋戒时，一定备有洁净的内衣，用麻布做。斋戒时一定改变饮食，一定换房间住。',
+        annotation: [
+            { label: '🙏 齐', text: '通“斋”，斋戒。' },
+            { label: '👕 明衣', text: '洁净的内衣。' },
+            { label: '🧵 布', text: '麻布。' },
+            { label: '🍚 变食', text: '改变饮食。' },
+            { label: '🏠 迁坐', text: '换房间住。' }
+        ],
+        deep: '这句话写孔子斋戒时的讲究：明衣，洁净内衣；变食，改变饮食；迁坐，换房间。斋戒是严肃的事，身心都要洁净。与7.12“子之所慎：齐、战、疾”一脉相承。'
+    },
+    {
+        id: '10.8',
+        title: '食不厌精，脍不厌细',
+        original: '食不厌精，脍不厌细。食饐而餲，鱼馁而肉败，不食。色恶，不食。臭恶，不食。失饪，不食。不时，不食。割不正，不食。不得其酱，不食。肉虽多，不使胜食气。唯酒无量，不及乱。沽酒市脯，不食。不撤姜食，不多食。',
+        translation: '粮食不嫌舂得精，鱼肉不嫌切得细。食物变味、鱼腐烂、肉腐烂，不吃。颜色难看，不吃。气味难闻，不吃。烹调不当，不吃。不到吃饭时间，不吃。切割不合规矩，不吃。没有合适的酱，不吃。肉虽多，不让它超过主食。只有酒不限量，但不醉到乱性。买来的酒和肉干，不吃。不撤掉姜，但不多吃。',
+        annotation: [
+            { label: '🍚 食不厌精', text: '粮食不嫌舂得精。' },
+            { label: '🐟 脍不厌细', text: '鱼肉不嫌切得细。' },
+            { label: '🤢 饐而餲', text: '食物变味。饐（yì）餲（ài）。' },
+            { label: '🐠 馁', text: '鱼腐烂。馁（něi）。' },
+            { label: '🥩 败', text: '肉腐烂。' },
+            { label: '🎨 色恶', text: '颜色难看。' },
+            { label: '👃 臭恶', text: '气味难闻。' },
+            { label: '🍳 失饪', text: '烹调不当。' },
+            { label: '⏰ 不时', text: '不到吃饭时间。' },
+            { label: '🔪 割不正', text: '切割不合规矩。' },
+            { label: '🥫 不得其酱', text: '没有合适的酱。' },
+            { label: '🍖 胜食气', text: '超过主食。' },
+            { label: '🍶 无量', text: '不限量。' },
+            { label: '🚫 不及乱', text: '不醉到乱性。' },
+            { label: '🛒 沽酒市脯', text: '买来的酒和肉干。' },
+            { label: '🫚 不撤姜食', text: '不撤掉姜。' }
+        ],
+        deep: '这是《论语》中最有名的一章，讲孔子的饮食讲究：精、细；八不食：变味、变色、变臭、失饪、不时、割不正、无酱、市脯——都不吃；肉不超主食；酒不限量，不及乱；不撤姜，不多食。这不是矫情，是对身体和食物的敬重。与10.7“齐，必有明衣”一脉相承。'
+    },
+    {
+        id: '10.9',
+        title: '祭于公，不宿肉',
+        original: '祭于公，不宿肉。祭肉不出三日。出三日，不食之矣。',
+        translation: '参加国君的祭祀，不把祭肉留到第二天。祭肉不超过三天。超过三天，就不吃了。',
+        annotation: [
+            { label: '🏛️ 祭于公', text: '参加国君的祭祀。' },
+            { label: '🥩 不宿肉', text: '不把祭肉留到第二天。' },
+            { label: '📅 祭肉不出三日', text: '祭肉不超过三天。' },
+            { label: '🚫 出三日', text: '超过三天。' }
+        ],
+        deep: '这句话写孔子对祭肉的处理：不宿肉，当天分掉；不出三日，三天内吃完；出三日，不食，超过三天，不吃。祭肉是神圣的，要尽快处理。与10.7“齐，必有明衣”一脉相承。'
+    },
+    {
+        id: '10.10',
+        title: '食不言，寝不语',
+        original: '食不言，寝不语。',
+        translation: '吃饭时不说话，睡觉时不说话。',
+        annotation: [
+            { label: '🍚 食不言', text: '吃饭时不说话。' },
+            { label: '🛏️ 寝不语', text: '睡觉时不说话。' }
+        ],
+        deep: '这是《论语》中最简短的一章，也是最实用的生活智慧。食不言，吃饭不说话，专心吃饭，有助消化；寝不语，睡觉不说话，安心睡觉，有助休息。看似小事，却是养生之道。与10.8“食不厌精”一脉相承。'
+    },
+    {
+        id: '10.11',
+        title: '虽疏食菜羹，瓜祭',
+        original: '虽疏食菜羹，瓜祭，必齐如也。',
+        translation: '即使是粗粮菜汤，用瓜祭祀，也一定像斋戒一样虔诚。',
+        annotation: [
+            { label: '🍚 疏食', text: '粗粮。' },
+            { label: '🥣 菜羹', text: '菜汤。' },
+            { label: '🍈 瓜祭', text: '用瓜祭祀。' },
+            { label: '🙏 齐如也', text: '像斋戒一样虔诚。' }
+        ],
+        deep: '这句话写孔子祭祀的虔诚。哪怕是粗茶淡饭，祭祀时也一定诚敬。祭的是心，不是物。与1.9“慎终追远”、3.12“祭如在，祭神如神在”一脉相承。'
+    },
+    {
+        id: '10.12',
+        title: '席不正，不坐',
+        original: '席不正，不坐。',
+        translation: '坐席摆得不正，不坐。',
+        annotation: [
+            { label: '🪑 席', text: '坐席。' },
+            { label: '📐 不正', text: '摆得不正。' }
+        ],
+        deep: '这句话写孔子对“正”的坚持。坐席不正，就不坐。“正”是原则，连坐席都要正。与10.8“割不正，不食”一脉相承。'
+    }
+];
+
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
+
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
+    if (!ch) return;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
+    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="top-nav">' +
+        '<div class="ref-left">📖 乡党篇 · ' + ch.id + '<span class="tag">第三十三天</span></div>' +
+        '<div class="day-nav">' +
+        '<a href="day32.html" class="day-btn">← 前一天</a>' +
+        '<span class="day-label">📅 第三十三天</span>' +
+        '<a href="day34.html" class="day-btn">后一天 →</a>' +
+        '</div>' +
+        '</div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+        });
+    }
+}
+
+(function() {
+    var hash = window.location.hash.replace('#', '');
+    var found = false;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === hash) { found = true; break; }
+    }
+    setActiveChapter(found ? hash : chapters[0].id);
+})();
+</script>
+</body>
+</html>

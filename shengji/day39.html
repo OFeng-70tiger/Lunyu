@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 颜渊篇 · 第三十九天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+
+        .top-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
+        .btn {
+            display: inline-block; padding: 0.4rem 1.8rem; border-radius: 40px;
+            font-size: 0.9rem; text-decoration: none; transition: 0.2s;
+        }
+        .btn-back { color: #826a4e; background: #f0e9df; border: 1px solid #cbbba8; }
+        .btn-back:hover { background: #e8ddd0; border-color: #9b846b; }
+        .btn-jinju {
+            color: #6b4f1d; background: linear-gradient(135deg, #f5e6c8, #e8d3a8);
+            border: 1px solid #d4b97a; font-weight: 500;
+        }
+        .btn-jinju:hover { background: linear-gradient(135deg, #f0dcb5, #ddc696); border-color: #c5a560; }
+
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc {
+            flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8;
+            border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .toc h2 {
+            font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px;
+            border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li {
+            display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+            color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent;
+        }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge {
+            background: #dacfc0; color: #3e3225; font-size: 0.7rem;
+            padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto;
+            font-weight: 400; letter-spacing: 0.3px;
+        }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content {
+            flex: 1; background: #fffffffa; border: 1px solid #e8dfd3;
+            border-radius: 20px; padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px;
+        }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+        .top-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px dashed #ddd0c0; padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem;
+        }
+        .top-nav .ref-left { font-size: 0.9rem; color: #8a7a64; }
+        .top-nav .ref-left .tag {
+            background: #ede6db; padding: 0 0.8rem; border-radius: 40px;
+            font-size: 0.8rem; margin-left: 0.4rem;
+        }
+        .day-nav { display: flex; align-items: center; gap: 0.6rem; }
+        .day-btn {
+            text-decoration: none; color: #826a4e;
+            background: #f0e9df; border: 1px solid #cbbba8;
+            padding: 0.25rem 1rem; border-radius: 40px;
+            font-size: 0.8rem; transition: 0.2s;
+            display: inline-flex; align-items: center;
+        }
+        .day-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .day-label {
+            font-size: 0.85rem; color: #6b5a44;
+            background: #e8e0d4; padding: 0.25rem 1rem;
+            border-radius: 20px;
+        }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original {
+            background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px;
+            font-size: 1.15rem; line-height: 1.8; color: #1f1a14;
+            margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450;
+        }
+        .chapter-card .translation {
+            background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px;
+            font-size: 1.05rem; line-height: 1.8; color: #1f3a1f;
+            margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e;
+        }
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block {
+            background: #fcfaf7; padding: 0.8rem 1.4rem;
+            border-radius: 14px; border: 1px solid #ece3d8;
+        }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep {
+            background: #f6f0e8; border-left: 4px solid #a3876b;
+            padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem;
+            font-size: 0.98rem; line-height: 1.7; color: #2f261d;
+        }
+        .chapter-card .annotation .deep i {
+            color: #6f5b45; font-style: normal; background: #e8ddd0;
+            padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px;
+        }
+        .meta-note {
+            margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca;
+            font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap; gap:0.5rem 1.5rem;
+        }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+            .top-nav { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 颜渊篇</h1>
+        <div class="sub">
+            <span>📅 第三十九天 · 12.9 ~ 12.16</span>
+            <span>📘 共 8 章</span>
+            <span>✍️ 约 300 字</span>
+            <span>🧠 政与德</span>
+        </div>
+        <div class="top-btns">
+            <a href="index.html" class="btn btn-back">🏠 返回总目录</a>
+            <a href="lunyu-jinju.html" class="btn btn-jinju">✨ 论语金句</a>
+        </div>
+    </div>
+
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>12.9 ~ 12.16</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">
+                ⚡ 点击章节跳转
+            </div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem 1.5rem;">
+        <span>📚 今日进度：颜渊篇 12.9 — 12.16</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
+    </div>
+</div>
+
+<script>
+var chapters = [
+    {
+        id: '12.9',
+        title: '百姓足，君孰与不足',
+        original: '哀公问于有若曰：“年饥，用不足，如之何？”有若对曰：“盍彻乎？”曰：“二，吾犹不足，如之何其彻也？”对曰：“百姓足，君孰与不足？百姓不足，君孰与足？”',
+        translation: '鲁哀公问有若：“年成荒歉，国用不足，怎么办？”有若答道：“为什么不实行十分抽一的田税呢？”哀公说：“十分抽二，我尚且不够，怎么能十分抽一呢？”有若说：“百姓用度够了，您怎么会不够？百姓用度不够，您怎么会够呢？”',
+        annotation: [
+            { label: '👤 哀公', text: '鲁哀公。' },
+            { label: '👤 有若', text: '孔门弟子。' },
+            { label: '🌾 年饥', text: '年成荒歉。' },
+            { label: '💰 用不足', text: '国用不足。' },
+            { label: '📜 盍彻乎', text: '为什么不实行十分抽一的田税呢？彻，十分抽一。' },
+            { label: '💸 二', text: '十分抽二。' },
+            { label: '👥 百姓足，君孰与不足', text: '百姓用度够了，您怎么会不够？' }
+        ],
+        deep: '有若回答哀公，核心是“百姓足，君孰与不足”。藏富于民，才是治国之本。与12.7“民无信不立”一脉相承。'
+    },
+    {
+        id: '12.10',
+        title: '崇德辨惑',
+        original: '子张问崇德辨惑。子曰：“主忠信，徙义，崇德也。爱之欲其生，恶之欲其死；既欲其生，又欲其死，是惑也。‘诚不以富，亦祇以异。’”',
+        translation: '子张问怎样提高道德、辨别迷惑。孔子说：“以忠实诚信为主，向义靠拢，这就是提高道德。爱一个人就希望他活下去，厌恶起来就恨不得他立刻死去；既想要他活着，又要他死，这就是迷惑。”',
+        annotation: [
+            { label: '👤 子张', text: '颛孙师。' },
+            { label: '📈 崇德', text: '提高道德。' },
+            { label: '🤔 辨惑', text: '辨别迷惑。' },
+            { label: '🤝 主忠信', text: '以忠实诚信为主。' },
+            { label: '➡️ 徙义', text: '向义靠拢。' },
+            { label: '❤️ 爱之欲其生', text: '爱一个人就希望他活下去。' },
+            { label: '💔 恶之欲其死', text: '厌恶起来就恨不得他立刻死去。' }
+        ],
+        deep: '孔子说崇德要主忠信、徙义；辨惑要看清爱憎无常。与12.4“内省不疚”一脉相承。'
+    },
+    {
+        id: '12.11',
+        title: '君君臣臣父父子子',
+        original: '齐景公问政于孔子。孔子对曰：“君君，臣臣，父父，子子。”公曰：“善哉！信如君不君，臣不臣，父不父，子不子，虽有粟，吾得而食诸？”',
+        translation: '齐景公向孔子问为政之道。孔子回答说：“君要行君道，臣要行臣道，父要行父道，子要行子道。”景公说：“太好了！如果真君不像君、臣不像臣、父不像父、子不像子，即使有粮食，我能吃得到吗？”',
+        annotation: [
+            { label: '👤 齐景公', text: '齐国国君。' },
+            { label: '👑 君君', text: '君要行君道。' },
+            { label: '🏛️ 臣臣', text: '臣要行臣道。' },
+            { label: '👨‍👦 父父', text: '父要行父道。' },
+            { label: '👦 子子', text: '子要行子道。' },
+            { label: '🍚 虽有粟', text: '即使有粮食。' }
+        ],
+        deep: '“君君臣臣父父子子”是孔子正名思想的核心。不是单方面服从，而是各守其道。与13.3“名不正则言不顺”一脉相承。'
+    },
+    {
+        id: '12.12',
+        title: '片言折狱',
+        original: '子曰：“片言可以折狱者，其由也与？”子路无宿诺。',
+        translation: '孔子说：“凭单方面言辞就可以判案的人，大概只有仲由吧？”子路没有久拖不兑现的诺言。',
+        annotation: [
+            { label: '⚖️ 片言', text: '单方面言辞。' },
+            { label: '🏛️ 折狱', text: '判案。' },
+            { label: '👤 由', text: '子路。' },
+            { label: '⏳ 无宿诺', text: '没有久拖不兑现的诺言。' }
+        ],
+        deep: '孔子说子路凭片言就可判案，因为子路守信，人们信服他。与12.13“听讼”一脉相承。'
+    },
+    {
+        id: '12.13',
+        title: '必也使无讼乎',
+        original: '子曰：“听讼，吾犹人也。必也使无讼乎！”',
+        translation: '孔子说：“审理案件，我和别人一样。一定要做到没有诉讼才好！”',
+        annotation: [
+            { label: '⚖️ 听讼', text: '审理案件。' },
+            { label: '👥 吾犹人也', text: '我和别人一样。' },
+            { label: '🚫 无讼', text: '没有诉讼。' }
+        ],
+        deep: '孔子说审理案件我和别人一样，但理想是“无讼”。这是德治高于法治的思想。与12.12“片言折狱”一脉相承。'
+    },
+    {
+        id: '12.14',
+        title: '居之无倦，行之以忠',
+        original: '子张问政。子曰：“居之无倦，行之以忠。”',
+        translation: '子张问怎样治理政事。孔子说：“在位不倦怠，执行要忠诚。”',
+        annotation: [
+            { label: '👤 子张', text: '颛孙师。' },
+            { label: '❓ 问政', text: '问怎样治理政事。' },
+            { label: '💪 居之无倦', text: '在位不倦怠。' },
+            { label: '❤️ 行之以忠', text: '执行要忠诚。' }
+        ],
+        deep: '孔子说为政要“居之无倦，行之以忠”。与12.11“君君臣臣”一脉相承。'
+    },
+    {
+        id: '12.15',
+        title: '博学于文，约之以礼',
+        original: '子曰：“博学于文，约之以礼，亦可以弗畔矣夫！”',
+        translation: '孔子说：“广泛学习文献，用礼来约束自己，也就可以不离经叛道了。”',
+        annotation: [
+            { label: '📚 博学于文', text: '广泛学习文献。' },
+            { label: '📜 约之以礼', text: '用礼来约束自己。' },
+            { label: '🚫 弗畔', text: '不离经叛道。' }
+        ],
+        deep: '“博学于文，约之以礼”是孔子的为学纲领。与6.27“君子博学于文”一脉相承。'
+    },
+    {
+        id: '12.16',
+        title: '君子成人之美',
+        original: '子曰：“君子成人之美，不成人之恶。小人反是。”',
+        translation: '孔子说：“君子成全别人的好事，不促成别人的坏事。小人则相反。”',
+        annotation: [
+            { label: '✅ 成人之美', text: '成全别人的好事。' },
+            { label: '🚫 不成人之恶', text: '不促成别人的坏事。' },
+            { label: '👤 小人反是', text: '小人则相反。' }
+        ],
+        deep: '“君子成人之美”是《论语》中最著名的金句之一。与4.16“君子喻于义”一脉相承。'
+    }
+];
+
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
+
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
+    if (!ch) return;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
+    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="top-nav">' +
+        '<div class="ref-left">📖 颜渊篇 · ' + ch.id + '<span class="tag">第三十九天</span></div>' +
+        '<div class="day-nav">' +
+        '<a href="day38.html" class="day-btn">← 前一天</a>' +
+        '<span class="day-label">📅 第三十九天</span>' +
+        '<a href="day40.html" class="day-btn">后一天 →</a>' +
+        '</div>' +
+        '</div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (idx > 0) setActiveChapter(chapters[idx - 1].id);
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id);
+        });
+    }
+}
+
+(function() {
+    var hash = window.location.hash.replace('#', '');
+    var found = false;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === hash) { found = true; break; }
+    }
+    setActiveChapter(found ? hash : chapters[0].id);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论语 · 宪问篇 · 第四十六天</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            background: #faf8f5; color: #2c2c2c;
+            display: flex; justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .app { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .header { border-bottom: 2px solid #d4c5a0; padding-bottom: 1.2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 500; letter-spacing: 6px; color: #3e2e1f; }
+        .header .sub { color: #6b5a44; margin-top: 0.3rem; font-size: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .header .sub span { background: #e8e0d4; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; }
+        .top-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
+        .btn { display: inline-block; padding: 0.4rem 1.8rem; border-radius: 40px; font-size: 0.9rem; text-decoration: none; transition: 0.2s; }
+        .btn-back { color: #826a4e; background: #f0e9df; border: 1px solid #cbbba8; }
+        .btn-back:hover { background: #e8ddd0; border-color: #9b846b; }
+        .btn-jinju { color: #6b4f1d; background: linear-gradient(135deg, #f5e6c8, #e8d3a8); border: 1px solid #d4b97a; font-weight: 500; }
+        .btn-jinju:hover { background: linear-gradient(135deg, #f0dcb5, #ddc696); border-color: #c5a560; }
+        .main { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .toc { flex: 0 0 260px; background: #fffcf7; border: 1px solid #e2d7c8; border-radius: 18px; padding: 1.5rem 0.8rem 1.5rem 1.5rem; box-shadow: 0 6px 14px rgba(0,0,0,0.02); position: sticky; top: 2rem; max-height: 90vh; overflow-y: auto; }
+        .toc h2 { font-size: 1.1rem; font-weight: 600; color: #4d3e2b; letter-spacing: 2px; border-bottom: 1px solid #dacfc0; padding-bottom: 0.8rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 6px; }
+        .toc h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
+        .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .toc-list li { display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem; border-radius: 12px; cursor: pointer; transition: all 0.15s ease; color: #3d3429; font-size: 0.95rem; border-left: 3px solid transparent; }
+        .toc-list li:hover { background: #f0e9df; border-left-color: #b8a48a; }
+        .toc-list li.active { background: #eadecd; border-left-color: #8b6f50; font-weight: 500; color: #2c1f12; }
+        .toc-list li .badge { background: #dacfc0; color: #3e3225; font-size: 0.7rem; padding: 0.1rem 0.6rem; border-radius: 40px; margin-left: auto; font-weight: 400; }
+        .toc-list li .num { font-weight: 400; color: #8f7b62; min-width: 28px; font-size: 0.85rem; }
+        .content { flex: 1; background: #fffffffa; border: 1px solid #e8dfd3; border-radius: 20px; padding: 2rem 2.2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.02); min-height: 500px; }
+        .chapter-card { display: none; animation: fadeUp 0.25s ease; }
+        .chapter-card.active { display: block; }
+        @keyframes fadeUp { 0% { opacity: 0.6; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+        .top-nav { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #ddd0c0; padding-bottom: 0.6rem; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem; }
+        .top-nav .ref-left { font-size: 0.9rem; color: #8a7a64; }
+        .top-nav .ref-left .tag { background: #ede6db; padding: 0 0.8rem; border-radius: 40px; font-size: 0.8rem; margin-left: 0.4rem; }
+        .day-nav { display: flex; align-items: center; gap: 0.6rem; }
+        .day-btn { text-decoration: none; color: #826a4e; background: #f0e9df; border: 1px solid #cbbba8; padding: 0.25rem 1rem; border-radius: 40px; font-size: 0.8rem; transition: 0.2s; display: inline-flex; align-items: center; }
+        .day-btn:hover { background: #e8ddd0; border-color: #9b846b; }
+        .day-label { font-size: 0.85rem; color: #6b5a44; background: #e8e0d4; padding: 0.25rem 1rem; border-radius: 20px; }
+        .chapter-card h3 { font-size: 1.8rem; font-weight: 400; color: #3d2d1c; letter-spacing: 2px; margin-bottom: 0.3rem; }
+        .chapter-card .original { background: #f7f2ea; padding: 1rem 1.6rem; border-radius: 16px; font-size: 1.15rem; line-height: 1.8; color: #1f1a14; margin: 1.2rem 0 0.8rem 0; border-left: 6px solid #b7a084; font-weight: 450; }
+        .chapter-card .translation { background: #f0f7f0; padding: 0.9rem 1.6rem; border-radius: 14px; font-size: 1.05rem; line-height: 1.8; color: #1f3a1f; margin: 0 0 1.8rem 0; border-left: 6px solid #7ea87e; }
+        .chapter-card .translation strong { color: #2e5e2e; font-weight: 600; }
+        .chapter-card .annotation { display: flex; flex-direction: column; gap: 1.3rem; }
+        .chapter-card .annotation .block { background: #fcfaf7; padding: 0.8rem 1.4rem; border-radius: 14px; border: 1px solid #ece3d8; }
+        .chapter-card .annotation .block strong { color: #5f4530; font-weight: 600; display: inline-block; min-width: 48px; }
+        .chapter-card .annotation .deep { background: #f6f0e8; border-left: 4px solid #a3876b; padding: 1rem 1.5rem; border-radius: 12px; margin-top: 0.6rem; font-size: 0.98rem; line-height: 1.7; color: #2f261d; }
+        .chapter-card .annotation .deep i { color: #6f5b45; font-style: normal; background: #e8ddd0; padding: 0.1rem 0.6rem; border-radius: 30px; font-size: 0.8rem; margin-right: 6px; }
+        .meta-note { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #e3d8ca; font-size: 0.9rem; color: #756450; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+        @media (max-width: 820px) {
+            .main { flex-direction: column; }
+            .toc { flex: auto; width: 100%; position: relative; top: 0; max-height: none; padding: 1rem; }
+            .toc-list { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+            .toc-list li { flex: 1 0 auto; padding: 0.3rem 0.8rem; border-left: none; border-bottom: 2px solid transparent; }
+            .toc-list li.active { border-left: none; border-bottom-color: #8b6f50; }
+            .content { padding: 1.5rem 1.2rem; }
+            .chapter-card h3 { font-size: 1.5rem; }
+            .top-nav { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <h1>📖 论语 · 宪问篇</h1>
+        <div class="sub">
+            <span>📅 第四十六天 · 14.9 ~ 14.16</span>
+            <span>📘 共 8 章</span>
+            <span>✍️ 约 340 字</span>
+            <span>🧠 评人物与论成人</span>
+        </div>
+        <div class="top-btns">
+            <a href="index.html" class="btn btn-back">🏠 返回总目录</a>
+            <a href="lunyu-jinju.html" class="btn btn-jinju">✨ 论语金句</a>
+        </div>
+    </div>
+    <div class="main">
+        <nav class="toc">
+            <h2>📑 篇目 <small>14.9 ~ 14.16</small></h2>
+            <ul class="toc-list" id="tocList"></ul>
+            <div style="margin-top:1.2rem; font-size:0.8rem; color:#b09a82; border-top:1px solid #e2d7c8; padding-top:0.8rem;">⚡ 点击章节跳转</div>
+        </nav>
+        <div class="content" id="contentArea"></div>
+    </div>
+    <div style="font-size:0.9rem; color:#8c7a64; border-top:1px solid #ddd0c0; padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem 1.5rem;">
+        <span>📚 今日进度：宪问篇 14.9 — 14.16</span>
+        <span>🔖 原文 + 译文 + 注解 + 内核</span>
+    </div>
+</div>
+<script>
+var chapters = [
+    {
+        id: '14.9', title: '问子产',
+        original: '或问子产。子曰：“惠人也。”问子西。曰：“彼哉！彼哉！”问管仲。曰：“人也。夺伯氏骈邑三百，饭疏食，没齿无怨言。”',
+        translation: '有人问子产怎样。孔子说：“惠人。”问子西。孔子说：“他呀！他呀！”问管仲。孔子说：“是个人物。他剥夺了伯氏骈邑三百户的封地，伯氏只能吃粗粮，但到死也没有怨言。”',
+        annotation: [
+            { label: '👤 子产', text: '郑国执政。' },
+            { label: '❤️ 惠人', text: '惠爱之人。' },
+            { label: '👤 子西', text: '楚国令尹。' },
+            { label: '🙅 彼哉', text: '他呀，表示轻视。' },
+            { label: '👤 管仲', text: '齐国名相。' },
+            { label: '🧑 人也', text: '是个人物。' },
+            { label: '🏠 骈邑三百', text: '骈邑三百户。' },
+            { label: '🍚 饭疏食', text: '吃粗粮。' },
+            { label: '💀 没齿', text: '到死。' }
+        ],
+        deep: '孔子评子产为惠人，评管仲为人杰。管仲夺伯氏封地，伯氏到死无怨，说明管仲行事公允。与14.16“如其仁”一脉相承。'
+    },
+    {
+        id: '14.10', title: '贫而无怨难',
+        original: '子曰：“贫而无怨难，富而无骄易。”',
+        translation: '孔子说：“贫穷而没有怨恨很难，富有而不骄傲比较容易。”',
+        annotation: [
+            { label: '😔 贫', text: '贫穷。' },
+            { label: '😤 无怨', text: '没有怨恨。' },
+            { label: '⚠️ 难', text: '很难。' },
+            { label: '💰 富', text: '富有。' },
+            { label: '🚫 无骄', text: '不骄傲。' },
+            { label: '✅ 易', text: '比较容易。' }
+        ],
+        deep: '孔子说贫而无怨难，富而无骄易。处贫最难的是不怨。与14.9“评人物”一脉相承。'
+    },
+    {
+        id: '14.11', title: '孟公绰',
+        original: '子曰：“孟公绰为赵魏老则优，不可以为滕薛大夫。”',
+        translation: '孔子说：“孟公绰做晋国赵氏、魏氏的家臣绰绰有余，但不能做滕、薛这样小国的大夫。”',
+        annotation: [
+            { label: '👤 孟公绰', text: '鲁国大夫。' },
+            { label: '🏛️ 赵魏', text: '晋国赵氏、魏氏。' },
+            { label: '👴 老', text: '家臣之长。' },
+            { label: '✅ 优', text: '绰绰有余。' },
+            { label: '🏛️ 滕薛', text: '小国。' },
+            { label: '👤 大夫', text: '大夫。' }
+        ],
+        deep: '孔子说孟公绰适合做大家家臣，不适合做小国大夫。人的才性各有所宜。与14.10“贫而无怨”一脉相承。'
+    },
+    {
+        id: '14.12', title: '见利思义，见危授命',
+        original: '子路问成人。子曰：“若臧武仲之知，公绰之不欲，卞庄子之勇，冉求之艺，文之以礼乐，亦可以为成人矣。”曰：“今之成人者何必然？见利思义，见危授命，久要不忘平生之言，亦可以为成人矣。”',
+        translation: '子路问怎样才算成人。孔子说：“如果有臧武仲的智慧，孟公绰的廉洁，卞庄子的勇敢，冉求的才艺，再用礼乐来修饰，也就可以算成人了。”又说：“现在的成人何必一定这样？见到利益想到道义，遇到危难肯付出生命，长久处于困境也不忘平日的诺言，也可以算成人了。”',
+        annotation: [
+            { label: '👤 子路', text: '仲由。' },
+            { label: '❓ 成人', text: '德才完备的人。' },
+            { label: '🧠 臧武仲', text: '鲁国大夫，有智慧。' },
+            { label: '🧘 公绰', text: '孟公绰，廉洁。' },
+            { label: '⚔️ 卞庄子', text: '鲁国勇士。' },
+            { label: '🎨 冉求', text: '多才多艺。' },
+            { label: '💰 见利思义', text: '见到利益想到道义。' },
+            { label: '💀 见危授命', text: '遇到危难肯付出生命。' },
+            { label: '🤝 久要', text: '长久的约定。要，同“约”。' }
+        ],
+        deep: '孔子说成人要智、廉、勇、艺兼备，再加礼乐。退一步说，见利思义、见危授命、不忘诺言，也算成人。与14.11“孟公绰”一脉相承。'
+    },
+    {
+        id: '14.13', title: '时然后言',
+        original: '子问公叔文子于公明贾曰：“信乎，夫子不言，不笑，不取乎？”公明贾对曰：“以告者过也。夫子时然后言，人不厌其言；乐然后笑，人不厌其笑；义然后取，人不厌其取。”子曰：“其然？岂其然乎？”',
+        translation: '孔子向公明贾问公叔文子：“真的吗，先生不说话、不笑、不取吗？”公明贾答道：“告诉您的人说错了。先生该说时才说，人们不厌烦他说话；高兴时才笑，人们不厌烦他笑；合乎道义时才取，人们不厌烦他取。”孔子说：“是这样吗？难道真是这样吗？”',
+        annotation: [
+            { label: '👤 公叔文子', text: '卫国大夫。' },
+            { label: '👤 公明贾', text: '卫国人物。' },
+            { label: '🙅 不言不笑不取', text: '不说话、不笑、不取。' },
+            { label: '⏰ 时然后言', text: '该说时才说。' },
+            { label: '😊 乐然后笑', text: '高兴时才笑。' },
+            { label: '✅ 义然后取', text: '合乎道义时才取。' }
+        ],
+        deep: '孔子听说公叔文子不言不笑不取，公明贾说他是时然后言、乐然后笑、义然后取。孔子半信半疑。与14.12“成人”一脉相承。'
+    },
+    {
+        id: '14.14', title: '臧武仲以防求为后',
+        original: '子曰：“臧武仲以防求为后于鲁，虽曰不要君，吾不信也。”',
+        translation: '孔子说：“臧武仲凭借防地要求鲁君为他的后代立为大夫，虽说不是要挟君主，我不信。”',
+        annotation: [
+            { label: '👤 臧武仲', text: '鲁国大夫。' },
+            { label: '🏠 防', text: '臧武仲的封地。' },
+            { label: '👨‍👦 求为后', text: '要求立后代。' },
+            { label: '🏛️ 鲁', text: '鲁国。' },
+            { label: '⚠️ 要君', text: '要挟君主。' }
+        ],
+        deep: '孔子说臧武仲以防地求立后，虽说不算要挟，我不信。与14.13“时然后言”一脉相承。'
+    },
+    {
+        id: '14.15', title: '晋文公谲而不正',
+        original: '子曰：“晋文公谲而不正，齐桓公正而不谲。”',
+        translation: '孔子说：“晋文公诡诈而不正派，齐桓公正派而不诡诈。”',
+        annotation: [
+            { label: '👑 晋文公', text: '晋国国君。' },
+            { label: '🎭 谲', text: '诡诈。' },
+            { label: '🚫 不正', text: '不正派。' },
+            { label: '👑 齐桓公', text: '齐国国君。' },
+            { label: '✅ 正', text: '正派。' },
+            { label: '🚫 不谲', text: '不诡诈。' }
+        ],
+        deep: '孔子评晋文公谲而不正，齐桓公正而不谲。霸主也有高下之分。与14.16“管仲”一脉相承。'
+    },
+    {
+        id: '14.16', title: '如其仁',
+        original: '子路曰：“桓公杀公子纠，召忽死之，管仲不死。”曰：“未仁乎？”子曰：“桓公九合诸侯，不以兵车，管仲之力也。如其仁！如其仁！”',
+        translation: '子路说：“齐桓公杀了公子纠，召忽殉难而死，管仲却没有死。”又说：“管仲不算仁吧？”孔子说：“齐桓公多次召集诸侯会盟，不用武力，都是管仲的力量。这就是他的仁！这就是他的仁！”',
+        annotation: [
+            { label: '👤 子路', text: '仲由。' },
+            { label: '👑 桓公', text: '齐桓公。' },
+            { label: '💀 公子纠', text: '桓公之兄。' },
+            { label: '💀 召忽', text: '公子纠之臣，殉难。' },
+            { label: '👤 管仲', text: '公子纠之臣，未死。' },
+            { label: '🤝 九合诸侯', text: '多次召集诸侯会盟。' },
+            { label: '🚫 不以兵车', text: '不用武力。' },
+            { label: '❤️ 如其仁', text: '这就是他的仁。' }
+        ],
+        deep: '子路质疑管仲不死君难，孔子说管仲九合诸侯不以兵车，这就是仁。孔子评人重在大节。与14.15“晋文公”一脉相承。'
+    }
+];
+
+var tocList = document.getElementById('tocList');
+var contentArea = document.getElementById('contentArea');
+
+chapters.forEach(function(ch) {
+    var li = document.createElement('li');
+    li.dataset.id = ch.id;
+    li.innerHTML = '<span class="num">' + ch.id + '</span><span>' + ch.title + '</span><span class="badge">…</span>';
+    li.addEventListener('click', function() { setActiveChapter(ch.id); });
+    tocList.appendChild(li);
+});
+
+function setActiveChapter(id) {
+    document.querySelectorAll('.toc-list li').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.id === id);
+    });
+    renderChapter(id);
+    if (window.innerWidth <= 820) {
+        contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderChapter(id) {
+    var ch = null;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === id) { ch = chapters[i]; break; }
+    }
+    if (!ch) return;
+    var annotationHtml = '';
+    ch.annotation.forEach(function(a) {
+        annotationHtml += '<div class="block"><strong>' + a.label + '</strong> ' + a.text + '</div>';
+    });
+    contentArea.innerHTML = '<div class="chapter-card active">' +
+        '<div class="top-nav">' +
+        '<div class="ref-left">📖 宪问篇 · ' + ch.id + '<span class="tag">第四十六天</span></div>' +
+        '<div class="day-nav">' +
+        '<a href="day45.html" class="day-btn">← 前一天</a>' +
+        '<span class="day-label">📅 第四十六天</span>' +
+        '<a href="day47.html" class="day-btn">后一天 →</a>' +
+        '</div></div>' +
+        '<h3>' + ch.title + '</h3>' +
+        '<div class="original">' + ch.original + '</div>' +
+        '<div class="translation"><strong>白话译文：</strong>' + ch.translation + '</div>' +
+        '<div class="annotation">' + annotationHtml + '</div>' +
+        '<div class="deep"><i>🧠 内核</i> ' + ch.deep + '</div>' +
+        '<div class="meta-note">' +
+        '<span>🔗 章节 ' + ch.id + '</span>' +
+        '<span style="display:flex;gap:0.8rem;">' +
+        '<span id="prevBtn" style="cursor:pointer;color:#7f6952;">← 上一章</span>' +
+        '<span id="nextBtn" style="cursor:pointer;color:#7f6952;">下一章 →</span>' +
+        '</span></div></div>';
+
+    var idx = -1;
+    for (var j = 0; j < chapters.length; j++) {
+        if (chapters[j].id === id) { idx = j; break; }
+    }
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) prevBtn.addEventListener('click', function() { if (idx > 0) setActiveChapter(chapters[idx - 1].id); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { if (idx < chapters.length - 1) setActiveChapter(chapters[idx + 1].id); });
+}
+
+(function() {
+    var hash = window.location.hash.replace('#', '');
+    var found = false;
+    for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].id === hash) { found = true; break; }
+    }
+    setActiveChapter(found ? hash : chapters[0].id);
+})();
+</script>
+</body>
+</html>
