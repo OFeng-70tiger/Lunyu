@@ -46,70 +46,6 @@
         }
         .progress-bar .fill { background: #8b6f50; height: 100%; width: 0%; border-radius: 6px; transition: width 0.4s; }
 
-        .jinju-section {
-            background: #fffcf7; border: 1px solid #e2d7c8;
-            border-radius: 20px; padding: 1.6rem 1.8rem;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
-        }
-        .jinju-section h2 {
-            font-size: 1.15rem; font-weight: 600; color: #4d3e2b;
-            letter-spacing: 1px; border-bottom: 1px solid #dacfc0;
-            padding-bottom: 0.7rem; margin-bottom: 0.9rem;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .jinju-section h2 small { font-weight: 400; font-size: 0.8rem; color: #8a7a64; margin-left: auto; }
-        .jinju-section .intro-text {
-            font-size: 0.9rem; line-height: 1.8; color: #5a4a38;
-            margin-bottom: 1.2rem; padding: 0.8rem 1.2rem;
-            background: #fcfaf7; border-left: 4px solid #b7a084;
-            border-radius: 10px;
-        }
-        .jinju-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        .jinju-grid a {
-            display: block; text-decoration: none;
-            padding: 0.55rem 0.6rem; border-radius: 10px;
-            background: #f7f2ea; transition: 0.15s;
-            font-size: 0.85rem; color: #3d3429;
-            text-align: center; white-space: nowrap;
-            overflow: hidden; text-overflow: ellipsis;
-        }
-        .jinju-grid a:hover { background: #ede6db; color: #2c1f12; }
-        .jinju-grid a .ref { font-size: 0.7rem; color: #8a7a64; margin-left: 2px; }
-
-        .jinju-grid a.jinju-hidden {
-            display: none;
-        }
-        .jinju-grid.expanded a.jinju-hidden {
-            display: block;
-        }
-
-        .jinju-toggle {
-            text-align: center; padding-top: 0.6rem;
-            border-top: 1px dashed #e2d7c8;
-            display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap;
-        }
-        .jinju-toggle button {
-            color: #826a4e; background: #f0e9df;
-            border: 1px solid #cbbba8;
-            padding: 0.4rem 2rem; border-radius: 40px;
-            font-size: 0.9rem; cursor: pointer;
-            transition: 0.2s; font-family: inherit;
-        }
-        .jinju-toggle button:hover { background: #e8ddd0; border-color: #9b846b; }
-        .jinju-toggle a {
-            display: inline-block; color: #826a4e;
-            background: #f0e9df; border: 1px solid #cbbba8;
-            padding: 0.4rem 2rem; border-radius: 40px;
-            font-size: 0.9rem; text-decoration: none;
-            transition: 0.2s;
-        }
-        .jinju-toggle a:hover { background: #e8ddd0; border-color: #9b846b; }
-
         .book-nav {
             background: #fffcf7; border: 1px solid #e2d7c8;
             border-radius: 20px; padding: 1.5rem 1.2rem;
@@ -189,8 +125,6 @@
             .section { padding: 1.2rem 1rem; }
             .lesson-list li .range { display: none; }
             .book-grid { grid-template-columns: repeat(4, 1fr); }
-            .jinju-grid { grid-template-columns: repeat(2, 1fr); }
-            .jinju-section { padding: 1.2rem 1rem; }
         }
         @media (max-width: 400px) {
             .book-grid { grid-template-columns: repeat(3, 1fr); }
@@ -217,117 +151,6 @@
             <span id="wordsCount">✍️ 约 0 字</span>
         </div>
         <div class="progress-bar"><div class="fill" id="progressFill" style="width: 0%;"></div></div>
-    </div>
-
-    <!-- 论语金句：默认显示 12 条，共 80 条，可展开 -->
-    <div class="jinju-section">
-        <h2>📋 论语金句 <small id="jinjuCount">共 94 条 · 默认显示 12 条</small></h2>
-        <div class="intro-text">
-            我们日常挂在嘴边的许多成语，其实都出自《论语》。只是用得久了，便忘了它的来处。这里把出自《论语》的金句与成语汇于一处，既是一份速查，也是一次寻根。
-        </div>
-        <div class="jinju-grid" id="jinjuGrid">
-            <!-- 前 12 条：默认显示 -->
-            <a href="lunyu-jinju.html#bylh">不亦乐乎 <span class="ref">1.1</span></a>
-            <a href="lunyu-jinju.html#qyls">巧言令色 <span class="ref">1.3</span></a>
-            <a href="lunyu-jinju.html#sxws">三省吾身 <span class="ref">1.4</span></a>
-            <a href="lunyu-jinju.html#yeyx">言而有信 <span class="ref">1.7</span></a>
-            <a href="lunyu-jinju.html#szzy">慎终追远 <span class="ref">1.9</span></a>
-            <a href="lunyu-jinju.html#wlgjr">温良恭俭让 <span class="ref">1.10</span></a>
-            <a href="lunyu-jinju.html#hwg">和为贵 <span class="ref">1.12</span></a>
-            <a href="lunyu-jinju.html#rqrc">如切如磋 <span class="ref">1.15</span></a>
-            <a href="lunyu-jinju.html#ssel">三十而立 <span class="ref">2.4</span></a>
-            <a href="lunyu-jinju.html#ssbh">四十不惑 <span class="ref">2.4</span></a>
-            <a href="lunyu-jinju.html#ztm">知天命 <span class="ref">2.4</span></a>
-            <a href="lunyu-jinju.html#wgzx">温故知新 <span class="ref">2.11</span></a>
-
-            <!-- 第 13 条之后：默认隐藏，展开后显示 -->
-            <a href="lunyu-jinju.html#jzbq" class="jinju-hidden">君子不器 <span class="ref">2.12</span></a>
-            <a href="lunyu-jinju.html#xebs" class="jinju-hidden">学而不思则罔 <span class="ref">2.15</span></a>
-            <a href="lunyu-jinju.html#zzwz" class="jinju-hidden">知之为知之 <span class="ref">2.17</span></a>
-            <a href="lunyu-jinju.html#ewbx" class="jinju-hidden">人而无信 <span class="ref">2.22</span></a>
-            <a href="lunyu-jinju.html#skrs" class="jinju-hidden">是可忍孰不可忍 <span class="ref">3.1</span></a>
-            <a href="lunyu-jinju.html#jzws" class="jinju-hidden">君子无所争 <span class="ref">3.7</span></a>
-            <a href="lunyu-jinju.html#qxqx" class="jinju-hidden">巧笑倩兮 <span class="ref">3.8</span></a>
-            <a href="lunyu-jinju.html#lbey" class="jinju-hidden">乐而不淫，哀而不伤 <span class="ref">3.20</span></a>
-            <a href="lunyu-jinju.html#jwbb" class="jinju-hidden">既往不咎 <span class="ref">3.21</span></a>
-            <a href="lunyu-jinju.html#jmjs" class="jinju-hidden">尽美尽善 <span class="ref">3.25</span></a>
-            <a href="lunyu-jinju.html#zwd" class="jinju-hidden">朝闻道，夕死可矣 <span class="ref">4.8</span></a>
-            <a href="lunyu-jinju.html#jzyy" class="jinju-hidden">君子喻于义 <span class="ref">4.16</span></a>
-            <a href="lunyu-jinju.html#jxsi" class="jinju-hidden">见贤思齐 <span class="ref">4.17</span></a>
-            <a href="lunyu-jinju.html#fmzb" class="jinju-hidden">父母在，不远游 <span class="ref">4.19</span></a>
-            <a href="lunyu-jinju.html#nyey" class="jinju-hidden">讷于言而敏于行 <span class="ref">4.24</span></a>
-            <a href="lunyu-jinju.html#xmbd" class="jinju-hidden">朽木不可雕 <span class="ref">5.9</span></a>
-            <a href="lunyu-jinju.html#tqyg" class="jinju-hidden">听其言而观其行 <span class="ref">5.9</span></a>
-            <a href="lunyu-jinju.html#bcxw" class="jinju-hidden">不耻下问 <span class="ref">5.14</span></a>
-            <a href="lunyu-jinju.html#sssh" class="jinju-hidden">三思而后行 <span class="ref">5.19</span></a>
-            <a href="lunyu-jinju.html#ybkj" class="jinju-hidden">愚不可及 <span class="ref">5.20</span></a>
-            <a href="lunyu-jinju.html#bnhje" class="jinju-hidden">不念旧恶 <span class="ref">5.22</span></a>
-            <a href="lunyu-jinju.html#ydsy" class="jinju-hidden">一箪食，一瓢饮 <span class="ref">6.9</span></a>
-            <a href="lunyu-jinju.html#wzbb" class="jinju-hidden">文质彬彬 <span class="ref">6.16</span></a>
-            <a href="lunyu-jinju.html#zzbz" class="jinju-hidden">知之者不如好之者 <span class="ref">6.18</span></a>
-            <a href="lunyu-jinju.html#jgse" class="jinju-hidden">敬鬼神而远之 <span class="ref">6.20</span></a>
-            <a href="lunyu-jinju.html#zzls" class="jinju-hidden">知者乐水，仁者乐山 <span class="ref">6.21</span></a>
-            <a href="lunyu-jinju.html#jylr" class="jinju-hidden">己欲立而立人 <span class="ref">6.28</span></a>
-            <a href="lunyu-jinju.html#sbwz" class="jinju-hidden">述而不作 <span class="ref">7.1</span></a>
-            <a href="lunyu-jinju.html#xbhy" class="jinju-hidden">学而不厌，诲人不倦 <span class="ref">7.2</span></a>
-            <a href="lunyu-jinju.html#sybr" class="jinju-hidden">三月不知肉味 <span class="ref">7.13</span></a>
-            <a href="lunyu-jinju.html#byef" class="jinju-hidden">不义而富且贵 <span class="ref">7.14</span></a>
-            <a href="lunyu-jinju.html#ffws" class="jinju-hidden">发愤忘食 <span class="ref">7.17</span></a>
-            <a href="lunyu-jinju.html#srxs" class="jinju-hidden">三人行，必有我师焉 <span class="ref">7.20</span></a>
-            <a href="lunyu-jinju.html#jztd" class="jinju-hidden">君子坦荡荡 <span class="ref">7.37</span></a>
-            <a href="lunyu-jinju.html#rzdy" class="jinju-hidden">任重而道远 <span class="ref">8.7</span></a>
-            <a href="lunyu-jinju.html#bzqw" class="jinju-hidden">不在其位，不谋其政 <span class="ref">8.14</span></a>
-            <a href="lunyu-jinju.html#srsf" class="jinju-hidden">逝者如斯夫 <span class="ref">9.17</span></a>
-            <a href="lunyu-jinju.html#sjds" class="jinju-hidden">三军可夺帅也 <span class="ref">9.26</span></a>
-            <a href="lunyu-jinju.html#kjfl" class="jinju-hidden">克己复礼为仁 <span class="ref">12.1</span></a>
-            <a href="lunyu-jinju.html#jsby" class="jinju-hidden">己所不欲，勿施于人 <span class="ref">12.2</span></a>
-            <a href="lunyu-jinju.html#ssym" class="jinju-hidden">死生有命，富贵在天 <span class="ref">12.5</span></a>
-            <a href="lunyu-jinju.html#jzcr" class="jinju-hidden">君子成人之美 <span class="ref">12.16</span></a>
-            <a href="lunyu-jinju.html#zzzy" class="jinju-hidden">政者，正也 <span class="ref">12.17</span></a>
-            <a href="lunyu-jinju.html#mbzy" class="jinju-hidden">名不正则言不顺 <span class="ref">13.3</span></a>
-            <a href="lunyu-jinju.html#qszz" class="jinju-hidden">其身正，不令而行 <span class="ref">13.6</span></a>
-            <a href="lunyu-jinju.html#yszb" class="jinju-hidden">欲速则不达 <span class="ref">13.17</span></a>
-            <a href="lunyu-jinju.html#ybxxbg" class="jinju-hidden">言必信，行必果 <span class="ref">13.20</span></a>
-            <a href="lunyu-jinju.html#jzhbet" class="jinju-hidden">君子和而不同 <span class="ref">13.23</span></a>
-            <a href="lunyu-jinju.html#jztbej" class="jinju-hidden">君子泰而不骄 <span class="ref">13.26</span></a>
-            <a href="lunyu-jinju.html#gyamnr" class="jinju-hidden">刚毅木讷近仁 <span class="ref">13.27</span></a>
-            <a href="lunyu-jinju.html#pweyn" class="jinju-hidden">贫而无怨难 <span class="ref">14.10</span></a>
-            <a href="lunyu-jinju.html#jlsy" class="jinju-hidden">见利思义，见危授命 <span class="ref">14.12</span></a>
-            <a href="lunyu-jinju.html#jzcqy" class="jinju-hidden">君子耻其言而过其行 <span class="ref">14.27</span></a>
-            <a href="lunyu-jinju.html#bhry" class="jinju-hidden">不患人之不己知，患其不能也 <span class="ref">14.30</span></a>
-            <a href="lunyu-jinju.html#yzbz" class="jinju-hidden">以直报怨，以德报德 <span class="ref">14.34</span></a>
-            <a href="lunyu-jinju.html#byty" class="jinju-hidden">不怨天，不尤人 <span class="ref">14.35</span></a>
-            <a href="lunyu-jinju.html#jzgq" class="jinju-hidden">君子固穷，小人穷斯滥矣 <span class="ref">15.2</span></a>
-            <a href="lunyu-jinju.html#zsrr" class="jinju-hidden">志士仁人，无求生以害仁 <span class="ref">15.9</span></a>
-            <a href="lunyu-jinju.html#gysq" class="jinju-hidden">工欲善其事，必先利其器 <span class="ref">15.10</span></a>
-            <a href="lunyu-jinju.html#rwyl" class="jinju-hidden">人无远虑，必有近忧 <span class="ref">15.12</span></a>
-            <a href="lunyu-jinju.html#gzhb" class="jinju-hidden">躬自厚而薄责于人 <span class="ref">15.15</span></a>
-            <a href="lunyu-jinju.html#jzqzj" class="jinju-hidden">君子求诸己，小人求诸人 <span class="ref">15.21</span></a>
-            <a href="lunyu-jinju.html#jzjbe" class="jinju-hidden">君子矜而不争，群而不党 <span class="ref">15.22</span></a>
-            <a href="lunyu-jinju.html#xbrz" class="jinju-hidden">小不忍则乱大谋 <span class="ref">15.27</span></a>
-            <a href="lunyu-jinju.html#gbxg" class="jinju-hidden">过而不改，是谓过矣 <span class="ref">15.30</span></a>
-            <a href="lunyu-jinju.html#drbr" class="jinju-hidden">当仁不让于师 <span class="ref">15.36</span></a>
-            <a href="lunyu-jinju.html#yjwl" class="jinju-hidden">有教无类 <span class="ref">15.39</span></a>
-            <a href="lunyu-jinju.html#dbt" class="jinju-hidden">道不同，不相为谋 <span class="ref">15.40</span></a>
-            <a href="lunyu-jinju.html#bhg" class="jinju-hidden">不患寡而患不均 <span class="ref">16.1</span></a>
-            <a href="lunyu-jinju.html#jlzza" class="jinju-hidden">既来之，则安之 <span class="ref">16.1</span></a>
-            <a href="lunyu-jinju.html#yzsy" class="jinju-hidden">益者三友，损者三友 <span class="ref">16.4</span></a>
-            <a href="lunyu-jinju.html#jzsyj" class="jinju-hidden">君子有三戒 <span class="ref">16.7</span></a>
-            <a href="lunyu-jinju.html#sezz" class="jinju-hidden">生而知之者上也 <span class="ref">16.9</span></a>
-            <a href="lunyu-jinju.html#xxjy" class="jinju-hidden">性相近也，习相远也 <span class="ref">17.2</span></a>
-            <a href="lunyu-jinju.html#gjy" class="jinju-hidden">割鸡焉用牛刀 <span class="ref">17.4</span></a>
-            <a href="lunyu-jinju.html#sler" class="jinju-hidden">色厉而内荏 <span class="ref">17.12</span></a>
-            <a href="lunyu-jinju.html#dtts" class="jinju-hidden">道听而涂说，德之弃也 <span class="ref">17.14</span></a>
-            <a href="lunyu-jinju.html#bszr" class="jinju-hidden">饱食终日，无所用心 <span class="ref">17.22</span></a>
-            <a href="lunyu-jinju.html#wzbkj" class="jinju-hidden">往者不可谏，来者犹可追 <span class="ref">18.5</span></a>
-            <a href="lunyu-jinju.html#stbq" class="jinju-hidden">四体不勤，五谷不分 <span class="ref">18.7</span></a>
-            <a href="lunyu-jinju.html#bjqz" class="jinju-hidden">不降其志，不辱其身 <span class="ref">18.8</span></a>
-            <a href="lunyu-jinju.html#bxdz" class="jinju-hidden">博学而笃志，切问而近思 <span class="ref">19.6</span></a>
-        </div>
-        <div class="jinju-toggle">
-            <button id="jinjuToggleBtn" onclick="toggleJinju()">展开全部 ↓</button>
-            <a href="lunyu-jinju.html">✨ 查看完整金句 →</a>
-        </div>
     </div>
 
     <div class="book-nav">
@@ -359,145 +182,473 @@
     <div class="section" id="xueer">
         <h2>📗 学而篇第一 <small>共 16 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day1.html" data-words="207"><span class="day-num">第一天</span><span class="title">学而篇 1.1 ~ 1.9</span><span class="range">约 207 字</span></a></li>
-            <li><a href="day2.html" data-words="276"><span class="day-num">第二天</span><span class="title">学而篇 1.10 ~ 1.16</span><span class="range">约 276 字</span></a></li>
+            <li>
+                <a href="day1.html" data-words="207">
+                    <span class="day-num">第一天</span>
+                    <span class="title">学而篇 1.1 ~ 1.9</span>
+                    <span class="range">约 207 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day2.html" data-words="276">
+                    <span class="day-num">第二天</span>
+                    <span class="title">学而篇 1.10 ~ 1.16</span>
+                    <span class="range">约 276 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="weizheng">
         <h2>📘 为政篇第二 <small>共 24 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day3.html" data-words="230"><span class="day-num">第三天</span><span class="title">为政篇 2.1 ~ 2.8</span><span class="range">约 230 字</span></a></li>
-            <li><a href="day4.html" data-words="250"><span class="day-num">第四天</span><span class="title">为政篇 2.9 ~ 2.16</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day5.html" data-words="240"><span class="day-num">第五天</span><span class="title">为政篇 2.17 ~ 2.24</span><span class="range">约 240 字</span></a></li>
+            <li>
+                <a href="day3.html" data-words="230">
+                    <span class="day-num">第三天</span>
+                    <span class="title">为政篇 2.1 ~ 2.8</span>
+                    <span class="range">约 230 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day4.html" data-words="250">
+                    <span class="day-num">第四天</span>
+                    <span class="title">为政篇 2.9 ~ 2.16</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day5.html" data-words="240">
+                    <span class="day-num">第五天</span>
+                    <span class="title">为政篇 2.17 ~ 2.24</span>
+                    <span class="range">约 240 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="bayi">
         <h2>📙 八佾篇第三 <small>共 26 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day6.html" data-words="240"><span class="day-num">第六天</span><span class="title">八佾篇 3.1 ~ 3.8</span><span class="range">约 240 字</span></a></li>
-            <li><a href="day7.html" data-words="250"><span class="day-num">第七天</span><span class="title">八佾篇 3.9 ~ 3.16</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day8.html" data-words="300"><span class="day-num">第八天</span><span class="title">八佾篇 3.17 ~ 3.26</span><span class="range">约 300 字</span></a></li>
+            <li>
+                <a href="day6.html" data-words="240">
+                    <span class="day-num">第六天</span>
+                    <span class="title">八佾篇 3.1 ~ 3.8</span>
+                    <span class="range">约 240 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day7.html" data-words="250">
+                    <span class="day-num">第七天</span>
+                    <span class="title">八佾篇 3.9 ~ 3.16</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day8.html" data-words="300">
+                    <span class="day-num">第八天</span>
+                    <span class="title">八佾篇 3.17 ~ 3.26</span>
+                    <span class="range">约 300 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="liren">
         <h2>📕 里仁篇第四 <small>共 26 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day9.html" data-words="230"><span class="day-num">第九天</span><span class="title">里仁篇 4.1 ~ 4.8</span><span class="range">约 230 字</span></a></li>
-            <li><a href="day10.html" data-words="250"><span class="day-num">第十天</span><span class="title">里仁篇 4.9 ~ 4.16</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day11.html" data-words="260"><span class="day-num">第十一天</span><span class="title">里仁篇 4.17 ~ 4.26</span><span class="range">约 260 字</span></a></li>
+            <li>
+                <a href="day9.html" data-words="230">
+                    <span class="day-num">第九天</span>
+                    <span class="title">里仁篇 4.1 ~ 4.8</span>
+                    <span class="range">约 230 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day10.html" data-words="250">
+                    <span class="day-num">第十天</span>
+                    <span class="title">里仁篇 4.9 ~ 4.16</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day11.html" data-words="260">
+                    <span class="day-num">第十一天</span>
+                    <span class="title">里仁篇 4.17 ~ 4.26</span>
+                    <span class="range">约 260 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="gongye">
         <h2>📒 公冶长篇第五 <small>共 28 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day12.html" data-words="250"><span class="day-num">第十二天</span><span class="title">公冶长篇 5.1 ~ 5.8</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day13.html" data-words="220"><span class="day-num">第十三天</span><span class="title">公冶长篇 5.9 ~ 5.15</span><span class="range">约 220 字</span></a></li>
-            <li><a href="day14.html" data-words="240"><span class="day-num">第十四天</span><span class="title">公冶长篇 5.16 ~ 5.22</span><span class="range">约 240 字</span></a></li>
-            <li><a href="day15.html" data-words="220"><span class="day-num">第十五天</span><span class="title">公冶长篇 5.23 ~ 5.28</span><span class="range">约 220 字</span></a></li>
+            <li>
+                <a href="day12.html" data-words="250">
+                    <span class="day-num">第十二天</span>
+                    <span class="title">公冶长篇 5.1 ~ 5.8</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day13.html" data-words="220">
+                    <span class="day-num">第十三天</span>
+                    <span class="title">公冶长篇 5.9 ~ 5.15</span>
+                    <span class="range">约 220 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day14.html" data-words="240">
+                    <span class="day-num">第十四天</span>
+                    <span class="title">公冶长篇 5.16 ~ 5.22</span>
+                    <span class="range">约 240 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day15.html" data-words="220">
+                    <span class="day-num">第十五天</span>
+                    <span class="title">公冶长篇 5.23 ~ 5.28</span>
+                    <span class="range">约 220 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="yongye">
         <h2>📓 雍也篇第六 <small>共 30 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day16.html" data-words="250"><span class="day-num">第十六天</span><span class="title">雍也篇 6.1 ~ 6.8</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day17.html" data-words="250"><span class="day-num">第十七天</span><span class="title">雍也篇 6.9 ~ 6.16</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day18.html" data-words="250"><span class="day-num">第十八天</span><span class="title">雍也篇 6.17 ~ 6.24</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day19.html" data-words="230"><span class="day-num">第十九天</span><span class="title">雍也篇 6.25 ~ 6.30</span><span class="range">约 230 字</span></a></li>
+            <li>
+                <a href="day16.html" data-words="250">
+                    <span class="day-num">第十六天</span>
+                    <span class="title">雍也篇 6.1 ~ 6.8</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day17.html" data-words="250">
+                    <span class="day-num">第十七天</span>
+                    <span class="title">雍也篇 6.9 ~ 6.16</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day18.html" data-words="250">
+                    <span class="day-num">第十八天</span>
+                    <span class="title">雍也篇 6.17 ~ 6.24</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day19.html" data-words="230">
+                    <span class="day-num">第十九天</span>
+                    <span class="title">雍也篇 6.25 ~ 6.30</span>
+                    <span class="range">约 230 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="shuer">
         <h2>📔 述而篇第七 <small>共 38 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day20.html" data-words="250"><span class="day-num">第二十天</span><span class="title">述而篇 7.1 ~ 7.8</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day21.html" data-words="250"><span class="day-num">第二十一天</span><span class="title">述而篇 7.9 ~ 7.16</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day22.html" data-words="250"><span class="day-num">第二十二天</span><span class="title">述而篇 7.17 ~ 7.24</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day23.html" data-words="250"><span class="day-num">第二十三天</span><span class="title">述而篇 7.25 ~ 7.32</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day24.html" data-words="200"><span class="day-num">第二十四天</span><span class="title">述而篇 7.33 ~ 7.38</span><span class="range">约 200 字</span></a></li>
+            <li>
+                <a href="day20.html" data-words="250">
+                    <span class="day-num">第二十天</span>
+                    <span class="title">述而篇 7.1 ~ 7.8</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day21.html" data-words="250">
+                    <span class="day-num">第二十一天</span>
+                    <span class="title">述而篇 7.9 ~ 7.16</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day22.html" data-words="250">
+                    <span class="day-num">第二十二天</span>
+                    <span class="title">述而篇 7.17 ~ 7.24</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day23.html" data-words="250">
+                    <span class="day-num">第二十三天</span>
+                    <span class="title">述而篇 7.25 ~ 7.32</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day24.html" data-words="200">
+                    <span class="day-num">第二十四天</span>
+                    <span class="title">述而篇 7.33 ~ 7.38</span>
+                    <span class="range">约 200 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="taibo">
         <h2>📗 泰伯篇第八 <small>共 21 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day25.html" data-words="240"><span class="day-num">第二十五天</span><span class="title">泰伯篇 8.1 ~ 8.7</span><span class="range">约 240 字</span></a></li>
-            <li><a href="day26.html" data-words="240"><span class="day-num">第二十六天</span><span class="title">泰伯篇 8.8 ~ 8.14</span><span class="range">约 240 字</span></a></li>
-            <li><a href="day27.html" data-words="240"><span class="day-num">第二十七天</span><span class="title">泰伯篇 8.15 ~ 8.21</span><span class="range">约 240 字</span></a></li>
+            <li>
+                <a href="day25.html" data-words="240">
+                    <span class="day-num">第二十五天</span>
+                    <span class="title">泰伯篇 8.1 ~ 8.7</span>
+                    <span class="range">约 240 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day26.html" data-words="240">
+                    <span class="day-num">第二十六天</span>
+                    <span class="title">泰伯篇 8.8 ~ 8.14</span>
+                    <span class="range">约 240 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day27.html" data-words="240">
+                    <span class="day-num">第二十七天</span>
+                    <span class="title">泰伯篇 8.15 ~ 8.21</span>
+                    <span class="range">约 240 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="zihan">
         <h2>📘 子罕篇第九 <small>共 31 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day28.html" data-words="250"><span class="day-num">第二十八天</span><span class="title">子罕篇 9.1 ~ 9.8</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day29.html" data-words="260"><span class="day-num">第二十九天</span><span class="title">子罕篇 9.9 ~ 9.16</span><span class="range">约 260 字</span></a></li>
-            <li><a href="day30.html" data-words="250"><span class="day-num">第三十天</span><span class="title">子罕篇 9.17 ~ 9.24</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day31.html" data-words="220"><span class="day-num">第三十一天</span><span class="title">子罕篇 9.25 ~ 9.31</span><span class="range">约 220 字</span></a></li>
+            <li>
+                <a href="day28.html" data-words="250">
+                    <span class="day-num">第二十八天</span>
+                    <span class="title">子罕篇 9.1 ~ 9.8</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day29.html" data-words="260">
+                    <span class="day-num">第二十九天</span>
+                    <span class="title">子罕篇 9.9 ~ 9.16</span>
+                    <span class="range">约 260 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day30.html" data-words="250">
+                    <span class="day-num">第三十天</span>
+                    <span class="title">子罕篇 9.17 ~ 9.24</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day31.html" data-words="220">
+                    <span class="day-num">第三十一天</span>
+                    <span class="title">子罕篇 9.25 ~ 9.31</span>
+                    <span class="range">约 220 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="xiangdang">
         <h2>📙 乡党篇第十 <small>共 18 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day32.html" data-words="300"><span class="day-num">第三十二天</span><span class="title">乡党篇 10.1 ~ 10.6</span><span class="range">约 300 字</span></a></li>
-            <li><a href="day33.html" data-words="250"><span class="day-num">第三十三天</span><span class="title">乡党篇 10.7 ~ 10.12</span><span class="range">约 250 字</span></a></li>
-            <li><a href="day34.html" data-words="220"><span class="day-num">第三十四天</span><span class="title">乡党篇 10.13 ~ 10.18</span><span class="range">约 220 字</span></a></li>
+            <li>
+                <a href="day32.html" data-words="300">
+                    <span class="day-num">第三十二天</span>
+                    <span class="title">乡党篇 10.1 ~ 10.6</span>
+                    <span class="range">约 300 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day33.html" data-words="250">
+                    <span class="day-num">第三十三天</span>
+                    <span class="title">乡党篇 10.7 ~ 10.12</span>
+                    <span class="range">约 250 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day34.html" data-words="220">
+                    <span class="day-num">第三十四天</span>
+                    <span class="title">乡党篇 10.13 ~ 10.18</span>
+                    <span class="range">约 220 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="xianjin">
         <h2>📕 先进篇第十一 <small>共 26 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day35.html" data-words="280"><span class="day-num">第三十五天</span><span class="title">先进篇 11.1 ~ 11.9</span><span class="range">约 280 字</span></a></li>
-            <li><a href="day36.html" data-words="280"><span class="day-num">第三十六天</span><span class="title">先进篇 11.10 ~ 11.18</span><span class="range">约 280 字</span></a></li>
-            <li><a href="day37.html" data-words="320"><span class="day-num">第三十七天</span><span class="title">先进篇 11.19 ~ 11.26</span><span class="range">约 320 字</span></a></li>
+            <li>
+                <a href="day35.html" data-words="280">
+                    <span class="day-num">第三十五天</span>
+                    <span class="title">先进篇 11.1 ~ 11.9</span>
+                    <span class="range">约 280 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day36.html" data-words="280">
+                    <span class="day-num">第三十六天</span>
+                    <span class="title">先进篇 11.10 ~ 11.18</span>
+                    <span class="range">约 280 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day37.html" data-words="320">
+                    <span class="day-num">第三十七天</span>
+                    <span class="title">先进篇 11.19 ~ 11.26</span>
+                    <span class="range">约 320 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="yanyuan">
         <h2>📒 颜渊篇第十二 <small>共 24 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day38.html" data-words="320"><span class="day-num">第三十八天</span><span class="title">颜渊篇 12.1 ~ 12.8</span><span class="range">约 320 字</span></a></li>
-            <li><a href="day39.html" data-words="300"><span class="day-num">第三十九天</span><span class="title">颜渊篇 12.9 ~ 12.16</span><span class="range">约 300 字</span></a></li>
-            <li><a href="day40.html" data-words="320"><span class="day-num">第四十天</span><span class="title">颜渊篇 12.17 ~ 12.24</span><span class="range">约 320 字</span></a></li>
+            <li>
+                <a href="day38.html" data-words="320">
+                    <span class="day-num">第三十八天</span>
+                    <span class="title">颜渊篇 12.1 ~ 12.8</span>
+                    <span class="range">约 320 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day39.html" data-words="300">
+                    <span class="day-num">第三十九天</span>
+                    <span class="title">颜渊篇 12.9 ~ 12.16</span>
+                    <span class="range">约 300 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day40.html" data-words="320">
+                    <span class="day-num">第四十天</span>
+                    <span class="title">颜渊篇 12.17 ~ 12.24</span>
+                    <span class="range">约 320 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="zilu">
         <h2>📓 子路篇第十三 <small>共 30 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day41.html" data-words="320"><span class="day-num">第四十一天</span><span class="title">子路篇 13.1 ~ 13.8</span><span class="range">约 320 字</span></a></li>
-            <li><a href="day42.html" data-words="320"><span class="day-num">第四十二天</span><span class="title">子路篇 13.9 ~ 13.16</span><span class="range">约 320 字</span></a></li>
-            <li><a href="day43.html" data-words="340"><span class="day-num">第四十三天</span><span class="title">子路篇 13.17 ~ 13.24</span><span class="range">约 340 字</span></a></li>
-            <li><a href="day44.html" data-words="240"><span class="day-num">第四十四天</span><span class="title">子路篇 13.25 ~ 13.30</span><span class="range">约 240 字</span></a></li>
+            <li>
+                <a href="day41.html" data-words="320">
+                    <span class="day-num">第四十一天</span>
+                    <span class="title">子路篇 13.1 ~ 13.8</span>
+                    <span class="range">约 320 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day42.html" data-words="320">
+                    <span class="day-num">第四十二天</span>
+                    <span class="title">子路篇 13.9 ~ 13.16</span>
+                    <span class="range">约 320 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day43.html" data-words="340">
+                    <span class="day-num">第四十三天</span>
+                    <span class="title">子路篇 13.17 ~ 13.24</span>
+                    <span class="range">约 340 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day44.html" data-words="240">
+                    <span class="day-num">第四十四天</span>
+                    <span class="title">子路篇 13.25 ~ 13.30</span>
+                    <span class="range">约 240 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="xianwen">
         <h2>📔 宪问篇第十四 <small>共 44 章 · 已完结</small></h2>
         <ul class="lesson-list">
-            <li><a href="day45.html" data-words="320"><span class="day-num">第四十五天</span><span class="title">宪问篇 14.1 ~ 14.8</span><span class="range">约 320 字</span></a></li>
-            <li><a href="day46.html" data-words="340"><span class="day-num">第四十六天</span><span class="title">宪问篇 14.9 ~ 14.16</span><span class="range">约 340 字</span></a></li>
-            <li><a href="day47.html" data-words="340"><span class="day-num">第四十七天</span><span class="title">宪问篇 14.17 ~ 14.24</span><span class="range">约 340 字</span></a></li>
-            <li><a href="day48.html" data-words="320"><span class="day-num">第四十八天</span><span class="title">宪问篇 14.25 ~ 14.32</span><span class="range">约 320 字</span></a></li>
-            <li><a href="day49.html" data-words="260"><span class="day-num">第四十九天</span><span class="title">宪问篇 14.33 ~ 14.38</span><span class="range">约 260 字</span></a></li>
-            <li><a href="day50.html" data-words="280"><span class="day-num">第五十天</span><span class="title">宪问篇 14.39 ~ 14.44</span><span class="range">约 280 字</span></a></li>
+            <li>
+                <a href="day45.html" data-words="320">
+                    <span class="day-num">第四十五天</span>
+                    <span class="title">宪问篇 14.1 ~ 14.8</span>
+                    <span class="range">约 320 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day46.html" data-words="340">
+                    <span class="day-num">第四十六天</span>
+                    <span class="title">宪问篇 14.9 ~ 14.16</span>
+                    <span class="range">约 340 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day47.html" data-words="340">
+                    <span class="day-num">第四十七天</span>
+                    <span class="title">宪问篇 14.17 ~ 14.24</span>
+                    <span class="range">约 340 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day48.html" data-words="320">
+                    <span class="day-num">第四十八天</span>
+                    <span class="title">宪问篇 14.25 ~ 14.32</span>
+                    <span class="range">约 320 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day49.html" data-words="260">
+                    <span class="day-num">第四十九天</span>
+                    <span class="title">宪问篇 14.33 ~ 14.38</span>
+                    <span class="range">约 260 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day50.html" data-words="280">
+                    <span class="day-num">第五十天</span>
+                    <span class="title">宪问篇 14.39 ~ 14.44</span>
+                    <span class="range">约 280 字</span>
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="section" id="weilinggong">
         <h2>📗 卫灵公篇第十五 <small>共 42 章 · 连载中</small></h2>
         <ul class="lesson-list">
-            <li><a href="day51.html" data-words="300"><span class="day-num">第五十一天</span><span class="title">卫灵公篇 15.1 ~ 15.7</span><span class="range">约 300 字</span></a></li>
-            <li><a href="day52.html" data-words="300"><span class="day-num">第五十二天</span><span class="title">卫灵公篇 15.8 ~ 15.14</span><span class="range">约 300 字</span></a></li>
-            <li><a href="day53.html" data-words="280"><span class="day-num">第五十三天</span><span class="title">卫灵公篇 15.15 ~ 15.21</span><span class="range">约 280 字</span></a></li>
-            <li class="current"><a href="day54.html" data-words="300"><span class="day-num">第五十四天</span><span class="title">卫灵公篇 15.22 ~ 15.28</span><span class="range">约 300 字</span></a></li>
-            <li class="disabled"><span class="day-num">第五十五天</span><span class="title">卫灵公篇 15.29 ~ 15.35</span><span class="range">待更新</span></li>
+            <li>
+                <a href="day51.html" data-words="300">
+                    <span class="day-num">第五十一天</span>
+                    <span class="title">卫灵公篇 15.1 ~ 15.7</span>
+                    <span class="range">约 300 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day52.html" data-words="300">
+                    <span class="day-num">第五十二天</span>
+                    <span class="title">卫灵公篇 15.8 ~ 15.14</span>
+                    <span class="range">约 300 字</span>
+                </a>
+            </li>
+            <li>
+                <a href="day53.html" data-words="280">
+                    <span class="day-num">第五十三天</span>
+                    <span class="title">卫灵公篇 15.15 ~ 15.21</span>
+                    <span class="range">约 280 字</span>
+                </a>
+            </li>
+            <li class="current">
+                <a href="day54.html" data-words="300">
+                    <span class="day-num">第五十四天</span>
+                    <span class="title">卫灵公篇 15.22 ~ 15.28</span>
+                    <span class="range">约 300 字</span>
+                </a>
+            </li>
+            <li class="disabled">
+                <span class="day-num">第五十五天</span>
+                <span class="title">卫灵公篇 15.29 ~ 15.35</span>
+                <span class="range">待更新</span>
+            </li>
         </ul>
     </div>
 
@@ -508,18 +659,6 @@
 </div>
 
 <script>
-function toggleJinju() {
-    var grid = document.getElementById('jinjuGrid');
-    var btn = document.getElementById('jinjuToggleBtn');
-    if (grid.classList.contains('expanded')) {
-        grid.classList.remove('expanded');
-        btn.textContent = '展开全部 ↓';
-    } else {
-        grid.classList.add('expanded');
-        btn.textContent = '收起 ↑';
-    }
-}
-
 (function() {
     var links = document.querySelectorAll('.lesson-list li a[data-words]');
     var totalDays = links.length;
