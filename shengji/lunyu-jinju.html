@@ -245,7 +245,7 @@
     <div class="header">
         <h1>📖 论语金句</h1>
         <div class="sub">
-            <span>📘 共 46 条</span>
+            <span>📘 共 94 条</span>
             <span>✨ 每日两条</span>
             <span>🔍 点击跳转</span>
         </div>
@@ -273,7 +273,7 @@
     </div>
 
     <div class="plan-wrap">
-        <h2>📅 金句学习计划 <small>共 50 天 · 100 条</small></h2>
+        <h2>📅 金句学习计划 <small>共 50 天 · 已学 47 天 · 94 条</small></h2>
         <div class="plan-grid" id="planGrid"></div>
         <div class="plan-legend">
             <span class="legend-item"><span class="legend-box done"></span> 已学</span>
@@ -394,10 +394,10 @@ var entries = [
     { id: 'bcxw', name: '不耻下问', ref: '5.14', refName: '公冶长篇第十四章', page: 'day13.html', jinjuPage: 'jinju15.html',
       meaning: '不以向地位比自己低的人请教为耻。形容虚心好学。',
       scene: '学习态度、谦虚。“敏而好学，不耻下问。”' },
-    { id: 'sssh', name: '三思而后行', ref: '5.19', refName: '公冶长篇第十九章', page: 'day14.html', jinjuPage: 'jinju14.html',
+    { id: 'sssh', name: '三思而后行', ref: '5.19', refName: '公冶长篇第十九章', page: 'day14.html', jinjuPage: 'jinju16.html',
       meaning: '做事要考虑多次才行动。形容谨慎。',
       scene: '决策、做事。“三思而后行，但别想太多。”' },
-    { id: 'ybkj', name: '愚不可及', ref: '5.20', refName: '公冶长篇第二十章', page: 'day14.html', jinjuPage: 'jinju14.html',
+    { id: 'ybkj', name: '愚不可及', ref: '5.20', refName: '公冶长篇第二十章', page: 'day14.html', jinjuPage: 'jinju16.html',
       meaning: '原意是装傻的本事没人比得上。形容大智若愚。',
       scene: '处世智慧、乱世自保。“其知可及也，其愚不可及也。”' },
     { id: 'bnhje', name: '不念旧恶', ref: '5.22', refName: '公冶长篇第二十二章', page: 'day14.html', jinjuPage: 'jinju17.html',
@@ -441,7 +441,151 @@ var entries = [
       scene: '学习态度、自我提升。“三人行，必有我师焉。”' },
     { id: 'jztd', name: '君子坦荡荡', ref: '7.37', refName: '述而篇第三十七章', page: 'day24.html', jinjuPage: 'jinju23.html',
       meaning: '君子心胸坦荡，小人经常忧愁。形容君子心中无愧，所以坦然。',
-      scene: '形容心胸开阔、坦然自信。“君子坦荡荡，小人长戚戚。”' }
+      scene: '形容心胸开阔、坦然自信。“君子坦荡荡，小人长戚戚。”' },
+    { id: 'rzdy', name: '任重而道远', ref: '8.7', refName: '泰伯篇第八章', page: 'day25.html', jinjuPage: 'jinju24.html',
+      meaning: '责任重大，道路遥远。形容肩负重任，需要长期坚持。',
+      scene: '形容责任重大、使命艰巨。“任重而道远。”' },
+    { id: 'bzqw', name: '不在其位，不谋其政', ref: '8.14', refName: '泰伯篇第十四章', page: 'day26.html', jinjuPage: 'jinju24.html',
+      meaning: '不在那个职位上，就不谋划那个职位上的事。形容各守本分、不越权。',
+      scene: '职场、处世。“不在其位，不谋其政。”' },
+    { id: 'srsf', name: '逝者如斯夫', ref: '9.17', refName: '子罕篇第十七章', page: 'day30.html', jinjuPage: 'jinju25.html',
+      meaning: '流逝的时光就像这河水啊，日夜不停地流。形容时光飞逝，劝人珍惜。',
+      scene: '感叹时光、劝人珍惜。“逝者如斯夫，不舍昼夜。”' },
+    { id: 'sjds', name: '三军可夺帅也', ref: '9.26', refName: '子罕篇第二十六章', page: 'day31.html', jinjuPage: 'jinju25.html',
+      meaning: '三军可以夺去主帅，但一个普通人的志向却夺不去。形容志向的坚定不可动摇。',
+      scene: '形容志向坚定、不屈不挠。“三军可夺帅也，匹夫不可夺志也。”' },
+    { id: 'kjfl', name: '克己复礼为仁', ref: '12.1', refName: '颜渊篇第一章', page: 'day38.html', jinjuPage: 'jinju26.html',
+      meaning: '约束自己，使言行合乎礼，就是仁。形容修身自律、回归礼制。',
+      scene: '修身自律、自我约束。“克己复礼为仁。”' },
+    { id: 'jsby', name: '己所不欲，勿施于人', ref: '12.2', refName: '颜渊篇第二章', page: 'day38.html', jinjuPage: 'jinju26.html',
+      meaning: '自己不愿意的，不要强加给别人。形容推己及人、将心比心。',
+      scene: '人际交往、换位思考。“己所不欲，勿施于人。”' },
+    { id: 'ssym', name: '死生有命，富贵在天', ref: '12.5', refName: '颜渊篇第五章', page: 'day38.html', jinjuPage: 'jinju27.html',
+      meaning: '死生由命运决定，富贵由上天安排。形容坦然接受命运，不强求。',
+      scene: '坦然面对命运、放下执念。“死生有命，富贵在天。”' },
+    { id: 'jzcr', name: '君子成人之美', ref: '12.16', refName: '颜渊篇第十六章', page: 'day39.html', jinjuPage: 'jinju27.html',
+      meaning: '君子成全别人的好事，不促成别人的坏事。形容成人之美、与人为善。',
+      scene: '帮助他人、成人之美。“君子成人之美，不成人之恶。”' },
+    { id: 'zzzy', name: '政者，正也', ref: '12.17', refName: '颜渊篇第十七章', page: 'day40.html', jinjuPage: 'jinju28.html',
+      meaning: '政就是端正。统治者自己端正了，谁敢不端正？形容为政者要以身作则。',
+      scene: '领导力、以身作则。“政者，正也。子帅以正，孰敢不正？”' },
+    { id: 'mbzy', name: '名不正则言不顺', ref: '13.3', refName: '子路篇第三章', page: 'day41.html', jinjuPage: 'jinju28.html',
+      meaning: '名分不正，说话就不顺；说话不顺，事情就办不成。形容名分、秩序的重要性。',
+      scene: '管理、秩序、名分。“名不正则言不顺，言不顺则事不成。”' },
+    { id: 'qszz', name: '其身正，不令而行', ref: '13.6', refName: '子路篇第六章', page: 'day41.html', jinjuPage: 'jinju29.html',
+      meaning: '自身端正，不用下令，事情也能推行。形容领导者以身作则的力量。',
+      scene: '领导力、以身作则。“其身正，不令而行；其身不正，虽令不从。”' },
+    { id: 'yszb', name: '欲速则不达', ref: '13.17', refName: '子路篇第十七章', page: 'day43.html', jinjuPage: 'jinju29.html',
+      meaning: '急于求成，反而达不到目的。形容做事要循序渐进，不可急躁。',
+      scene: '做事节奏、决策。“欲速则不达，见小利则大事不成。”' },
+    { id: 'ybxxbg', name: '言必信，行必果', ref: '13.20', refName: '子路篇第二十章', page: 'day43.html', jinjuPage: 'jinju30.html',
+      meaning: '说话一定守信，做事一定有结果。形容人重诺守信、言行一致。',
+      scene: '诚信、守约。“言必信，行必果。”' },
+    { id: 'jzhbet', name: '君子和而不同', ref: '13.23', refName: '子路篇第二十三章', page: 'day43.html', jinjuPage: 'jinju30.html',
+      meaning: '君子能与人和睦相处，但不盲目附和；小人盲目附和，却不能与人真正和睦。形容求同存异、彼此尊重。',
+      scene: '团队协作、交友。“君子和而不同，小人同而不和。”' },
+    { id: 'jztbej', name: '君子泰而不骄', ref: '13.26', refName: '子路篇第二十六章', page: 'day44.html', jinjuPage: 'jinju31.html',
+      meaning: '君子安舒自若，却不骄傲自大；小人骄傲自大，却不能安舒自若。形容气度从容、不矜不伐。',
+      scene: '修养、气度。“君子泰而不骄，小人骄而不泰。”' },
+    { id: 'gyamnr', name: '刚毅木讷近仁', ref: '13.27', refName: '子路篇第二十七章', page: 'day44.html', jinjuPage: 'jinju31.html',
+      meaning: '刚强、果敢、朴实、言语迟钝，这四种品质接近仁德。形容人沉毅笃实、不尚空谈。',
+      scene: '识人、修身。“刚、毅、木、讷近仁。”' },
+    { id: 'pweyn', name: '贫而无怨难', ref: '14.10', refName: '宪问篇第十章', page: 'day46.html', jinjuPage: 'jinju32.html',
+      meaning: '贫穷而没有怨恨，很难做到。形容安贫乐道、处困而不怨的修养。',
+      scene: '修养、处境。“贫而无怨难，富而无骄易。”' },
+    { id: 'jlsy', name: '见利思义，见危授命', ref: '14.12', refName: '宪问篇第十二章', page: 'day46.html', jinjuPage: 'jinju32.html',
+      meaning: '见到利益要想到道义，遇到危难肯付出生命。形容重义轻利、临危不惧的品格。',
+      scene: '义利之辨、临危担当。“见利思义，见危授命。”' },
+    { id: 'jzcqy', name: '君子耻其言而过其行', ref: '14.27', refName: '宪问篇第二十七章', page: 'day48.html', jinjuPage: 'jinju33.html',
+      meaning: '君子以说得多、做得少为耻。形容言行一致、重行轻言。',
+      scene: '言行一致、自省。“君子耻其言而过其行。”' },
+    { id: 'bhry', name: '不患人之不己知，患其不能也', ref: '14.30', refName: '宪问篇第三十章', page: 'day48.html', jinjuPage: 'jinju33.html',
+      meaning: '不担心别人不了解自己，只担心自己没有能力。形容反求诸己、专注进学。',
+      scene: '修身、进学。“不患人之不己知，患其不能也。”' },
+    { id: 'yzbz', name: '以直报怨，以德报德', ref: '14.34', refName: '宪问篇第三十四章', page: 'day49.html', jinjuPage: 'jinju34.html',
+      meaning: '用正直回报怨恨，用恩德回报恩德。形容公正处事、恩怨分明。',
+      scene: '处世、恩怨。“以直报怨，以德报德。”' },
+    { id: 'byty', name: '不怨天，不尤人', ref: '14.35', refName: '宪问篇第三十五章', page: 'day49.html', jinjuPage: 'jinju34.html',
+      meaning: '不埋怨天，不责怪人。形容反求诸己、安然自处。',
+      scene: '修身、逆境。“不怨天，不尤人，下学而上达。”' },
+    { id: 'jzgq', name: '君子固穷，小人穷斯滥矣', ref: '15.2', refName: '卫灵公篇第二章', page: 'day51.html', jinjuPage: 'jinju35.html',
+      meaning: '君子在困厄中仍能坚守节操，小人一困厄就无所不为了。形容处困守节。',
+      scene: '逆境、操守。“君子固穷，小人穷斯滥矣。”' },
+    { id: 'zsrr', name: '志士仁人，无求生以害仁', ref: '15.9', refName: '卫灵公篇第九章', page: 'day52.html', jinjuPage: 'jinju35.html',
+      meaning: '志士仁人，不会为了求生而损害仁德，宁可牺牲生命以成全仁德。形容守仁不移、临难不苟。',
+      scene: '气节、担当。“志士仁人，无求生以害仁，有杀身以成仁。”' },
+    { id: 'gysq', name: '工欲善其事，必先利其器', ref: '15.10', refName: '卫灵公篇第十章', page: 'day52.html', jinjuPage: 'jinju36.html',
+      meaning: '工匠要做好他的工作，一定先要使工具锋利。形容做事要先做好准备。',
+      scene: '准备、做事方法。“工欲善其事，必先利其器。”' },
+    { id: 'rwyl', name: '人无远虑，必有近忧', ref: '15.12', refName: '卫灵公篇第十二章', page: 'day52.html', jinjuPage: 'jinju36.html',
+      meaning: '人没有长远的考虑，一定会有眼前的忧患。形容做事要有远见。',
+      scene: '远见、规划。“人无远虑，必有近忧。”' },
+    { id: 'gzhb', name: '躬自厚而薄责于人', ref: '15.15', refName: '卫灵公篇第十五章', page: 'day53.html', jinjuPage: 'jinju37.html',
+      meaning: '多责备自己，少责备别人。形容严于律己、宽以待人。',
+      scene: '自省、待人。“躬自厚而薄责于人，则远怨矣。”' },
+    { id: 'jzqzj', name: '君子求诸己，小人求诸人', ref: '15.21', refName: '卫灵公篇第二十一章', page: 'day53.html', jinjuPage: 'jinju37.html',
+      meaning: '君子遇事反求自己，小人遇事苛求别人。形容反求诸己、不责于人。',
+      scene: '修身、处世。“君子求诸己，小人求诸人。”' },
+    { id: 'jzjbe', name: '君子矜而不争，群而不党', ref: '15.22', refName: '卫灵公篇第二十二章', page: 'day54.html', jinjuPage: 'jinju38.html',
+      meaning: '君子庄敬自持，却不与人争；合群相处，却不结党营私。形容庄敬而不争、合群而有原则。',
+      scene: '处世、合群。“君子矜而不争，群而不党。”' },
+    { id: 'xbrz', name: '小不忍则乱大谋', ref: '15.27', refName: '卫灵公篇第二十七章', page: 'day54.html', jinjuPage: 'jinju38.html',
+      meaning: '小处不能忍耐，就会扰乱大的谋略。形容克制小忿、顾全大局。',
+      scene: '克制、大局。“小不忍则乱大谋。”' },
+    { id: 'gbxg', name: '过而不改，是谓过矣', ref: '15.30', refName: '卫灵公篇第三十章', page: 'day55.html', jinjuPage: 'jinju39.html',
+      meaning: '有了过错而不改正，这才叫真正的过错。形容知过能改、过则勿惮改。',
+      scene: '改过、自省。“过而不改，是谓过矣。”' },
+    { id: 'drbr', name: '当仁不让于师', ref: '15.36', refName: '卫灵公篇第三十六章', page: 'day56.html', jinjuPage: 'jinju39.html',
+      meaning: '面对仁德，即使是老师也不必谦让。形容以仁为己任、勇于担当。',
+      scene: '担当、求仁。“当仁，不让于师。”' },
+    { id: 'yjwl', name: '有教无类', ref: '15.39', refName: '卫灵公篇第三十九章', page: 'day56.html', jinjuPage: 'jinju40.html',
+      meaning: '教育不分贵贱贤愚，人人都有受教育的权利。形容教育公平、有教无类。',
+      scene: '教育、公平。“有教无类。”' },
+    { id: 'dbt', name: '道不同，不相为谋', ref: '15.40', refName: '卫灵公篇第四十章', page: 'day56.html', jinjuPage: 'jinju40.html',
+      meaning: '志向不同，不能在一起谋划共事。形容各守其道、不强求同。',
+      scene: '志向、择友。“道不同，不相为谋。”' },
+    { id: 'bhg', name: '不患寡而患不均', ref: '16.1', refName: '季氏篇第一章', page: 'day57.html', jinjuPage: 'jinju41.html',
+      meaning: '不担心财富少，只担心分配不均。形容分配公平、各得其分。',
+      scene: '分配、公平。“不患寡而患不均，不患贫而患不安。”' },
+    { id: 'jlzza', name: '既来之，则安之', ref: '16.1', refName: '季氏篇第一章', page: 'day57.html', jinjuPage: 'jinju41.html',
+      meaning: '既然让他们来了，就要使他们安定下来。形容安置来人、使之安心。',
+      scene: '安置、待人。“既来之，则安之。”' },
+    { id: 'yzsy', name: '益者三友，损者三友', ref: '16.4', refName: '季氏篇第四章', page: 'day57.html', jinjuPage: 'jinju42.html',
+      meaning: '有益的朋友有三种，有害的朋友有三种。形容择友要慎重，交益友、远损友。',
+      scene: '交友、择友。“益者三友，损者三友。”' },
+    { id: 'jzsyj', name: '君子有三戒', ref: '16.7', refName: '季氏篇第七章', page: 'day57.html', jinjuPage: 'jinju42.html',
+      meaning: '君子有三种戒忌：少年戒色，壮年戒斗，老年戒得。形容人生各阶段各有当戒。',
+      scene: '修身、自律。“君子有三戒：少戒色，壮戒斗，老戒得。”' },
+    { id: 'sezz', name: '生而知之者上也', ref: '16.9', refName: '季氏篇第九章', page: 'day58.html', jinjuPage: 'jinju43.html',
+      meaning: '生来就知道的人是上等，学而后知道的人是次等，困而后学的人又次一等。形容人的资质与学习层次不同。',
+      scene: '学习、资质。“生而知之者上也，学而知之者次也。”' },
+    { id: 'xxjy', name: '性相近也，习相远也', ref: '17.2', refName: '阳货篇第二章', page: 'day59.html', jinjuPage: 'jinju43.html',
+      meaning: '人的本性相近，由于习染不同而相差很远。形容后天环境与习惯对人的影响。',
+      scene: '教育、环境。“性相近也，习相远也。”' },
+    { id: 'gjy', name: '割鸡焉用牛刀', ref: '17.4', refName: '阳货篇第四章', page: 'day59.html', jinjuPage: 'jinju44.html',
+      meaning: '杀鸡哪里用得着宰牛的刀。形容小题大做、大材小用。',
+      scene: '大材小用、小题大做。“割鸡焉用牛刀？”' },
+    { id: 'sler', name: '色厉而内荏', ref: '17.12', refName: '阳货篇第十二章', page: 'day60.html', jinjuPage: 'jinju44.html',
+      meaning: '外表严厉而内心怯懦。形容外强中干、虚张声势。',
+      scene: '识人、外强中干。“色厉而内荏。”' },
+    { id: 'dtts', name: '道听而涂说，德之弃也', ref: '17.14', refName: '阳货篇第十四章', page: 'day60.html', jinjuPage: 'jinju45.html',
+      meaning: '在路上听到传言就到处传播，这是有德者所鄙弃的。形容不传谣、不轻信。',
+      scene: '传言、慎言。“道听而涂说，德之弃也。”' },
+    { id: 'bszr', name: '饱食终日，无所用心', ref: '17.22', refName: '阳货篇第二十二章', page: 'day62.html', jinjuPage: 'jinju45.html',
+      meaning: '整天吃饱了饭，什么心思也不用。形容无所事事、虚度光阴。',
+      scene: '勤奋、惜时。“饱食终日，无所用心，难矣哉！”' },
+    { id: 'wzbkj', name: '往者不可谏，来者犹可追', ref: '18.5', refName: '微子篇第五章', page: 'day63.html', jinjuPage: 'jinju46.html',
+      meaning: '过去的无法挽回，未来的还来得及追赶。形容不要沉溺过去，要把握将来。',
+      scene: '向前、惜时。“往者不可谏，来者犹可追。”' },
+    { id: 'stbq', name: '四体不勤，五谷不分', ref: '18.7', refName: '微子篇第七章', page: 'day63.html', jinjuPage: 'jinju46.html',
+      meaning: '四肢不劳动，五谷分不清。形容脱离劳动、缺乏常识。',
+      scene: '劳动、常识。“四体不勤，五谷不分。”' },
+    { id: 'bjqz', name: '不降其志，不辱其身', ref: '18.8', refName: '微子篇第八章', page: 'day64.html', jinjuPage: 'jinju47.html',
+      meaning: '不降低自己的志向，不辱没自己的身份。形容守节不移、自重自持。',
+      scene: '气节、守志。“不降其志，不辱其身。”' },
+    { id: 'bxdz', name: '博学而笃志，切问而近思', ref: '19.6', refName: '子张篇第六章', page: 'day65.html', jinjuPage: 'jinju47.html',
+      meaning: '广泛学习而坚守志向，恳切提问而就近思考。形容为学之道，博与专、问与思并重。',
+      scene: '为学、思考。“博学而笃志，切问而近思。”' }
 ];
 
 var jinjuGrid = document.getElementById('jinjuGrid');
@@ -477,18 +621,24 @@ entries.forEach(function(e) {
 });
 
 (function() {
-    var completedDays = 23;
-    var currentDay = 24;
-    var totalDays = 50;
+    // ⚠️ 语义（2026-10-10 修正）：currentDay = 今天刚学的那一天（黄色「当前」），
+    //   completedDays = currentDay - 1（1~completedDays 为绿色「已学」），
+    //   totalDays = 计划总天数（currentDay 之后为灰色「待更新」）。
+    //   旧写法把 currentDay 当成"下一天"（= 已学天数 + 1），黄色会标在还没学的那天上；
+    //   且判定顺序为 done 在前，故 currentDay 与 completedDays 相等时会被判成绿色、current 成死代码。
+    var completedDays = 46;   // 已学 1 ~ 46 天
+    var currentDay = 47;      // 第 47 天 = 当前（今天所学）
+    var totalDays = 50;       // 计划共 50 天
 
     for (var i = 1; i <= totalDays; i++) {
         var a = document.createElement('a');
         a.href = 'jinju' + i + '.html';
         a.textContent = i;
-        if (i <= completedDays) {
-            a.className = 'done';
-        } else if (i === currentDay) {
+        // 「当前」优先判定，确保黄格永远落在今天这一天上
+        if (i === currentDay) {
             a.className = 'current';
+        } else if (i <= completedDays) {
+            a.className = 'done';
         } else {
             a.className = 'disabled';
         }
