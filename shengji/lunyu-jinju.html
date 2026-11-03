@@ -245,7 +245,7 @@
     <div class="header">
         <h1>📖 论语金句</h1>
         <div class="sub">
-            <span>📘 共 94 条</span>
+            <span>📘 共 100 条</span>
             <span>✨ 每日两条</span>
             <span>🔍 点击跳转</span>
         </div>
@@ -273,7 +273,7 @@
     </div>
 
     <div class="plan-wrap">
-        <h2>📅 金句学习计划 <small>共 50 天 · 已学 47 天 · 94 条</small></h2>
+        <h2>📅 金句学习计划 <small>共 50 天 · 已学 50 天 · 100 条</small></h2>
         <div class="plan-grid" id="planGrid"></div>
         <div class="plan-legend">
             <span class="legend-item"><span class="legend-box done"></span> 已学</span>
@@ -585,7 +585,25 @@ var entries = [
       scene: '气节、守志。“不降其志，不辱其身。”' },
     { id: 'bxdz', name: '博学而笃志，切问而近思', ref: '19.6', refName: '子张篇第六章', page: 'day65.html', jinjuPage: 'jinju47.html',
       meaning: '广泛学习而坚守志向，恳切提问而就近思考。形容为学之道，博与专、问与思并重。',
-      scene: '为学、思考。“博学而笃志，切问而近思。”' }
+      scene: '为学、思考。“博学而笃志，切问而近思。”' },
+    { id: 'jzsyb', name: '君子有三变', ref: '19.9', refName: '子张篇第九章', page: 'day66.html', jinjuPage: 'jinju48.html',
+      meaning: '君子给人三种印象：远望庄重，接近温和，听他说话又很严厉。形容君子的仪态气度。',
+      scene: '仪态、气度。“君子有三变：望之俨然，即之也温，听其言也厉。”' },
+    { id: 'ddby', name: '大德不逾闲，小德出入可也', ref: '19.11', refName: '子张篇第十一章', page: 'day66.html', jinjuPage: 'jinju48.html',
+      meaning: '大的德行不能逾越界限，小的德行有所出入可以。形容大节严守、小节可权。',
+      scene: '大节、分寸。“大德不逾闲，小德出入可也。”' },
+    { id: 'sryx', name: '仕而优则学，学而优则仕', ref: '19.13', refName: '子张篇第十三章', page: 'day66.html', jinjuPage: 'jinju49.html',
+      meaning: '做官有余力就学习，学习有余力就做官。形容仕与学相辅相成。',
+      scene: '仕学、进学。“仕而优则学，学而优则仕。”' },
+    { id: 'jzzg', name: '君子之过也，如日月之食焉', ref: '19.21', refName: '子张篇第二十一章', page: 'day67.html', jinjuPage: 'jinju49.html',
+      meaning: '君子的过错就像日食月食，犯错时人人都看得见，改正后人人都仰望。形容过而能改、光明磊落。',
+      scene: '改过、坦诚。“君子之过也，如日月之食焉。”' },
+    { id: 'bzm', name: '不知命，无以为君子也', ref: '20.3', refName: '尧曰篇第三章', page: 'day69.html', jinjuPage: 'jinju50.html',
+      meaning: '不懂得天命，就无法成为君子。形容知命而后能安、能立。',
+      scene: '知命、安身。“不知命，无以为君子也。”' },
+    { id: 'bzl', name: '不知礼，无以立也', ref: '20.3', refName: '尧曰篇第三章', page: 'day69.html', jinjuPage: 'jinju50.html',
+      meaning: '不懂得礼，就无法在社会上立足。形容知礼而后能立身。',
+      scene: '礼、立身。“不知礼，无以立也。”' }
 ];
 
 var jinjuGrid = document.getElementById('jinjuGrid');
@@ -626,8 +644,8 @@ entries.forEach(function(e) {
     //   totalDays = 计划总天数（currentDay 之后为灰色「待更新」）。
     //   旧写法把 currentDay 当成"下一天"（= 已学天数 + 1），黄色会标在还没学的那天上；
     //   且判定顺序为 done 在前，故 currentDay 与 completedDays 相等时会被判成绿色、current 成死代码。
-    var completedDays = 46;   // 已学 1 ~ 46 天
-    var currentDay = 47;      // 第 47 天 = 当前（今天所学）
+    var completedDays = 49;   // 已学 1 ~ 49 天
+    var currentDay = 50;      // 第 50 天 = 当前（今天所学）
     var totalDays = 50;       // 计划共 50 天
 
     for (var i = 1; i <= totalDays; i++) {
